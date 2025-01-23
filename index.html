@@ -9,51 +9,16 @@
     <style>
         /* Basic styles for the page */
         header {
-        body {
-            font-family: Arial, sans-serif;
+            background-image: url('https://i.pinimg.com/originals/05/fb/51/05fb51adde268e0e8687721c10652b9e.gif');
+            background-size: cover; /* Ensures the GIF covers the entire background */
+            background-repeat: no-repeat; /* Prevents the GIF from repeating */
+            background-position: center; /* Centers the GIF */
+            width: 100px
+            height: 100vh; /* Sets the body height to 100% of the viewport */
             margin: 0;
-            padding: 0;
-            overflow: hidden; /* Prevent scrollbars */
-            height: 100vh; /* Full viewport height */
-        }
-
-        /* The container for the slideshow */
-        .slideshow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Put the slideshow behind the content */
-            animation: slideShow 12s infinite; /* 12 seconds per loop */
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Keyframes for the slideshow */
-        @keyframes slideShow {
-            0% {
-                background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36FueFLuUNPe_c2i9D3q0y8gNm3PmpEhPmA&s');
-            }
-            33% {
-                background-image: url('https://i0.wp.com/www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif?fit=450%2C250&ssl=1');
-            }
-            66% {
-                background-image: url('https://i.giphy.com/3CCXHZWV6F6O9VQ7FL.webp');
-            }
-            100% {
-                background-image: url('https://i.pinimg.com/originals/9a/3c/3f/9a3c3fb5f73822af8514df07f6676392.gif');
-            }
-        }
-
-        /* Content above the slideshow */
-        .content {
-            position: relative;
+            color: White;
+            padding: 1rem;
             text-align: center;
-            color: white;
-            z-index: 1; /* Place the content above the slideshow */
-            padding: 20px;
-        }
         }
 
         nav {
