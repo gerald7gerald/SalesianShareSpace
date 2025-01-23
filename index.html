@@ -7,18 +7,13 @@
     <title>Salesian ShareSpace</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
     <style>
-        /* Basic styles for demonstration */
+        /* Basic styles for the page */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-        }
-        header {
-        body {
-            margin: 0;
-            height: 100vh; /* Full viewport height */
-            width: 100vw; /* Full viewport width */
             overflow: hidden; /* Prevent scrollbars */
+            height: 100vh; /* Full viewport height */
         }
 
         /* The container for the slideshow */
@@ -28,52 +23,53 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Behind other content */
-        }
-
-        /* The animation */
-        .slideshow {
+            z-index: -1; /* Put the slideshow behind the content */
             animation: slideShow 12s infinite; /* 12 seconds per loop */
-        }
-
-        @keyframes slideShow {
-            0% { background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36FueFLuUNPe_c2i9D3q0y8gNm3PmpEhPmA&s'); }
-            33% { background-image: url('https://i0.wp.com/www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif?fit=450%2C250&ssl=1'); }
-            66% { background-image: url('https://i.giphy.com/3CCXHZWV6F6O9VQ7FL.webp'); }
-            100% { background-image: url('https://i.pinimg.com/originals/9a/3c/3f/9a3c3fb5f73822af8514df07f6676392.gif'); }
-        }
-
-        /* Styling for background images */
-        .slideshow {
             background-size: cover;
             background-position: center;
         }
 
-        /* Content on top of the slideshow */
+        /* Keyframes for the slideshow */
+        @keyframes slideShow {
+            0% {
+                background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT36FueFLuUNPe_c2i9D3q0y8gNm3PmpEhPmA&s');
+            }
+            33% {
+                background-image: url('https://i0.wp.com/www.galvanizeaction.org/wp-content/uploads/2022/06/Wow-gif.gif?fit=450%2C250&ssl=1');
+            }
+            66% {
+                background-image: url('https://i.giphy.com/3CCXHZWV6F6O9VQ7FL.webp');
+            }
+            100% {
+                background-image: url('https://i.pinimg.com/originals/9a/3c/3f/9a3c3fb5f73822af8514df07f6676392.gif');
+            }
+        }
+
+        /* Content above the slideshow */
         .content {
             position: relative;
             text-align: center;
             color: white;
-            z-index: 1;
+            z-index: 1; /* Place the content above the slideshow */
+            padding: 20px;
         }
-    
-            
-        }
+
         nav {
             background-color: #444;
             padding: 0.5rem;
+            text-align: center;
         }
+
         nav a {
             color: white;
             margin: 0 1rem;
             text-decoration: none;
         }
+
         nav a:hover {
             text-decoration: underline;
         }
-        main {
-            padding: 2rem;
-        }
+
         footer {
             background-color: #333;
             color: white;
