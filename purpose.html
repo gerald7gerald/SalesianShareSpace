@@ -3,89 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Cards</title>
+    <title>About Us - Website Purpose</title>
     <style>
         body {
             font-family: sans-serif;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: flex-start; /* Align items to the top */
-            min-height: 100vh; /* Ensure full viewport height */
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4; /* Light background color */
+            color: #333; /* Dark text color for contrast */
         }
 
-        .profile-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin: 20px;
+        header {
+            background-color: #333; /* Dark header */
+            color: white;
             padding: 20px;
-            width: 300px; /* Adjust as needed */
-            display: flex;
-            flex-direction: column; /* Arrange elements vertically */
-            align-items: center; /* Center content horizontally */
+            text-align: center;
         }
 
-        .profile-card img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover; /* Maintain aspect ratio and cover the circle */
+        h1 {
             margin-bottom: 10px;
         }
 
-        .profile-card h2 {
+        nav {
+            background-color: #eee; /* Light navigation bar */
+            padding: 10px;
+            text-align: center; /* Center the navigation links */
+        }
+
+        nav a {
+            display: inline-block; /* Make links behave like blocks */
+            margin: 0 15px;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 5px; /* Rounded corners for links */
+        }
+
+        nav a:hover {
+            background-color: #ddd; /* Slightly darker background on hover */
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px; /* Limit the width of the main content */
+            margin: 20px auto; /* Center the main content */
+            background-color: white; /* White background for main content */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            border-radius: 8px; /* Rounded corners */
+        }
+
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
             margin-top: 0; /* Remove default top margin */
-            margin-bottom: 5px;
-            text-align: center; /* Center the name */
+            color: #555;
         }
 
-        .profile-card p {
-            text-align: center; /* Center the description */
-            margin-bottom: 10px;
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative; /* For sticky footer */
+            bottom: 0;
+            width: 100%;
         }
 
-        .profile-card .social-links {
-            display: flex;
-            justify-content: center; /* Center social links */
-        }
-
-        .profile-card .social-links a {
-            margin: 0 10px;
-            color: #333; /* Example link color */
-            text-decoration: none; /* Remove underlines */
-        }
-
-        /* Responsive adjustments (example) */
-        @media (max-width: 768px) {
-            .profile-card {
-                width: 90%; /* Make cards wider on smaller screens */
-                margin: 20px auto; /* Center cards horizontally */
+        /* Responsive design adjustments */
+        @media (max-width: 600px) {
+            nav a {
+                display: block; /* Stack links vertically on small screens */
+                margin: 10px 0;
+            }
+            main {
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="profile-card">
-        <img src="placeholder.jpg" alt="Profile Picture">  <h2>John Doe</h2>
-        <p>Short and interesting description about John Doe.  This can be a few sentences.</p>
-        <div class="social-links">
-            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a> <a href="#"><img src="twitter-icon.png" alt="Twitter"></a> <a href="#"><img src="linkedin-icon.png" alt="LinkedIn"></a> </div>
-    </div>
+    <header>
+        <h1>Welcome to Our Website</h1>
+        <p>Your tagline or a brief introduction here.</p>
+    </header>
 
-    <div class="profile-card">
-        <img src="placeholder.jpg" alt="Profile Picture"> <h2>Jane Smith</h2>
-        <p>A slightly longer description for Jane.  You can add more details here.</p>
-        <div class="social-links">
-           <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-           <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
-           <a href="#"><img src="linkedin-icon.png" alt="LinkedIn"></a>
-        </div>
-    </div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </nav>
 
-    </body>
+    <main>
+        <section id="purpose">
+            <h2>Our Purpose</h2>
+            <p>This website is dedicated to [explain the website's main purpose]. We aim to [describe the goals of the website].  For example, you could say: "This website is dedicated to providing educational resources on sustainable living. We aim to empower individuals to make informed choices that benefit the environment."</p>
+
+            <p>We believe that [state your core belief related to the website's purpose]. We strive to [describe your actions to achieve your goals].</p>
+
+            <p>Our mission is to [clearly state your mission].</p>
+        </section>
+
+        <section id="values">
+            <h2>Our Values</h2>
+            <p>We are guided by the following core values: </p>
+            <ul>
+                <li>Integrity</li>
+                <li>Innovation</li>
+                <li>Community</li>
+                <li>Excellence</li>
+            </ul>
+        </section>
+
+        <section id="team">
+            <h2>Our Team (Optional)</h2>
+            <p>Introduce the people behind the website (if applicable). You can include brief bios and photos here.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>Get in touch with us through our <a href="#">contact form</a> or by emailing us at info@example.com.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Your Website Name. All rights reserved.</p>
+    </footer>
+
+</body>
 </html>
