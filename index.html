@@ -11,12 +11,15 @@
         /* Basic styles for the page */
         header {
             background-image: url('https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_2/v1685645229/bosco/hphcbhd1kpmnwycfzlhv/DSC096072.jpg');
-            width: 100px
-            height: 100vh; /* Sets the body height to 100% of the viewport */
+            width: 100%; /* Key change: Make the header take full width */
+            height: 100vh; /* Keep this for full viewport height */
             margin: 0;
             color: Blue;
             padding: 1rem;
             text-align: center;
+            background-size: cover; /* Key change: Cover the entire area */
+            background-repeat: no-repeat; /* Optional: Prevent image tiling */
+            background-position: center; /* Optional: Center the image */
         }
 
         nav {
