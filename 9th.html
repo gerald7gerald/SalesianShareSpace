@@ -46,6 +46,41 @@
         nav a:hover{
             background-color: rgba(255, 255, 255, 0.2); /* Add a hover effect */
         }
+        
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+        .menu-button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
+            border-radius: 5px;
+            overflow: hidden;
+            text-align: left;
+        }
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            transition: background 0.3s;
+        }
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+        .menu:hover .dropdown {
+            display: block;
+        }
 
         main {
             padding: 2rem;
@@ -87,17 +122,23 @@
 <body>
 
     <header>
-        <h1>School Classes - 9th Grade</h1>
+        <h1>School Classes</h1>
     </header>
 
     <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">Classes</a></li>
-            <li><a href="#">Teachers</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
+        <a href="#">Home</a>
+        <div class="menu">
+            <div class="menu-button">Subjects</div>
+            <div class="dropdown">
+                <a href="#">Mathematics</a>
+                <a href="#">Literature</a>
+                <a href="#">History</a>
+                <a href="#">Science</a>
+            </div>
+        </div>
+        <a href="#">Teachers</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
     </nav>
 
     <main>
