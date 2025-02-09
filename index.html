@@ -47,32 +47,59 @@
         nav {
             background-color: #444;
             padding: 0.5rem;
-            /* Remove text-align: center; */
-            /* Add these to make it a vertical bar */
-            width: 200px; /* Or whatever width you want */
-            height: 100%; /* Make it take up the full height */
+            width: 200px;
+            height: 100%;
             display: flex;
-            flex-direction: column; /* Stack the links vertically */
+            flex-direction: column;
         }
 
         nav a,
         .menu-button {
             color: white;
-            margin: 0.5rem 0; /* Space between links */
+            margin: 0.5rem 0;
             text-decoration: none;
             padding: 0.5rem 1rem;
             border-radius: 5px;
             transition: background-color 0.3s;
-            text-align: left; /* Align text to the left */
+            text-align: left;
         }
 
-        /* ... (rest of your CSS) */
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+        }
 
         main {
             padding: 2rem;
-            flex: 1; /* Takes up remaining space */
-            /* Add margin-left to push main content away from nav */
-            margin-left: 200px; /* Same as nav width */
+            flex: 1;
+            margin-left: 200px;
         }
 
         footer {
@@ -88,7 +115,8 @@
 <body>
     <header>
         <h1><b>Salesian ShareSpace</b></h1>
-        <img src="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png" alt="logo" width="100" height="100">
+        <img src="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png" alt="logo" width="100"
+            height="100">
     </header>
     <nav>
         <a href="#home">Home</a>
