@@ -1,25 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Your website description here">
-    <title><strong>Salesian ShareSpace</strong></title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Pochaevsk:wght@400;700&display=swap" rel="stylesheet">
+    <title>Salesian ShareSpace</title>
+    <link rel="stylesheet" href="styles.css"> <link href="https://fonts.googleapis.com/css2?family=Pochaevsk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Basic styles for the page */
+        body {
+            font-family: sans-serif; /* Use a default font */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure footer sticks to bottom */
+        }
+
         header {
             background-image: url('https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_2/v1685645229/bosco/hphcbhd1kpmnwycfzlhv/DSC096072.jpg');
-            width: 100%; /* Key change: Make the header take full width */
-            height: 100%%; /* Keep this for full viewport height */
+            width: 100%;
+            height: 300px; /* Adjust as needed */
             margin: 0;
-            color: Blue;
+            color: white; /* Use a light color for text */
             padding: 1rem;
             text-align: center;
-            background-size: cover; /* Key change: Cover the entire area */
-            background-repeat: no-repeat; /* Optional: Prevent image tiling */
-            background-position: center; /* Optional: Center the image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertically center content */
+            align-items: center; /* Horizontally center content */
+        }
+
+        header h1 {
+            font-family: 'Pochaevsk', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem; /* Space between title and logo */
+        }
+
+        header img {
+            max-width: 50%; /* Adjust as needed */
+            height: auto;
         }
 
         nav {
@@ -28,27 +51,26 @@
             text-align: center;
         }
 
-        nav a {
+        nav a,
+        .menu-button {
             color: white;
             margin: 0 1rem;
             text-decoration: none;
+            padding: 0.5rem 1rem; /* Add some padding around text */
+            border-radius: 5px; /* Add rounded corners */
+            transition: background-color 0.3s; /* Smooth transition */
         }
 
-        nav a:hover {
-            text-decoration: underline;
+        nav a:hover,
+        .menu-button:hover {
+            background-color: #666; /* Darker background on hover */
         }
 
         .menu {
             position: relative;
             display: inline-block;
         }
-        .menu-button {
-            padding: 10px;
-            background-color: #444;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+
         .dropdown {
             display: none;
             position: absolute;
@@ -57,19 +79,32 @@
             min-width: 150px;
             border-radius: 5px;
             overflow: hidden;
+            z-index: 1; /* Ensure dropdown is above other content */
         }
+
         .dropdown a {
             display: block;
             padding: 10px;
             text-decoration: none;
             color: black;
-            transition: background 0.3s;
+            transition: background-color 0.3s;
         }
+
         .dropdown a:hover {
             background-color: #f1f1f1;
         }
+
         .menu:hover .dropdown {
             display: block;
+        }
+
+        main {
+            padding: 2rem;
+            flex: 1; /* Allow main content to take up available space */
+        }
+
+        section {
+            margin-bottom: 2rem;
         }
 
         footer {
@@ -77,17 +112,15 @@
             color: white;
             text-align: center;
             padding: 1rem;
-            position: fixed;
-            bottom: 0;
             width: 100%;
         }
-        
     </style>
 </head>
+
 <body>
     <header>
-        <h1 style="font-family: 'Pochaevsk', sans-serif;font-size: 3rem;"><b>Salesian ShareSpace</b></h1>
-        <img src ="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png" alt="logo" style="max-width: 1000px;">
+        <h1><b>Salesian ShareSpace</b></h1>
+        <img src="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png" alt="logo">
     </header>
     <nav>
         <a href="#home">Home</a>
@@ -131,4 +164,5 @@
         <p>&copy; 2025 Salesian ShareSpace. All rights reserved.</p>
     </footer>
 </body>
+
 </html>
