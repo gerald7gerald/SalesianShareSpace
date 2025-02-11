@@ -1,57 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ShareSpace Login</title>
-    <!-- Add the Google Sign-In script -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-</head>
+  <title>Salesian ShareSpace</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
 <body>
-    <!-- Container for the sign-in button -->
-    <div id="g_id_onload"
-         data-client_id="65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com"
-         data-context="signin"
-         data-ux_mode="popup"
-         data-callback="handleCallback"
-         data-auto_select="true"
-         data-itp_support="true">
-    </div>
+  <div id="g_id_onload"
+       data-client_id="https://65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com/"  data-context="signin"
+       data-ux_mode="popup"
+       data-callback="handleCallback"
+       data-auto_prompt="false"
+       data-itp_support="true">
+  </div>
 
-    <div class="g_id_signin"
-         data-type="standard"
-         data-shape="rectangular"
-         data-theme="outline"
-         data-text="signin_with"
-         data-size="large"
-         data-logo_alignment="left">
-    </div>
+  <div class="g_id_signin"
+       data-type="standard"
+       data-shape="rectangular"
+       data-theme="outline"
+       data-text="sign_in_with"
+       data-size="large"
+       data-logo_alignment="left">
+  </div>
 
-    <script>
-        function handleCallback(response) {
-            // This function is called after successful sign-in
-            const credential = response.credential;
-            
-            // Decode the JWT token to get user info
-            const payload = parseJwt(credential);
-            
-            console.log('User ID:', payload.sub);
-            console.log('Full Name:', payload.name);
-            console.log('Email:', payload.email);
-            console.log('Profile Picture:', payload.picture);
+  <script>
+    function handleCallback(response) {
+      const credential = response.credential;
+      const payload = parseJwt(credential);
 
-            // You can redirect the user or update UI here
-            // For example:
-            // window.location.href = '/dashboard';
-        }
+      console.log('User ID:', payload.sub);
+      console.log('Full Name:', payload.name);
+      console.log('Email:', payload.email);
+      console.log('Profile Picture:', payload.picture);
 
-        // Helper function to decode JWT tokens
-        function parseJwt(token) {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
-        }
-    </script>
+      // Here, you would typically send the credential to your backend
+      // for verification and further processing.
+    }
+
+    function parseJwt(token) { // ... (your JWT parsing function) ... }
+  </script>
 </body>
 </html>
