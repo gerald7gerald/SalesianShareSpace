@@ -6,13 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saint John Bosco Teachers</title>
     <style>
-        body {
-            background-image: url('https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_2/v1685645229/bosco/hphcbhd1kpmnwycfzlhv/DSC096072.jpg'); /* Replace with your image URL */
-            background-size: cover; /* Ensures the image covers the entire screen */
-            background-attachment: fixed; /* Keeps the image fixed while scrolling */
-            background-position: center; /* Centers the image */
-            background-repeat: no-repeat; /* Prevents the image from repeating */
-        }
+
 
         header {
             background-color: #007bff; /* Blue header */
@@ -84,13 +78,22 @@
         }
 
         main {
-            padding: 2rem;
-            margin: 20px auto; /* Center the main content */
-            max-width: 900px; /* Set a maximum width for larger screens */
-            background-color: D3D3D3; /* White background for the main content */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-            border-radius: 8px; /* Add rounded corners */
+            background-image: url('your-image-url.jpg'); /* Replace with your actual image */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 2rem; /* Keep padding so content isn't touching the edges */
         }
+        .content-wrapper {
+            background-color: white; /* Ensures the content is on a white box */
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 900px; /* Keeps it centered and not too wide */
+            border-radius: 8px; /* Optional: Rounded edges for a softer look */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+        }
+        
         .section-box {
             background-color: white; /* White background */
             padding: 1.5rem; /* Add padding inside the box */
@@ -158,45 +161,47 @@
     </nav>
 
     <main>
-        <section id="classes">
-            <div class="section-box">
-                 <h2>Theology</h2>
-    
-                <div class="class-card">
-                    <h2>Revelation of Jesus Christ/Who is Jesus Christ?</h2>
-                    <p>Grade: 9</p>
-                    <a href="#">Click Here</a>
-                    <a href="#">Teacher</a>
-                </div>
-    
-                <div class="class-card">
-                    <h2>Introduction to Catholicism and Western Culture & Language</h2>
-                    <p>Grade: 9-12</p>
-                    <a href="#">Click Here</a>
-                    <a href="#">Teacher</a>
-                </div>
-            </div>       
-        </section>
+        <div class="content-wrapper">
+            <section id="classes">
+                <div class="section-box">
+                     <h2>Theology</h2>
         
-        <section id="classes">
-            <div class="section-box">
-                 <h2>Social Studies</h2>
-    
-                <div class="class-card">
-                    <h2>Revelation of Jesus Christ/Who is Jesus Christ?</h2>
-                    <p>Grade: 9</p>
-                    <a href="#">Click Here</a>
-                    <a href="#">Teacher</a>
+                    <div class="class-card">
+                        <h2>Revelation of Jesus Christ/Who is Jesus Christ?</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>Introduction to Catholicism and Western Culture & Language</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>       
+            </section>
+            
+            <section id="classes">
+                <div class="section-box">
+                     <h2>Social Studies</h2>
+        
+                    <div class="class-card">
+                        <h2>Revelation of Jesus Christ/Who is Jesus Christ?</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>Introduction to Catholicism and Western Culture & Language</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
                 </div>
-    
-                <div class="class-card">
-                    <h2>Introduction to Catholicism and Western Culture & Language</h2>
-                    <p>Grade: 9-12</p>
-                    <a href="#">Click Here</a>
-                    <a href="#">Teacher</a>
-                </div>
-            </div>
-        </section>        
+            </section>        
+        </div>
     </main>
 
     <footer>
