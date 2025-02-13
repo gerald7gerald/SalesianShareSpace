@@ -6,7 +6,7 @@
   </head>
 <body>
   <div id="g_id_onload"
-       data-client_id="https://65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com/"  data-context="signin"
+       data-client_id="65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com/"  data-context="signin"
        data-ux_mode="popup"
        data-callback="handleCallback"
        data-auto_prompt="false"
@@ -23,20 +23,43 @@
   </div>
 
   <script>
-    function handleCallback(response) {
-      const credential = response.credential;
-      const payload = parseJwt(credential);
+  function handleCallback(response) {
+    const credential = response.credential;
+    const payload = parseJwt(credential); // Decode JWT
 
-      console.log('User ID:', payload.sub);
-      console.log('Full Name:', payload.name);
-      console.log('Email:', payload.email);
-      console.log('Profile Picture:', payload.picture);
+    console.log('User ID:', payload.sub);
+    console.log('Full Name:', payload.name);
+    console.log('Email:', payload.email);
+    console.log('Profile Picture:', payload.picture);
 
-      // Here, you would typically send the credential to your backend
-      // for verification and further processing.
-    }
+    // Display user info on the webpage (Optional)
+    document.body.innerHTML += `
+      <h3>Welcome, ${payload.name}!</h3>
+      <img src="${payload.picture}" alt="Profile Picture">
+      <p>Email: ${payload.email}</p>
+    `;
 
-    function parseJwt(token) { // ... (your JWT parsing function) ... }
-  </script>
+    // Send token to backend for validation (if needed)
+    fetch('/verify-token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: credential })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Server Response:', data))
+    .catch(error => console.error('Error:', error));
+  }
+
+  function parseJwt(token) {
+    let base64Url = token.split('.')[1]; // Extract the payload
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Fix URL encoding
+    let jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
+      '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    ).join(''));
+
+    return JSON.parse(jsonPayload); // Convert to JSON object
+  }
+</script>
+
 </body>
 </html>
