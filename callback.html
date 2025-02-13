@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Callback - Salesian ShareSpace</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .message {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <div class="spinner"></div>
+        <p>Processing login...</p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Get the credential from the URL if present
+            const urlParams = new URLSearchParams(window.location.search);
+            const credential = urlParams.get('credential');
+
+            if (credential) {
+                // Store the credential
+                localStorage.setItem('googleCredential', credential);
+                
+                try {
+                    // Decode the credential to get user info
+                    const payload = parseJwt(credential);
+                    
+                    // Store user info
+                    localStorage.setItem('userEmail', payload.email);
+                    localStorage.setItem('userName', payload.name);
+                    
+                    // Check if email is from your school domain (optional)
+                    if (payload.email.endsWith('@salesiansf.org')) {
+                        // Redirect to main application page
+                        window.location.href = '/welcome.html';
+                    } else {
+                        document.querySelector('.message').innerHTML = 
+                            '<p style="color: red;">Please use your school email to login.</p>' +
+                            '<a href="/">Back to Login</a>';
+                    }
+                } catch (error) {
+                    console.error('Error processing login:', error);
+                    document.querySelector('.message').innerHTML = 
+                        '<p style="color: red;">Login failed. Please try again.</p>' +
+                        '<a href="/">Back to Login</a>';
+                }
+            } else {
+                // No credential found, redirect back to login
+                window.location.href = '/';
+            }
+        };
+
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (error) {
+                console.error('Error parsing JWT:', error);
+                throw error;
+            }
+        }
+    </script>
+</body>
+</html>
