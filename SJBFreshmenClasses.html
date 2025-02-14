@@ -45,7 +45,23 @@
         nav a:hover{
             background-color: rgba(255, 255, 255, 0.2); /* Add a hover effect */
         }
+        ul {
+            padding: 0;
+            margin: 0;
+            display: flex; /* Ensures tabs are in one row */
+            justify-content: center; /* Centers them */
+        }
         
+        li {
+            list-style: none;
+            margin: 0 5px; /* Adjust horizontal spacing */
+        }
+        
+        a {
+            text-decoration: none;
+            padding: 5px 10px; /* Reduce padding inside tabs */
+            display: inline-block;
+        }
         .menu {
             position: relative;
             display: inline-block;
