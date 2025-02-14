@@ -1,1 +1,531 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SJB Freshmen Classes</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #063970; /* Blue header */
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        nav {
+            background-color: #343a40; /* Darker blue navigation */
+            color: white;
+            padding: 0.5rem 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center; /* Center the navigation items */
+        }
+
+        nav li {
+            display: inline;
+            margin: 0 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add some padding around links */
+        }
+        nav a:hover{
+            background-color: rgba(255, 255, 255, 0.2); /* Add a hover effect */
+        }
+       
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+        .menu-button {
+            padding: 5px;
+            background-color: #343a40;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: #343a40;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
+            border-radius: 5px;
+            overflow: hidden;
+            text-align: left;
+        }
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            transition: background 0.3s;
+        }
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        main {
+            padding: 2rem;            
+            background-image: url('https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_2/v1685645229/bosco/hphcbhd1kpmnwycfzlhv/DSC096072.jpg'); /* Replace with your actual image */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .content-wrapper {
+            background-color: white; /* Ensures the content is on a white box */
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 900px; /* Keeps it centered and not too wide */
+            border-radius: 8px; /* Optional: Rounded edges for a softer look */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+        }
+        
+        .section-box {
+            background-color: white; /* White background */
+            padding: 1.5rem; /* Add padding inside the box */
+            margin-bottom: 1.5rem; /* Space between sections */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        }
+        .class-card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            background-color: #fff; /* White background for the cards */
+            transition: transform 0.2s; /* Add a transition for the hover effect */
+        }
+        
+        .class-card:hover{
+            transform: scale(1.02); /* Scale up slightly on hover */
+        }
+
+        .class-card h2 {
+            margin-top: 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: relative; /* or absolute if you want it fixed to the bottom */
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>SJB Freshmen Classes</h1>
+    </header>
+    <nav>
+        <ul>
+            <a href="9th.html">Back</a>
+            <li><a href="#theology">Theology</a></li>
+            <li><a href="#2">Social Studies</a></li>
+            <li><a href="#3">English</a></li>
+            <li><a href="#4">Mathematics</a></li>
+            <li><a href="#5">Science</a></li>
+            <li><a href="#world-languages">World Languages</a></li>
+            <li><a href="#6">Visual & Performing Arts</a></li>
+            <li><a href="#7">Electives</a></li>
+            <li><a href="#8">Kinesiology/Physical Education</a></li>
+            <div class="menu">
+                <div class="menu-button">Pathways</div>
+                <div class="dropdown">
+                    <li><a href="#9">Biomedical Science</a></li>
+                    <li><a href="#10">Computer Science</a></li>
+                    <li><a href="#11">Engineering</a></li>
+                    <li><a href="#12">Film & Media</a></li>
+                    <li><a href="#13">Entrepreneurship</a></li>
+                    <li><a href="#14">Sport Medicine</a></li>
+                </div>
+            </div>
+        </ul>
+    </nav>
+    <main>
+        <div class="content-wrapper">
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="theology">Theology</h2>
+        
+                    <div class="class-card">
+                        <h2>Revelation of Jesus Christ/Who is Jesus Christ?</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>Introduction to Catholicism and Western Culture & Language</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>       
+            </section>
+            
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="2" >Social Studies</h2>
+        
+                    <div class="class-card">
+                        <h2>World and Human Geography (Semester)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>AP Human Geography</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>AP African American Studies</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Financial Literacy</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section>    
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="3">Literacy</h2>
+        
+                    <div class="class-card">
+                        <h2>English 1: Composition/World Literature 1 (Honors)</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section> 
+            
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="4">Mathematics</h2>
+        
+                    <div class="class-card">
+                        <h2>Algebra 1</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>Geometry (Honors)</h2>
+                        <p>Grade: 9-10</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Algebra 2 (w/ Trigonometry Honors)</h2>
+                        <p>Grade: 9-11</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section>    
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="5">Science</h2>
+        
+                    <div class="class-card">
+                        <h2>Biology (Honors)</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section> 
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="world-languages">World Languages</h2>
+        
+                    <div class="class-card">
+                        <h2>Spanish 1 (Heritage Speakers Honors)</h2>
+                        <p>Grade: 9-11</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>Spanish 2 (Heritage Speakers Honors)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Spanish 3 (Honors</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Spanish 4</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>AP Spanish Language and Culture</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section> 
+            
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="6">Visual & Performing Arts</h2>
+        
+                    <div class="class-card">
+                        <h2>Exploring Art</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>Theater Arts 1</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Beginning Band</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Animation 1</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Intermediate Band</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Advanced Drawing & Digital Art</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Media Production</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Photography/Yearbook</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Popular Music</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Hip Hop: Formation, Structure, and Production</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Music Appreciation</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Band (Jazz, Marching, Concert, Choir)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="7">Electives</h2>
+        
+                    <div class="class-card">
+                        <h2> Academic Decathlon HONORS</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>University Prep</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>English as a Second Languages</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section> 
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="8">Kinesiology/Physical Education</h2>
+        
+                    <div class="class-card">
+                        <h2>Health</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>Strength and Conditioning (Semester/Year)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Physical Education</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>Advanced Strength and Conditioning</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section> 
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2>Pathways</h2>
+        
+                    <div class="class-card">
+                        <h2 id="9">Biomedical Science 1A: Introduction to Health and Science Technology / Biomedical Science 1B: Medical Ethics</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="10">Computer Science Essentials</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="11">Engineering 1: Introduction to Engineering Design</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="12">Film and Media 1: Screenwriting</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="13">Entrepreneurship 1A: Fundamentals of Business / Entrepreneurship 1B: Computer Applications for Managers</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="14">Sports Med 1 Athletic Injury Taping, Bandaging and Immobilization</h2>
+                        <p>Grade: 9</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section> 
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 School Name</p>
+    </footer>
+    <div style="position: fixed; bottom: 0; left: 0; z-index: 1;">
+        <a href ="index.html">
+            <img src="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png" alt="logo" width="100"
+            height="100">
+        </a>
+        
+    </div>
+
+</body>
+</html>
+
