@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classes Available for 9th Grade</title>
+    <title>Classes Available for 10th Grade</title>
     <style>
         body {
             font-family: sans-serif;
@@ -46,6 +46,41 @@
         nav a:hover{
             background-color: rgba(255, 255, 255, 0.2); /* Add a hover effect */
         }
+        
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+        .menu-button {
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
+            border-radius: 5px;
+            overflow: hidden;
+            text-align: left;
+        }
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            transition: background 0.3s;
+        }
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+        .menu:hover .dropdown {
+            display: block;
+        }
 
         main {
             padding: 2rem;
@@ -87,41 +122,47 @@
 <body>
 
     <header>
-        <h1>Sophmore Classes</h1>
+        <h1>Sophomore Classes</h1>
     </header>
 
     <nav>
-        <ul>
-            <li><a href="#">Classes</a></li>
-            <li><a href="#">Teachers</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
+        <a href="index.html">Home</a>
+        <a href="9th.html">Subjects</a>
+        <div class="menu">
+            <div class="menu-button">Schools</div>
+            <div class="dropdown">
+                <a href="SJBSophomoreClasses.html">Saint John Bosco</a>
+                <a href="BTechSophomoreClasses.html">Don Bosco Tech</a>
+                <a href="BMSSophomoreClasses.html">Bishop Mora Salesian</a>
+                <a href="SCPSophomoreClasses.html">Salesian College Prepatory</a>
+                <a href="SFPSophomoreClasses.html">Saint Francis</a>
+            </div>
+        </div>
     </nav>
 
     <main>
         <section id="classes">
-            <h2>Available Classes</h2>
+            <h2>Subjects</h2>
 
             <div class="class-card">
-                <h2>Mathematics 101</h2>
-                <p>Instructor: Mr. Smith</p>
-                <p>Time: Mondays and Wednesdays, 9:00 AM</p>
+                <h2 href="9thMath.html">Mathematics</h2>
+                <a href="9thMathHomePage.html">Click Here</a>
                 <p>Description: Introduction to basic mathematical concepts.</p>
             </div>
 
             <div class="class-card">
-                <h2>Science 202</h2>
-                <p>Instructor: Ms. Johnson</p>
-                <p>Time: Tuesdays and Thursdays, 11:00 AM</p>
+                <h2>Science</h2>
                 <p>Description: Exploring the wonders of science.</p>
             </div>
 
             <div class="class-card">
-                <h2>English Literature</h2>
-                <p>Instructor: Dr. Williams</p>
-                <p>Time: Fridays, 2:00 PM</p>
+                <h2>Literature</h2>
                 <p>Description: A deep dive into classic literature.</p>
+            </div>
+
+             <div class="class-card">
+                <h2>History</h2>
+                <p>Description: A deep dive into world history</p>
             </div>
 
             </section>
