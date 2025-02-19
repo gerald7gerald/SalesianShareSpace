@@ -62,13 +62,13 @@
                     localStorage.setItem('userName', payload.name);
                     
                     // Check if email is from your school domain (optional)
-                    if (payload.email.endsWith('@salesiansf.org')) {
+                    if (payload.email.endsWith('@gmail.com')) {
                         // Redirect to main application page
-                        window.location.href = '/welcome.html';
+                        window.location.href = 'index.html';
                     } else {
                         document.querySelector('.message').innerHTML = 
                             '<p style="color: red;">Please use your school email to login.</p>' +
-                            '<a href="/">Back to Login</a>';
+                            '<a href="index.html">Back to Login</a>';
                     }
                 } catch (error) {
                     console.error('Error processing login:', error);
