@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bosco Tech Senior Classes</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #000000; /* Black header */
+            color: #EDC967;
+            -webkit-text-stroke: 2px white; /* White outline */
+            padding: 1rem 0;
+            text-align: center;
+        } 
+        html {
+            scroll-behavior: smooth;
+        }
+        nav {
+            background-color: #EDC967; /* Gold navigation */
+            color: #000000;
+            padding: 0.5rem 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center; /* Center the navigation items */
+        }
+
+        nav li {
+            display: inline;
+            margin: 0 1rem;
+        }
+
+        nav a {
+            color: #000000;
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Add some padding around links */
+        }
+        nav a:hover{
+            background-color: rgba(255, 255, 255, 0.2); /* Add a hover effect */
+        }
+       
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+        .menu-button {
+            padding: 5px;
+            background-color: #EDC967;
+            color: #000000;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: #EDC967;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
+            border-radius: 5px;
+            overflow: hidden;
+            text-align: left;
+        }
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: 000000;
+            transition: background 0.3s;
+        }
+        .dropdown a:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Add a hover effect */
+        }
+        .menu:hover .dropdown {
+            display: block;
+        }
+
+        main {
+            padding: 2rem;            
+            background-image: url('https://media-hosting.imagekit.io//e1f21aae11844e20/cs1.jpg?Expires=1834193473&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=GsqRAiwWbCkMc7iO8CZVDcS5tODk4ZB7Hwt51gvtYDJLHU4IKV8EsVE3so4IftNATjg2qNcaqJk--v0FNIayvNJYTmKOYWU46plJ2I5wFnzEjjC55TcCARln8HxMcar8AsMjhCCWI0uUX7FGQCKMLhE~N3e5pSIQ1C7ocsV9gUd97JAo90YBcowB7oDL17gWjw8GLazWyFJTVGBAmo6CKa3uaWZrNlHS0LrCERU1-eFliVxeIZwAgknVfV8kk7RVYZdSEMEJHWNf59Ntl7feIKSJPrR89R65siALDw7Y9rmYnqNNiSSzzJ88blf2KNKA7GmFg2KyNWpBo8vwqcVDUA__'); /* Replace with your actual image */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .content-wrapper {
+            background-color: white; /* Ensures the content is on a white box */
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 900px; /* Keeps it centered and not too wide */
+            border-radius: 8px; /* Optional: Rounded edges for a softer look */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+        }
+        
+        .section-box {
+            background-color: white; /* White background */
+            padding: 1.5rem; /* Add padding inside the box */
+            margin-bottom: 1.5rem; /* Space between sections */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        }
+        .class-card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            background-color: #fff; /* White background for the cards */
+            transition: transform 0.2s; /* Add a transition for the hover effect */
+        }
+        
+        .class-card:hover{
+            transform: scale(1.02); /* Scale up slightly on hover */
+        }
+
+        .class-card h2 {
+            margin-top: 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: relative; /* or absolute if you want it fixed to the bottom */
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Don Bosco Tech Senior Classes</h1>
+    </header>
+    <nav>
+        <ul>
+            <a href="12th.html">Back</a>
+            <li><a href="#theology">Theology</a></li>
+            <li><a href="#2">Social Studies</a></li>
+            <li><a href="#3">English</a></li>
+            <li><a href="#4">Mathematics</a></li>
+            <li><a href="#5">Science</a></li>
+            <li><a href="#15">Electives / World Languages</a></li>
+            <div class="menu">
+                <div class="menu-button">Pathways</div>
+                <div class="dropdown">
+                    <li><a href="#9">A.C.E.</a></li>
+                    <li><a href="#10">B.M.E.T.</a></li>
+                    <li><a href="#11">C.S.E.E.</a></li>
+                    <li><a href="#12">I.D.E.A.</a></li>
+                    <li><a href="#13">M.S.E.T.</a></li>
+                    <li><a href="#14">M.A.T.</a></li>
+                </div>
+            </div>
+        </ul>
+    </nav>
+    <main>
+        <div class="content-wrapper">
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="theology">Theology</h2>
+                    
+                    <div class="class-card">
+                        <h2>Living as a Disciple of Jesus Christ (Semester)</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>Responding to the Call of Christ (Semester)</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>       
+            </section>
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="2" >Social Studies</h2>
+        
+                    <div class="class-card">
+                        <h2>U.S. Government</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>AP U.S. Government</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                  <div class="class-card">
+                        <h2>Economics (Semester)</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                  <div class="class-card">
+                        <h2>AP Macroeconomics (Semester)</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section>    
+   
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="3">English</h2>
+        
+                    <div class="class-card">
+                        <h2>English 7,8: Composition & British Literature</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>AP English Literature</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section> 
+            
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="4">Mathematics</h2>
+                  
+                    <div class="class-card">
+                        <h2>Pre-Calculus</h2>
+                        <p>Grade: 10-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>AP Calculus AB</h2>
+                        <p>Grade: 11-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                          <h2>AP Calculus BC</h2>
+                          <p>Grade: 12</p>
+                          <a href="#">Click Here</a>
+                          <a href="#">Teacher</a>
+                      </div>
+  
+                    <div class="class-card">
+                          <h2>AP Statistics</h2>
+                          <p>Grade: 12</p>
+                          <a href="#">Click Here</a>
+                          <a href="#">Teacher</a>
+                      </div>
+                </div>
+            </section>    
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="5">Science</h2>
+
+                    <div class="class-card">
+                        <h2>General Physics</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>AP Physics C: Mechanics</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                    
+                    <div class="class-card">
+                        <h2>Anatomy & Physiology</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section> 
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2 id="15">Electives / World Languages</h2>
+        
+                    <div class="class-card">
+                        <h2>Spanish III</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2>AP Spanish Literature</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+        
+                    <div class="class-card">
+                        <h2>AP Human Geography</h2>
+                        <p>Grade: 12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                          <h2>Speech and Forensics</h2>
+                          <p>Grade: 12</p>
+                          <a href="#">Click Here</a>
+                          <a href="#">Teacher</a>
+                      </div>
+                </div>
+            </section> 
+
+            <section id="classes">
+                <div class="section-box">
+                     <h2>Pathways</h2>
+        
+                    <div class="class-card">
+                        <h2 id="9">Architecture & Construction Engineering (ACE)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="10">Biological, Medical, and Environmental Technology (BMET)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="11">Computer Science & Electrical Engineering (CSEE)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="12">Integrated Design, Engineering & Art (IDEA)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="13">Material Science, Engineering & Technology (MSET)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+
+                    <div class="class-card">
+                        <h2 id="14">Media Arts & Technology (MAT)</h2>
+                        <p>Grade: 9-12</p>
+                        <a href="#">Click Here</a>
+                        <a href="#">Teacher</a>
+                    </div>
+                </div>
+            </section> 
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 School Name</p>
+    </footer>
+    <div style="position: fixed; bottom: 0; left: 0; z-index: 1;">
+        <a href ="index.html">
+            <img src="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png" alt="logo" width="100"
+            height="100">
+        </a>
+        
+    </div>
+
+</body>
+</html>
