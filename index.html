@@ -3,10 +3,20 @@
 
 <head>
     <script>
- window.onload = function() {
+ // This goes in your callback.html
+// This handles the Google Sign-In response
+window.handleCredentialResponse = function(response) {
+  // Store the credential
+  localStorage.setItem('googleCredential', response.credential);
+  // Redirect to main page
+  window.location.href = 'index.html';
+};
+
+// This goes in your index.html
+// Remove both existing window.onload functions and replace with this one
+window.onload = function() {
   const credential = localStorage.getItem('googleCredential');
 
-  // If no credential exists, redirect to Register.html
   if (!credential) {
     console.warn("No credential found! Redirecting...");
     window.location.href = 'Register.html';
@@ -15,21 +25,22 @@
 
   try {
     const payload = parseJwt(credential);
-
-    // Check for valid Gmail account
+    
     if (!payload.email || !payload.email.endsWith('@gmail.com')) {
-      console.warn("Invalid email domain! Redirecting...");
-      localStorage.removeItem('googleCredential'); // Remove invalid credentials
+      console.warn("Invalid email domain!");
+      localStorage.removeItem('googleCredential');
       window.location.href = 'Register.html';
       return;
     }
 
-    // If we reach here, the user is authenticated with a valid Gmail account
+    // If we get here, user is authenticated - don't redirect again
     console.log("User authenticated:", payload.email);
+    // You can now show the user's email or name if you want
+    document.getElementById('userEmail').textContent = payload.email;
 
   } catch (error) {
     console.error('Invalid token:', error);
-    localStorage.removeItem('googleCredential'); // Remove invalid token
+    localStorage.removeItem('googleCredential');
     window.location.href = 'Register.html';
   }
 };
