@@ -191,41 +191,7 @@
     return JSON.parse(jsonPayload);
   }
 </script>
-<script>
-  // Check if the user is logged in before allowing access
-  window.onload = function() {
-    const credential = localStorage.getItem('googleCredential');
 
-    // If no credential is found, redirect to the login page
-    if (!credential) {
-      window.location.href = 'Register.html'; // Redirect to login page
-      return;
-    }
-
-    // If the user is logged in, check their email domain
-    const payload = parseJwt(credential);
-    if (!payload.email.endsWith('@gmail.com')) {
-      alert('Access Denied: Please use a Gmail account.');
-      localStorage.removeItem('googleCredential'); // Remove invalid credentials
-      window.location.href = 'Register.html'; // Redirect to login
-    }
-  };
-
-  function parseJwt(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-  }
-
-  // Save login credentials on successful login
-  function onSignIn(response) {
-    localStorage.setItem('googleCredential', response.credential);
-    window.location.href = 'index.html'; // Redirect to main site
-  }
-</script>
 
     <main>
         <section id="front page">
