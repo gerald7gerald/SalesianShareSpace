@@ -28,6 +28,14 @@
             const newPassword = document.getElementById("newPassword").value;
             const registerMessage = document.getElementById("register-message");
 
+            // Ensure email is a Gmail account
+            const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            if (!gmailRegex.test(newUsername)) {
+                registerMessage.textContent = "Only Gmail accounts are allowed!";
+                registerMessage.style.color = "red";
+                return;
+            }
+
             // Get existing users or create an empty object
             let users = JSON.parse(localStorage.getItem("users")) || {};
 
