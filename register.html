@@ -24,8 +24,8 @@
             const payload = parseJwt(response.credential);
 
             // Domain verification (optional)
-            if (payload.email.endsWith('@salesiansf.org')) {
-                window.location.href = "index.html";  // Redirect to homepage
+            if (payload.email.endsWith('@gmail.org')) {
+                window.location.href = "https://salesiansharespace.pages.dev/index.html";  // Redirect to homepage
             } else {
                 alert("Please sign in with your @salesiansf.org email.");
             }
