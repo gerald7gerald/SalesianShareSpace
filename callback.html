@@ -42,14 +42,10 @@
         <div class="spinner"></div>
         <p>Processing login...</p>
     </div>
-
     <script>
-        window.onload = function() {
-            // Get the credential from the URL if present
-            const urlParams = new URLSearchParams(window.location.search);
-            const credential = urlParams.get('credential');
-
-            if (credential) {
+        function handleCredentialResponse(response) {
+            if (response.credential) {
+                const credential = response.credential;
                 // Store the credential
                 localStorage.setItem('googleCredential', credential);
                 
@@ -61,26 +57,26 @@
                     localStorage.setItem('userEmail', payload.email);
                     localStorage.setItem('userName', payload.name);
                     
-                    // Check if email is from your school domain (optional)
+                    // Check if email is from Gmail
                     if (payload.email.endsWith('@gmail.com')) {
                         // Redirect to main application page
                         window.location.href = 'index.html';
                     } else {
                         document.querySelector('.message').innerHTML = 
-                            '<p style="color: red;">Please use your school email to login.</p>' +
-                            '<a href="index.html">Back to Login</a>';
+                            '<p style="color: red;">Please use your Gmail account to login.</p>' +
+                            '<a href="Register.html">Back to Login</a>';
                     }
                 } catch (error) {
                     console.error('Error processing login:', error);
                     document.querySelector('.message').innerHTML = 
                         '<p style="color: red;">Login failed. Please try again.</p>' +
-                        '<a href="/">Back to Login</a>';
+                        '<a href="Register.html">Back to Login</a>';
                 }
             } else {
                 // No credential found, redirect back to login
-                window.location.href = '/';
+                window.location.href = 'Register.html';
             }
-        };
+        }
 
         function parseJwt(token) {
             try {
@@ -95,6 +91,14 @@
                 throw error;
             }
         }
+
+        // Initialize Google Sign-In
+        window.onload = function() {
+            google.accounts.id.initialize({
+                client_id: '65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com',
+                callback: handleCredentialResponse
+            });
+        };
     </script>
 </body>
 </html>
