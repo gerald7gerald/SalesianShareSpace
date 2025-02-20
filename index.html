@@ -13,10 +13,10 @@
         }
 
         const payload = parseJwt(credential);
-        if (!payload.email.endsWith('@gmail.com')) {
+        if (!payload.email.endsWith('@bosco.org')) {
           alert('Access Denied: Please use a Gmail account.');
           localStorage.removeItem('googleCredential');
-          window.location.href = 'login.html';
+          window.location.href = 'Register.html';
         }
       };
 
