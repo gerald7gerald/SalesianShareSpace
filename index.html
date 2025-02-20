@@ -2,6 +2,33 @@
 <html lang="en">
 
 <head>
+    <script>
+      // Redirect unauthorized users to the login page
+      window.onload = function() {
+        const credential = localStorage.getItem('googleCredential');
+
+        if (!credential) {
+          window.location.href = 'login.html'; // Redirect to login page
+          return;
+        }
+
+        const payload = parseJwt(credential);
+        if (!payload.email.endsWith('@gmail.com')) {
+          alert('Access Denied: Please use a Gmail account.');
+          localStorage.removeItem('googleCredential');
+          window.location.href = 'login.html';
+        }
+      };
+
+      function parseJwt(token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      }
+    </script>
     <link rel="icon" type="image/png" href="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
