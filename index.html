@@ -3,27 +3,28 @@
 
 <head>
     <script>
-  // Redirect unauthorized users to the register page
   window.onload = function() {
     const credential = localStorage.getItem('googleCredential');
 
+    // 🚨 Force redirect immediately if no credential is found
     if (!credential) {
-      window.location.href = 'Register.html'; // Redirect to register page
+      console.warn("No credential found! Redirecting...");
+      window.location.href = 'Register.html';
       return;
     }
 
     try {
       const payload = parseJwt(credential);
 
-      // Ensure only Gmail accounts are allowed
-      if (!payload.email.endsWith('@gmail.com')) {
+      // 🚨 Ensure only Gmail accounts are allowed
+      if (!payload.email || !payload.email.endsWith('@gmail.com')) {
         alert('Access Denied: Only Gmail accounts are allowed.');
-        localStorage.removeItem('googleCredential');
+        localStorage.removeItem('googleCredential'); // Remove invalid credentials
         window.location.href = 'Register.html';
       }
     } catch (error) {
       console.error('Invalid token:', error);
-      localStorage.removeItem('googleCredential');
+      localStorage.removeItem('googleCredential'); // Remove invalid token
       window.location.href = 'Register.html';
     }
   };
@@ -40,7 +41,7 @@
       throw new Error('Failed to parse JWT');
     }
   }
-    </script>
+</script>
     <link rel="icon" type="image/png" href="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
