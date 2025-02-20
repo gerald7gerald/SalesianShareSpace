@@ -8,7 +8,7 @@ window.onload = function() {
 
     if (!credential) {
         console.warn("User not signed in! Redirecting...");
-        window.location.href = "Register.html";  // Redirect if not signed in
+        window.location.href = "register.html";  // Redirect if not signed in
         return;
     }
 
@@ -27,14 +27,14 @@ window.onload = function() {
             console.warn("Unauthorized user detected! Redirecting...");
             alert("Access denied: You are not authorized to view this page.");
             localStorage.removeItem('googleCredential');
-            window.location.href = "Register.html";  // Redirect unauthorized users
+            window.location.href = "register.html";  // Redirect unauthorized users
             return;
         }
 
     } catch (error) {
         console.error("Invalid token:", error);
         localStorage.removeItem('googleCredential');
-        window.location.href = "Register.html";
+        window.location.href = "register.html";
     }
 };
 
