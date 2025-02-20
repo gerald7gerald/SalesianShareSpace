@@ -12,8 +12,10 @@
 <body>
 
     <h2>Sign In</h2>
+    <p>Only TEACHER EMAILS are allowed. (ex: @bosco.org)</p>
+
     <form id="loginForm">
-        <input type="text" id="username" placeholder="Username" required><br><br>
+        <input type="text" id="username" placeholder="Enter Gmail Address" required><br><br>
         <input type="password" id="password" placeholder="Password" required><br><br>
         <button type="submit">Login</button>
         <p class="error" id="error-message"></p>
@@ -27,6 +29,12 @@
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
             const errorMessage = document.getElementById("error-message");
+
+            // Ensure the username (email) ends with "@gmail.com"
+            if (!username.endsWith("@gmail.com")) {
+                errorMessage.textContent = "Only Gmail accounts (@gmail.com) are allowed!";
+                return;
+            }
 
             // Get stored users
             let users = JSON.parse(localStorage.getItem("users")) || {};
