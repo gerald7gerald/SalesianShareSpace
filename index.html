@@ -171,7 +171,7 @@
 
     // If no credential is found, redirect to the login page
     if (!credential) {
-      window.location.href = 'Sign.html'; // Redirect to login page
+      window.location.href = 'Register.html'; // Redirect to login page
       return;
     }
 
@@ -180,7 +180,7 @@
     if (!payload.email.endsWith('@gmail.com')) {
       alert('Access Denied: Please use a Gmail account.');
       localStorage.removeItem('googleCredential'); // Remove invalid credentials
-      window.location.href = 'Sign.html'; // Redirect to login
+      window.location.href = 'Register.html'; // Redirect to login
     }
   };
 
