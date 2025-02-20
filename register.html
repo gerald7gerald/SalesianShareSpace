@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
 <body>
     <h2>Sign in to Access Salesian ShareSpace</h2>
 
-    <!-- Only Keep the Manual Initialization; Remove g_id_onload -->
+    <!-- Google Sign-In Button Placeholder -->
     <div id="google-signin-button"></div>
 
     <script>
@@ -24,7 +24,7 @@
             const payload = parseJwt(response.credential);
 
             // Domain verification (optional)
-            if (payload.email.endsWith('@gmail.com')) {
+            if (payload.email.endsWith('@salesiansf.org')) {
                 window.location.href = "index.html";  // Redirect to homepage
             } else {
                 alert("Please sign in with your @salesiansf.org email.");
@@ -44,17 +44,17 @@
         // Initialize Google Sign-In
         window.onload = function () {
             google.accounts.id.initialize({
-                client_id: "65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com,
+                client_id: "65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com", // 🔥 Fixed missing quote
                 callback: handleCredentialResponse
             });
 
-            // Render the Google Sign-In button in the target div
+            // Render the Google Sign-In button
             google.accounts.id.renderButton(
                 document.getElementById("google-signin-button"),
                 { theme: "outline", size: "large" }
             );
 
-            // Optional: Prompt automatically if needed
+            // Optional: Automatically prompt users
             google.accounts.id.prompt();
         };
     </script>
