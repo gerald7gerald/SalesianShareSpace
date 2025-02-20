@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Secure Access</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f4f4f4;
+        }
+
+        .register-container {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Create Account</h2>
+        <form id="registerForm">
+            <input type="text" id="newUsername" placeholder="Enter Username" required>
+            <input type="password" id="newPassword" placeholder="Enter Password" required>
+            <button type="submit">Register</button>
+            <p class="error" id="register-message"></p>
+        </form>
+        <p>Already have an account? <a href="Sign.html">Login here</a></p>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const newUsername = document.getElementById("newUsername").value;
+            const newPassword = document.getElementById("newPassword").value;
+            const registerMessage = document.getElementById("register-message");
+
+            if (localStorage.getItem(newUsername)) {
+                registerMessage.textContent = "Username already exists!";
+                registerMessage.style.color = "red";
+            } else {
+                // Store new user in localStorage
+                localStorage.setItem(newUsername, newPassword);
+                registerMessage.textContent = "Account created! Redirecting...";
+                registerMessage.style.color = "green";
+
+                // Redirect to login page after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = "Sign.html";
+                }, 1500);
+            }
+        });
+    </script>
+
+</body>
+</html>
