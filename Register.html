@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,39 +9,54 @@
 <body>
     <h2>Sign in to Access Salesian ShareSpace</h2>
 
-    <div id="g_id_onload"
-        data-client_id="65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com"
-        data-callback="handleCredentialResponse"
-        data-auto_prompt="false">
-    </div>
-
-    <div class="g_id_signin"
-        data-type="standard"
-        data-size="large"
-        data-theme="outline"
-        data-text="sign_in_with"
-        data-shape="rectangular"
-        data-logo_alignment="left">
-    </div>
+    <!-- Only Keep the Manual Initialization; Remove g_id_onload -->
+    <div id="google-signin-button"></div>
 
     <script>
-    function handleCredentialResponse(response) {
-        console.log("Google Login Success:", response.credential);
-        localStorage.setItem('googleCredential', response.credential);
-        window.location.href = "index.html";  // Redirect to homepage
-    }
+        // Handle the response from Google Sign-In
+        function handleCredentialResponse(response) {
+            console.log("Google Login Success:", response.credential);
 
-    window.onload = function() {
-        google.accounts.id.initialize({
-            client_id: "65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com",
-            callback: handleCredentialResponse
-        });
+            // Save the credential to localStorage
+            localStorage.setItem('googleCredential', response.credential);
 
-        google.accounts.id.renderButton(
-            document.getElementById("g_id_signin"),
-            { theme: "outline", size: "large" }
-        );
-    };
+            // Decode the JWT to get user info
+            const payload = parseJwt(response.credential);
+
+            // Domain verification (optional)
+            if (payload.email.endsWith('@gmail.com')) {
+                window.location.href = "index.html";  // Redirect to homepage
+            } else {
+                alert("Please sign in with your @salesiansf.org email.");
+            }
+        }
+
+        // JWT Parsing Function
+        function parseJwt(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+
+        // Initialize Google Sign-In
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+
+            // Render the Google Sign-In button in the target div
+            google.accounts.id.renderButton(
+                document.getElementById("google-signin-button"),
+                { theme: "outline", size: "large" }
+            );
+
+            // Optional: Prompt automatically if needed
+            google.accounts.id.prompt();
+        };
     </script>
 </body>
 </html>
