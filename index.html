@@ -6,11 +6,11 @@
 window.onload = function() {
     const credential = localStorage.getItem('googleCredential');
 
-    if (!credential) {
-        console.warn("User not signed in! Redirecting...");
-        window.location.href = "index#";  // Redirect if not signed in
-        return;
-    }
+    //if (!credential) {
+        //console.warn("User not signed in! Redirecting...");
+        //window.location.href = "#";  // Redirect if not signed in
+        //return;
+    //}
 
     try {
         const payload = parseJwt(credential);
