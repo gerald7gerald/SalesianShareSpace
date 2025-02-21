@@ -122,6 +122,12 @@
             display: block;
         }
 
+        .g_id_signin {
+            margin: 1rem 0; /* Add margin for spacing */
+            display: flex;
+            justify-content: center; /* Center the sign-in button */
+        }
+
         header {
             background-image: url('https://s3.us-east-1.amazonaws.com/website-anf/header/ANF-Saint-John-Bosco-1600x900.jpg'); /* Add your image URL here */
             background-size: cover; /* Cover the entire header */
@@ -129,6 +135,7 @@
             height: 300px; /* Set a height for the header */
             position: relative; /* Create a positioning context for the overlay */
             color: white; /* Change text color to contrast with background */
+            margin-top: -5px; /* Pull the header up to reduce gap */
         }
 
         header::before {
@@ -148,11 +155,6 @@
             text-align: center;
             position: relative; /* Ensure the text is above the overlay */
             z-index: 2; /* Ensure the text is above the overlay */
-        }
-
-        header img {
-            max-width: 50%;
-            height: auto;
         }
 
         main {
@@ -191,6 +193,15 @@
         </div>
     </nav>
 
+    <div class="g_id_signin" 
+        data-type="standard" 
+        data-size="large" 
+        data-theme="outline" 
+        data-text="sign_in_with" 
+        data-shape="rectangular" 
+        data-logo_alignment="left">
+    </div>
+
     <header>
         <h1><b>Salesian ShareSpace</b></h1>
     </header>
@@ -202,15 +213,6 @@
         data-login_uri="https://salesiansharespace.pages.dev/callback.html"
         data-auto_prompt="false"
         data-itp_support="true">
-    </div>
-
-    <div class="g_id_signin" 
-        data-type="standard" 
-        data-size="large" 
-        data-theme="outline" 
-        data-text="sign_in_with" 
-        data-shape="rectangular" 
-        data-logo_alignment="left">
     </div>
 
     <main>
