@@ -3,53 +3,52 @@
 
 <head>
     <script>
-//window.onload = function() {
-    //const credential = localStorage.getItem('googleCredential');
+        //window.onload = function() {
+        //const credential = localStorage.getItem('googleCredential');
 
-    //if (!credential) {
+        //if (!credential) {
         //console.warn("User not signed in! Redirecting...");
         //window.location.href = "#";  // Redirect if not signed in
         //return;
-    //}
+        //}
 
-    //try {
+        //try {
         //const payload = parseJwt(credential);
         //console.log("Authenticated user:", payload.email);
 
         //if (
-            //!allowedEmails.includes(payload.email) &&
-            //!allowedDomains.some(domain => payload.email.endsWith("@" + domain))
+        //!allowedEmails.includes(payload.email) &&
+        //!allowedDomains.some(domain => payload.email.endsWith("@" + domain))
         //) {
-            //console.warn("Unauthorized user detected! Redirecting...");
-            //alert("Access denied: You are not authorized to view this page.");
-            //localStorage.removeItem('googleCredential');
-            //window.location.href = "register.html";  // Redirect unauthorized users
-            return;
+        //console.warn("Unauthorized user detected! Redirecting...");
+        //alert("Access denied: You are not authorized to view this page.");
+        //localStorage.removeItem('googleCredential');
+        //window.location.href = "register.html";  // Redirect unauthorized users
+        return;
+        //}
+
+        //} catch (error) {
+        //console.error("Invalid token:", error);
+        //localStorage.removeItem('googleCredential');
+        //window.location.href = "register.html";
+        //}
+        //};
+
+        // Function to decode JWT token
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (error) {
+                throw new Error('Failed to parse JWT');
+            }
         }
+    </script>
 
-    //} catch (error) {
-   //     console.error("Invalid token:", error);
-     //   localStorage.removeItem('googleCredential');
-    //    window.location.href = "register.html";
-    //}
-};
-
-// Function to decode JWT token
-function parseJwt(token) {
-    try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-    } catch (error) {
-        throw new Error('Failed to parse JWT');
-    }
-}
-</script>
-    
-    
     <link rel="icon" type="image/png" href="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,39 +64,6 @@ function parseJwt(token) {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-        }
-
-        header {
-            background-image: url('https://s3.us-east-1.amazonaws.com/website-anf/header/ANF-Saint-John-Bosco-1600x900.jpg'); /* Add your image URL here */
-            background-size: cover; /* Cover the entire header */
-            background-position: center; /* Center the image */
-            height: 300px; /* Set a height for the header */
-            position: relative; /* Create a positioning context for the overlay */
-            color: white; /* Change text color to contrast with background */
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5); /* Black overlay for fade effect */
-            z-index: 1; /* Ensure it sits behind the text */
-        }
-        
-        header h1 {
-            font-family: 'Trebuchet MS', sans-serif;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            position: relative; /* Ensure the text is above the overlay */
-            z-index: 2; /* Ensure the text is above the overlay */
-        }
-
-        header img {
-            max-width: 50%;
-            height: auto;
         }
 
         nav {
@@ -156,6 +122,39 @@ function parseJwt(token) {
             display: block;
         }
 
+        header {
+            background-image: url('https://s3.us-east-1.amazonaws.com/website-anf/header/ANF-Saint-John-Bosco-1600x900.jpg'); /* Add your image URL here */
+            background-size: cover; /* Cover the entire header */
+            background-position: center; /* Center the image */
+            height: 300px; /* Set a height for the header */
+            position: relative; /* Create a positioning context for the overlay */
+            color: white; /* Change text color to contrast with background */
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Black overlay for fade effect */
+            z-index: 1; /* Ensure it sits behind the text */
+        }
+
+        header h1 {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative; /* Ensure the text is above the overlay */
+            z-index: 2; /* Ensure the text is above the overlay */
+        }
+
+        header img {
+            max-width: 50%;
+            height: auto;
+        }
+
         main {
             padding: 2rem;
             flex: 1;
@@ -172,9 +171,6 @@ function parseJwt(token) {
 </head>
 
 <body>
-    <header>
-        <h1><b>Salesian ShareSpace</b></h1>
-    </header>
     <nav>
         <a href="#home">Home</a>
         <div class="menu">
@@ -193,53 +189,55 @@ function parseJwt(token) {
                 <a href="12th.html">Senior</a>
             </div>
         </div>
-    </nav> 
-     </div>
-    <div id="g_id_onload"
-     data-client_id="65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com"
-     data-context="signin"
-     data-ux_mode="redirect"
-     data-login_uri="https://salesiansharespace.pages.dev/callback.html"
-     data-auto_prompt="false"
-     data-itp_support="true">
-</div>
+    </nav>
 
-  <div class="g_id_signin" 
-       data-type="standard" 
-       data-size="large" 
-       data-theme="outline" 
-       data-text="sign_in_with" 
-       data-shape="rectangular" 
-       data-logo_alignment="left">
-  </div>
+    <header>
+        <h1><b>Salesian ShareSpace</b></h1>
+    </header>
+
+    <div id="g_id_onload"
+        data-client_id="65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="redirect"
+        data-login_uri="https://salesiansharespace.pages.dev/callback.html"
+        data-auto_prompt="false"
+        data-itp_support="true">
+    </div>
+
+    <div class="g_id_signin" 
+        data-type="standard" 
+        data-size="large" 
+        data-theme="outline" 
+        data-text="sign_in_with" 
+        data-shape="rectangular" 
+        data-logo_alignment="left">
+    </div>
 
     <main>
         <section id="front page">
-          <div class="creator">
-            <h2>Pending:</h2>
-            <h2 id="userName">Welcome!</h2>
-            <ul>
-                <li>Create a login portal(IMPORTANT)</li>
-                <li>Make the home page of the website look appleasing</li>
-                <li>Input teachers and subjects available for each grade</li>
-                <li>Make the website ui look nicer</li>
-            </ul>
-          </div>
-</section>
+            <div class="creator">
+                <h2>Pending:</h2>
+                <h2 id="userName">Welcome!</h2>
+                <ul>
+                    <li>Create a login portal (IMPORTANT)</li>
+                    <li>Make the home page of the website look appealing</li>
+                    <li>Input teachers and subjects available for each grade</li>
+                    <li>Make the website UI look nicer</li>
+                </ul>
+            </div>
+        </section>
     </main>
+    
     <footer>
         <p>&copy; 2025 Salesian ShareSpace. All rights reserved.</p>
     </footer>
 
     <div style="position: fixed; bottom: 0; left: 0; z-index: 1;">
-        <a href ="index.html">
+        <a href="index.html">
             <img src="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png" alt="logo" width="100"
-            height="100">
+                height="100">
         </a>
-
     </div>
-
-
 </body>
 
 </html>
