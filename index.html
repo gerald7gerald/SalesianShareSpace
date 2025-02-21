@@ -67,12 +67,33 @@ function parseJwt(token) {
             min-height: 100vh;
         }
 
+        header {
+            background-image: url('https://s3.us-east-1.amazonaws.com/website-anf/header/ANF-Saint-John-Bosco-1600x900.jpg'); /* Add your image URL here */
+            background-size: cover; /* Cover the entire header */
+            background-position: center; /* Center the image */
+            height: 300px; /* Set a height for the header */
+            position: relative; /* Create a positioning context for the overlay */
+            color: white; /* Change text color to contrast with background */
+        }
 
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Black overlay for fade effect */
+            z-index: 1; /* Ensure it sits behind the text */
+        }
+        
         header h1 {
             font-family: 'Trebuchet MS', sans-serif;
             font-size: 3rem;
             margin-bottom: 1rem;
             text-align: center;
+            position: relative; /* Ensure the text is above the overlay */
+            z-index: 2; /* Ensure the text is above the overlay */
         }
 
         header img {
@@ -94,6 +115,9 @@ function parseJwt(token) {
             padding: 0.5rem 1rem;
             border-radius: 5px;
             transition: background-color 0.3s;
+            position: sticky; /* Make the navbar sticky */
+            top: 0; /* Stick to the top of the viewport */
+            z-index: 10; /* Ensure it sits above other content */
         }
 
         nav a:hover,
