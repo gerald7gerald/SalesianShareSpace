@@ -3,36 +3,36 @@
 
 <head>
     <script>
-        //window.onload = function() {
-        //const credential = localStorage.getItem('googleCredential');
+        window.onload = function() {
+        const credential = localStorage.getItem('googleCredential');
 
-        //if (!credential) {
-        //console.warn("User not signed in! Redirecting...");
-        //window.location.href = "#";  // Redirect if not signed in
-        //return;
-        //}
-
-        //try {
-        //const payload = parseJwt(credential);
-        //console.log("Authenticated user:", payload.email);
-
-        //if (
-        //!allowedEmails.includes(payload.email) &&
-        //!allowedDomains.some(domain => payload.email.endsWith("@" + domain))
-        //) {
-        //console.warn("Unauthorized user detected! Redirecting...");
-        //alert("Access denied: You are not authorized to view this page.");
-        //localStorage.removeItem('googleCredential');
-        //window.location.href = "register.html";  // Redirect unauthorized users
+        if (!credential) {
+        console.warn("User not signed in! Redirecting...");
+        window.location.href = "register.html";  // Redirect if not signed in
         return;
-        //}
+        }
 
-        //} catch (error) {
-        //console.error("Invalid token:", error);
-        //localStorage.removeItem('googleCredential');
-        //window.location.href = "register.html";
-        //}
-        //};
+        try {
+        const payload = parseJwt(credential);
+        console.log("Authenticated user:", payload.email);
+
+        if (
+        !allowedEmails.includes(payload.email) &&
+        !allowedDomains.some(domain => payload.email.endsWith("@" + domain))
+        ) {
+        console.warn("Unauthorized user detected! Redirecting...");
+        alert("Access denied: You are not authorized to view this page.");
+        localStorage.removeItem('googleCredential');
+        window.location.href = "register.html";  // Redirect unauthorized users
+        return;
+        }
+
+        } catch (error) {
+        console.error("Invalid token:", error);
+        localStorage.removeItem('googleCredential');
+        window.location.href = "register.html";
+        }
+        };
 
         // Function to decode JWT token
         function parseJwt(token) {
