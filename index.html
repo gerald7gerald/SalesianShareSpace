@@ -167,7 +167,7 @@
     storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
     messagingSenderId: "104568224834",
     appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
-    measurementId: "G-W5RMRCNJWL"
+
   };
 
   // Initialize Firebase
@@ -175,6 +175,27 @@
   const analytics = getAnalytics(app);
 </script>
     <nav>
+      <script>
+  const auth = firebase.auth();
+
+  // Force sign-in before allowing access
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
+      // Redirect to login page if not authenticated
+      window.location.href = "login.html";
+    } else {
+      // Display user email on homepage
+      document.getElementById("userName").innerText = `Welcome, ${user.email}`;
+    }
+  });
+
+  // Logout function
+  function signOut() {
+    auth.signOut().then(() => {
+      window.location.href = "login.html"; // Redirect to login after logout
+    });
+  }
+</script>
         <a href="#home">Home</a>
         <div class="menu">
             <div class="menu-button">About Us</div>
