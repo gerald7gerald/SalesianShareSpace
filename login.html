@@ -2,23 +2,73 @@
 <html lang="en">
 <head>
   <title>Login</title>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
 
-  <script>
-    // 🔥 Correct Firebase Config (From Firebase Console)
+  <!-- ✅ Correct Firebase v9+ SDK Import -->
+  <script type="module">
+    // ✅ Import Firebase Modules (v9+)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+    // ✅ Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
       authDomain: "salesian-sharespace-49c44.firebaseapp.com",
       projectId: "salesian-sharespace-49c44",
-      storageBucket: "salesian-sharespace-49c44.appspot.com",  // ✅ FIXED
+      storageBucket: "salesian-sharespace-49c44.appspot.com",
       messagingSenderId: "104568224834",
       appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
       measurementId: "G-W5RMRCNJWL"
     };
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    // ✅ Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // ✅ Login Function with Console Logs
+    window.login = function() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      console.log("Attempting to log in:", email);
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log("✅ Logged in as:", userCredential.user);
+          window.location.href = "index.html"; // Redirect after login
+        })
+        .catch((error) => {
+          console.error("❌ Login Error:", error.message);
+          document.getElementById("errorMessage").innerText = error.message;
+        });
+    };
+
+    // ✅ Register Function with Console Logs
+    window.register = function() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      console.log("Attempting to register:", email);
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log("✅ Account Created:", userCredential.user);
+          alert("Account created! Now login.");
+        })
+        .catch((error) => {
+          console.error("❌ Registration Error:", error.message);
+          document.getElementById("errorMessage").innerText = error.message;
+        });
+    };
+
+    // ✅ Logout Function with Console Logs
+    window.logout = function() {
+      signOut(auth)
+        .then(() => {
+          console.log("✅ Signed out successfully");
+          alert("Signed out!");
+        })
+        .catch((error) => {
+          console.error("❌ Logout Error:", error.message);
+        });
+    };
   </script>
 </head>
 <body>
@@ -27,46 +77,7 @@
   <input type="password" id="password" placeholder="Password" required />
   <button onclick="login()">Login</button>
   <button onclick="register()">Register</button>
+  <button onclick="logout()">Logout</button>
   <p id="errorMessage" style="color:red;"></p>
-
-  <script>
-    const auth = firebase.auth();
-
-    // 🔑 Login function with debugging logs
-    function login() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      console.log("Attempting to log in:", email);
-
-      auth.signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          console.log("✅ Login successful!", userCredential.user);
-          window.location.href = "index.html"; // Redirect after login
-        })
-        .catch((error) => {
-          console.error("❌ Login Error:", error);
-          document.getElementById("errorMessage").innerText = error.message;
-        });
-    }
-
-    // 📝 Register function with debugging logs
-    function register() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      console.log("Attempting to register:", email);
-
-      auth.createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          console.log("✅ Account Created Successfully!", userCredential.user);
-          alert("Account created! Now login.");
-        })
-        .catch((error) => {
-          console.error("❌ Registration Error:", error);
-          document.getElementById("errorMessage").innerText = error.message;
-        });
-    }
-  </script>
 </body>
 </html>
