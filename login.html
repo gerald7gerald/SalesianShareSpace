@@ -4,27 +4,21 @@
   <title>Login</title>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+
   <script>
-    import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+    // 🔥 Correct Firebase Config (From Firebase Console)
+    const firebaseConfig = {
+      apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
+      authDomain: "salesian-sharespace-49c44.firebaseapp.com",
+      projectId: "salesian-sharespace-49c44",
+      storageBucket: "salesian-sharespace-49c44.appspot.com",  // ✅ FIXED
+      messagingSenderId: "104568224834",
+      appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
+      measurementId: "G-W5RMRCNJWL"
+    };
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
-  authDomain: "salesian-sharespace-49c44.firebaseapp.com",
-  projectId: "salesian-sharespace-49c44",
-  storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
-  messagingSenderId: "104568224834",
-  appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
-  measurementId: "G-W5RMRCNJWL"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
   </script>
 </head>
 <body>
@@ -38,30 +32,38 @@ const analytics = getAnalytics(app);
   <script>
     const auth = firebase.auth();
 
-    // 🔑 Login function
+    // 🔑 Login function with debugging logs
     function login() {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
+      console.log("Attempting to log in:", email);
+
       auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((userCredential) => {
+          console.log("✅ Login successful!", userCredential.user);
           window.location.href = "index.html"; // Redirect after login
         })
         .catch((error) => {
+          console.error("❌ Login Error:", error);
           document.getElementById("errorMessage").innerText = error.message;
         });
     }
 
-    // 📝 Register function
+    // 📝 Register function with debugging logs
     function register() {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
+      console.log("Attempting to register:", email);
+
       auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((userCredential) => {
+          console.log("✅ Account Created Successfully!", userCredential.user);
           alert("Account created! Now login.");
         })
         .catch((error) => {
+          console.error("❌ Registration Error:", error);
           document.getElementById("errorMessage").innerText = error.message;
         });
     }
