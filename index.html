@@ -1,53 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
-    <script>
-        window.onload = function() {
-        const credential = localStorage.getItem('googleCredential');
+<!-- Add this to your <head> section -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
 
-        if (!credential) {
-        console.warn("User not signed in! Redirecting...");
-        window.location.href = "register.html";  // Redirect if not signed in
-        return;
-        }
 
-        try {
-        const payload = parseJwt(credential);
-        console.log("Authenticated user:", payload.email);
+<script>
+  // Firebase Configuration (Replace with your actual config)
+  const firebaseConfig = {
+    apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
+    authDomain: "salesian-sharespace-49c44.firebaseapp.com",
+    projectId: "salesian-sharespace-49c44",
+    storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
+    messagingSenderId: "104568224834",
+    appId: "G-W5RMRCNJWL"
+  };
 
-        if (
-        !allowedEmails.includes(payload.email) &&
-        !allowedDomains.some(domain => payload.email.endsWith("@" + domain))
-        ) {
-        console.warn("Unauthorized user detected! Redirecting...");
-        alert("Access denied: You are not authorized to view this page.");
-        localStorage.removeItem('googleCredential');
-        window.location.href = "register.html";  // Redirect unauthorized users
-        return;
-        }
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
 
-        } catch (error) {
-        console.error("Invalid token:", error);
-        localStorage.removeItem('googleCredential');
-        window.location.href = "register.html";
-        }
-        };
-
-        // Function to decode JWT token
-        function parseJwt(token) {
-            try {
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
-                return JSON.parse(jsonPayload);
-            } catch (error) {
-                throw new Error('Failed to parse JWT');
-            }
-        }
-    </script>
+    
 
     <link rel="icon" type="image/png" href="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png">
     <meta charset="UTF-8">
@@ -174,6 +151,29 @@
 </head>
 
 <body>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
+    authDomain: "salesian-sharespace-49c44.firebaseapp.com",
+    projectId: "salesian-sharespace-49c44",
+    storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
+    messagingSenderId: "104568224834",
+    appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
+    measurementId: "G-W5RMRCNJWL"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
     <nav>
         <a href="#home">Home</a>
         <div class="menu">
@@ -193,30 +193,27 @@
             </div>
         </div>
     </nav>
+    <script>
+  const auth = firebase.auth();
 
-    <div 
-        class="g_id_signin" 
-        data-type="standard" 
-        data-size="large" 
-        data-theme="outline" 
-        data-text="sign_in_with" 
-        data-shape="rectangular" 
-        data-logo_alignment="left">
-    </div>
+  // Force sign-in before allowing access
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.href = "login.html"; // Redirect if not logged in
+    } else {
+      // Display user email
+      document.getElementById("userName").innerText = `Welcome, ${user.email}`;
+    }
+  });
+ </script>
+
+     
 
     <header>
         <h1><b>Salesian ShareSpace</b></h1>
     </header>
 
-    <div id="g_id_onload"
-        data-client_id="65426095578-6mpocbjur5tik4avgj274of0ia4hkr1i.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="redirect"
-        data-login_uri="https://salesiansharespace.pages.dev/callback.html"
-        data-auto_prompt="false"
-        data-itp_support="true">
-    </div>
-
+    
     <main>
         <section id="front page">
             <div class="creator">
@@ -242,6 +239,7 @@
                 height="100">
         </a>
     </div>
+
 </body>
 
 </html>
