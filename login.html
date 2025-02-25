@@ -5,17 +5,26 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
   <script>
-    // 🔥 Initialize Firebase (Same config as index.html)
-    const firebaseConfig = {
-        apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
+    import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
   authDomain: "salesian-sharespace-49c44.firebaseapp.com",
   projectId: "salesian-sharespace-49c44",
   storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
   messagingSenderId: "104568224834",
   appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
-  
-    };
-    firebase.initializeApp(firebaseConfig);
+  measurementId: "G-W5RMRCNJWL"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
   </script>
 </head>
 <body>
