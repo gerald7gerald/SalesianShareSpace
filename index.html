@@ -3,33 +3,46 @@
 
 
 <head>
-<!-- Add this to your <head> section -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+<script type="module">
+        // Import Firebase modules correctly
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
 
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
+            authDomain: "salesian-sharespace-49c44.firebaseapp.com",
+            projectId: "salesian-sharespace-49c44",
+            storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
+            messagingSenderId: "104568224834",
+            appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
+            measurementId: "G-W5RMRCNJWL"
+        };
 
-<script>
-  import { initializeApp } from "firebase/app";
-  import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const analytics = getAnalytics(app);
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
-  authDomain: "salesian-sharespace-49c44.firebaseapp.com",
-  projectId: "salesian-sharespace-49c44",
-  storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
-  messagingSenderId: "104568224834",
-  appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
-  measurementId: "G-W5RMRCNJWL"
-};
+        // Check authentication state
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            } else {
+                document.getElementById("userName").innerText = `Welcome, ${user.email}`;
+            }
+        });
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+        // Logout function
+        window.signOutUser = function () {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            }).catch((error) => {
+                console.error("Sign-out error:", error);
+            });
+        }
+    </script>
 </script>
 
     
