@@ -4,9 +4,10 @@
 
 <head>
 <script type="module">
-        // Import Firebase modules correctly
+       // Import Firebase modules correctly
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js"; // Import firestore
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
 
         // Firebase configuration
@@ -23,14 +24,24 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app); // Initialize firestore
         const analytics = getAnalytics(app);
 
         // Check authentication state
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (!user) {
                 window.location.href = "login.html";
             } else {
-                document.getElementById("userName").innerText = `Welcome, ${user.username}`;
+                // Fetch username from Firestore
+                const userDocRef = doc(db, "users", user.uid); // Assumes you store user data in a "users" collection
+                const userDoc = await getDoc(userDocRef);
+
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    document.getElementById("userName").innerText = `Welcome, ${userData.username}`;
+                } else {
+                    document.getElementById("userName").innerText = `Welcome, ${user.email}`; // or display a message to set username
+                }
             }
         });
 
@@ -43,7 +54,6 @@
             });
         }
     </script>
-</script>
 
     
 
