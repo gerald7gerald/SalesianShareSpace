@@ -1,94 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Login</title>
+    <title>Login</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, updateProfile, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"; // Import firestore
 
-  <!-- ✅ Correct Firebase v9+ SDK Import -->
-  <script type="module">
-    // ✅ Import Firebase Modules (v9+)
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAuth, updateProfile, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
+            authDomain: "salesian-sharespace-49c44.firebaseapp.com",
+            projectId: "salesian-sharespace-49c44",
+            storageBucket: "salesian-sharespace-49c44.appspot.com",
+            messagingSenderId: "104568224834",
+            appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
+            measurementId: "G-W5RMRCNJWL"
+        };
 
-    // ✅ Firebase Configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
-      authDomain: "salesian-sharespace-49c44.firebaseapp.com",
-      projectId: "salesian-sharespace-49c44",
-      storageBucket: "salesian-sharespace-49c44.appspot.com",
-      messagingSenderId: "104568224834",
-      appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
-      measurementId: "G-W5RMRCNJWL"
-    };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app); // Initialize firestore
 
-    // ✅ Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+        window.login = function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            console.log("Attempting to log in:", email);
 
-    // ✅ Login Function with Console Logs
-    window.login = function() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      console.log("Attempting to log in:", email);
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    console.log("✅ Logged in as:", userCredential.user);
+                    window.location.href = "index.html";
+                })
+                .catch((error) => {
+                    console.error("❌ Login Error:", error.message);
+                    document.getElementById("errorMessage").innerText = error.message;
+                });
+        };
 
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("✅ Logged in as:", userCredential.user);
-          window.location.href = "index.html"; // Redirect after login
-        })
-        .catch((error) => {
-          console.error("❌ Login Error:", error.message);
-          document.getElementById("errorMessage").innerText = error.message;
-        });
-    };
+        window.register = async function() { //Make function async
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            console.log("Attempting to register:", email);
 
-    // ✅ Register Function with Username Support
-    window.register = function() {
-      const username = document.getElementById('username').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      console.log("Attempting to register:", email);
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                console.log("✅ Account Created:", user);
 
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("✅ Account Created:", user);
+                await updateProfile(user, { displayName: username });
+                console.log("✅ Username set successfully!");
 
-          // ✅ Update the user profile with the username
-          return updateProfile(user, {
-            displayName: username
-          });
-        })
-        .then(() => {
-          console.log("✅ Username set successfully!");
-          alert("Account created! Now login.");
-        })
-        .catch((error) => {
-          console.error("❌ Registration Error:", error.message);
-          document.getElementById("errorMessage").innerText = error.message;
-        });
-    };
+                // Store username in Firestore
+                const userDocRef = doc(db, "users", user.uid);
+                await setDoc(userDocRef, { username: username });
+                console.log("✅ Username stored in Firestore!");
 
-    // ✅ Logout Function
-    window.logout = function() {
-      signOut(auth)
-        .then(() => {
-          console.log("✅ Signed out successfully");
-          alert("Signed out!");
-        })
-        .catch((error) => {
-          console.error("❌ Logout Error:", error.message);
-        });
-    };
-  </script>
+                alert("Account created! Now login.");
+            } catch (error) {
+                console.error("❌ Registration Error:", error.message);
+                document.getElementById("errorMessage").innerText = error.message;
+            }
+        };
+
+        window.logout = function() {
+            signOut(auth)
+                .then(() => {
+                    console.log("✅ Signed out successfully");
+                    alert("Signed out!");
+                })
+                .catch((error) => {
+                    console.error("❌ Logout Error:", error.message);
+                });
+        };
+    </script>
 </head>
 <body>
-  <h2>Login</h2>
-  <input type="text" id="username" placeholder="Username (for registration)" />
-  <input type="email" id="email" placeholder="Email" required />
-  <input type="password" id="password" placeholder="Password" required />
-  <button onclick="login()">Login</button>
-  <button onclick="register()">Register</button>
-  <button onclick="logout()">Logout</button>
-  <p id="errorMessage" style="color:red;"></p>
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username (for registration)" />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="login()">Login</button>
+    <button onclick="register()">Register</button>
+    <button onclick="logout()">Logout</button>
+    <p id="errorMessage" style="color:red;"></p>
 </body>
 </html>
