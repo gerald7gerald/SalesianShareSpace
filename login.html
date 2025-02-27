@@ -33,7 +33,7 @@
                 }
             });
         });
-        window.login = function() {
+       window.login = function() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             console.log("Attempting to log in:", email);
@@ -55,7 +55,18 @@
             const password = document.getElementById('password').value;
             const school = document.getElementById('school').value;
             const schoolCode = document.getElementById('schoolCode').value;
-    </script>
+
+            if (school === "") {
+                document.getElementById("errorMessage").innerText = "Please select a school.";
+                return;
+            }
+
+            if (school !== "" && schoolCode === "") {
+                document.getElementById("errorMessage").innerText = "Please enter the school code.";
+                return;
+            }
+
+            </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
