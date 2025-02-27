@@ -33,6 +33,28 @@
                 }
             });
         });
+        window.login = function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            console.log("Attempting to log in:", email);
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    console.log("✅ Logged in as:", userCredential.user);
+                    window.location.href = "index.html";
+                })
+                .catch((error) => {
+                    console.error("❌ Login Error:", error.message);
+                    document.getElementById("errorMessage").innerText = error.message;
+                });
+        };
+
+        window.register = async function() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const school = document.getElementById('school').value;
+            const schoolCode = document.getElementById('schoolCode').value;
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
