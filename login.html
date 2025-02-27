@@ -46,7 +46,7 @@
             const password = document.getElementById('password').value;
             const school = document.getElementById('school').value;
             const schoolCode = document.getElementById('schoolCode').value;
-    
+
             if (school === "") {
                 document.getElementById("errorMessage").innerText = "Please select a school.";
                 return;
@@ -55,9 +55,6 @@
             if (school !== "" && schoolCode === "") {
                 document.getElementById("errorMessage").innerText = "Please enter the school code.";
                 return;
-
-            code.";
-                return;
             }
 
             const schoolCodes = {
@@ -65,18 +62,12 @@
                 schoolB: "T1g3RT3Ch",
                 schoolC: "More",
                 schoolD: "Prep",
-                schoolE: "ST",
+                schoolE: "ST",	
             };
 
             if (schoolCodes[school] && schoolCodes[school] !== schoolCode) {
                 document.getElementById("errorMessage").innerText = "Incorrect school code.";
                 return;
-            }
-
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-
             }
 
             try {
@@ -89,14 +80,12 @@
 
                 await sendEmailVerification(user);
                 alert("Account created! Please check your email to verify your account.");
-                setTimeout(() => {
-                    window.location.href = "index.html";
-                }, 1000);
             } catch (error) {
                 console.error("❌ Registration Error:", error.message);
                 document.getElementById("errorMessage").innerText = error.message;
             }
         };
+
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
