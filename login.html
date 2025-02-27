@@ -88,6 +88,16 @@
 
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+    document.getElementById("school").addEventListener("change", function() {
+        const schoolCodeField = document.getElementById("schoolCode");
+        if (this.value !== "") {
+            schoolCodeField.style.display = "block"; // Show the input when a school is selected
+        } else {
+            schoolCodeField.style.display = "none"; // Hide if no school is selected
+        }
+    });
+</script>
     <style>
         body {
             font-family: Arial, sans-serif;
