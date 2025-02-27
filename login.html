@@ -46,7 +46,19 @@
             const password = document.getElementById('password').value;
             const school = document.getElementById('school').value;
             const schoolCode = document.getElementById('schoolCode').value;
-         
+    
+            if (school === "") {
+                document.getElementById("errorMessage").innerText = "Please select a school.";
+                return;
+            }
+
+            if (school !== "" && schoolCode === "") {
+                document.getElementById("errorMessage").innerText = "Please enter the school code.";
+                return;
+
+            code.";
+                return;
+            }
 
             const schoolCodes = {
                 schoolA: "$jBr@V3S!",
@@ -56,15 +68,15 @@
                 schoolE: "ST",
             };
 
-
-            if (school === "") {
-                document.getElementById("errorMessage").innerText = "Please select a school.";
+            if (schoolCodes[school] && schoolCodes[school] !== schoolCode) {
+                document.getElementById("errorMessage").innerText = "Incorrect school code.";
                 return;
             }
 
-            if (school !== "" && schoolCode === "") {
-                document.getElementById("errorMessage").innerText = "Please enter the school code.";
-                return;
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
             }
 
             try {
