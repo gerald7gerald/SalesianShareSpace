@@ -167,10 +167,12 @@
             flex: 1;
         }
 
-       .worksheets {
+       .worksheets {   
            text-align: center;
            padding: 2rem;
        }
+
+       
        
        .worksheets-container {
            display: grid;
@@ -212,7 +214,14 @@
        .divider {
               textalign:center;
               padding: 2rem;
-       }    
+       }
+
+       .divider img {
+           width: 100%;
+           height: 200px;
+           object-fit: cover;
+           border-radius: 10px;
+       }
 
        .dividers {
               background: white;
@@ -362,6 +371,7 @@
 
        <section class="divider">
           <div class="dividers">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKhkkyTbEN-ni_MkOsa03iqicm2reoW71qG9fz4BkhGBIEYTTN7fq6e7aITy13T3WYUUE&usqp=CAU" alt="Background">
               <h4>Welcome to Salesian Sharespace!</h4>
               <h1>Where Salesians help Salesians</h1> 
               <a href="#">Search by Schools</a>
