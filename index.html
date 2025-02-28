@@ -229,22 +229,21 @@
        }
        
        .divider a {
-           margin: 0.3rem 0;
-           color: #666;
-           display: block;
-           padding: 10px;
+           display: inline-block; /* Ensures it only takes the width of the content */
+           padding: 10px 20px; /* Adjust padding for a better button size */
            text-decoration: none;
            color: white;
-           transition: background-color 0.3s;   
            background-color: #3030f2;
-           width: 100%;
+           border-radius: 8px; /* Makes the corners rounded */
+           transition: background-color 0.3s;
+           
        }
 
         .divider a:hover {
-            background-color: #f1f1f1;
+            background-color: #1e1e94;
         }   
 
-       .divider h5 {
+       .divider h4 {
               font-size: 4;
               margin: 0.5rem 0;
               text-align: left;
@@ -363,7 +362,7 @@
 
        <section class="divider">
           <div class="dividers">
-              <h5>Welcome to Salesian Sharespace!</h5>
+              <h4>Welcome to Salesian Sharespace!</h4>
               <h1>Where Salesians help Salesians</h1> 
               <a href="#">Search by Schools</a>
           </div>
