@@ -6,6 +6,7 @@
     <title>My Profile</title>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
@@ -16,22 +17,42 @@
             appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
             measurementId: "G-W5RMRCNJWL"
         };
+
         
         firebase.initializeApp(firebaseConfig);
         const storage = firebase.storage();
+        const db = firebase.firestore();
 
         function uploadFile() {
             const file = document.getElementById('fileInput').files[0];
             if (file) {
                 const storageRef = storage.ref('uploads/' + file.name);
-                storageRef.put(file).then(() => {
-                    storageRef.getDownloadURL().then(url => {
-                        displayUploadedFile(file.name, url);
+                storageRef.put(file).then(snapshot => {
+                    return storageRef.getDownloadURL();
+                }).then(url => {
+                    return db.collection('uploads').add({
+                        name: file.name,
+                        url: url,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     });
+                }).then(() => {
+                    alert('File uploaded and saved successfully!');
+                    loadUploads();
                 }).catch(error => {
                     console.error('Upload error:', error);
                 });
             }
+        }
+
+        function loadUploads() {
+            const uploadsList = document.getElementById('uploadsList');
+            uploadsList.innerHTML = '';
+            db.collection('uploads').orderBy('timestamp', 'desc').get().then(snapshot => {
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    displayUploadedFile(data.name, data.url);
+                });
+            });
         }
 
         function displayUploadedFile(name, url) {
@@ -44,6 +65,8 @@
             listItem.appendChild(link);
             uploadsList.appendChild(listItem);
         }
+
+        window.onload = loadUploads;
     </script>
     <style>
         body {
