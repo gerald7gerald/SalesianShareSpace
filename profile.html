@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
+            authDomain: "salesian-sharespace-49c44.firebaseapp.com",
+            projectId: "salesian-sharespace-49c44",
+            storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
+            messagingSenderId: "104568224834",
+            appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
+            measurementId: "G-W5RMRCNJWL"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const storage = firebase.storage();
+
+        function uploadFile() {
+            const file = document.getElementById('fileInput').files[0];
+            if (file) {
+                const storageRef = storage.ref('uploads/' + file.name);
+                storageRef.put(file).then(() => {
+                    storageRef.getDownloadURL().then(url => {
+                        displayUploadedFile(file.name, url);
+                    });
+                }).catch(error => {
+                    console.error('Upload error:', error);
+                });
+            }
+        }
+
+        function displayUploadedFile(name, url) {
+            const uploadsList = document.getElementById('uploadsList');
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = url;
+            link.textContent = name;
+            link.target = "_blank";
+            listItem.appendChild(link);
+            uploadsList.appendChild(listItem);
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            flex-direction: column;
+        }
+        .profile-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #4CAF50;
+        }
+        h2 {
+            margin: 10px 0;
+        }
+        p {
+            color: #666;
+        }
+        .social-links a {
+            text-decoration: none;
+            color: #4CAF50;
+            margin: 0 10px;
+            font-size: 20px;
+        }
+        input {
+            margin-top: 10px;
+        }
+        .uploads-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="profile.jpg" alt="Profile Picture" class="profile-img">
+        <h2>John Doe</h2>
+        <p>Web Developer | Tech Enthusiast</p>
+        <div class="social-links">
+            <a href="#">🔗 LinkedIn</a>
+            <a href="#">🐦 Twitter</a>
+            <a href="#">📸 Instagram</a>
+        </div>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Upload Document</button>
+    </div>
+    <div class="uploads-container">
+        <h3>My Uploads</h3>
+        <ul id="uploadsList"></ul>
+    </div>
+</body>
+</html>
