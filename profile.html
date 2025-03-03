@@ -4,55 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
-            authDomain: "salesian-sharespace-49c44.firebaseapp.com",
-            projectId: "salesian-sharespace-49c44",
-            storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
-            messagingSenderId: "104568224834",
-            appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
-            measurementId: "G-W5RMRCNJWL"
-        };
+        const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
+        const supabaseKey = "process.env.SUPABASE_KEY";
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        
-        firebase.initializeApp(firebaseConfig);
-        const storage = firebase.storage();
-        const db = firebase.firestore();
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) return alert('Please select a file');
 
-        function uploadFile() {
-            const file = document.getElementById('fileInput').files[0];
-            if (file) {
-                const storageRef = storage.ref('uploads/' + file.name);
-                storageRef.put(file).then(snapshot => {
-                    return storageRef.getDownloadURL();
-                }).then(url => {
-                    return db.collection('uploads').add({
-                        name: file.name,
-                        url: url,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                }).then(() => {
-                    alert('File uploaded and saved successfully!');
-                    loadUploads();
-                }).catch(error => {
-                    console.error('Upload error:', error);
-                });
+            const filePath = `uploads/${file.name}`;
+            const { data, error } = await supabase.storage.from('uploads').upload(filePath, file);
+
+            if (error) {
+                console.error('Upload error:', error);
+                alert('Upload failed');
+                return;
             }
+
+            const { data: urlData } = supabase.storage.from('uploads').getPublicUrl(filePath);
+            await saveFileToDatabase(file.name, urlData.publicUrl);
         }
 
-        function loadUploads() {
+        async function saveFileToDatabase(name, url) {
+            const { error } = await supabase.from('uploads').insert([{ name, url }]);
+            if (error) {
+                console.error('Database error:', error);
+                return;
+            }
+            alert('File uploaded successfully!');
+            loadUploads();
+        }
+
+        async function loadUploads() {
             const uploadsList = document.getElementById('uploadsList');
             uploadsList.innerHTML = '';
-            db.collection('uploads').orderBy('timestamp', 'desc').get().then(snapshot => {
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    displayUploadedFile(data.name, data.url);
-                });
-            });
+            
+            const { data, error } = await supabase.from('uploads').select('*').order('id', { ascending: false });
+            if (error) {
+                console.error('Load error:', error);
+                return;
+            }
+            
+            data.forEach(file => displayUploadedFile(file.name, file.url));
         }
 
         function displayUploadedFile(name, url) {
