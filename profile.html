@@ -22,8 +22,8 @@
             const file = fileInput.files[0];
             if (!file) return alert('Please select a file');
 
-            const filePath = `uploads/${file.name}`;
-            const { data, error } = await window.supabase.storage.from('uploads').upload(filePath, file);
+            const filePath = `uploads/${Date.now()}_${file.name}`; // Ensures unique filename
+            const { data, error } = await window.supabase.storage.from('Salesian_STR').upload(filePath, file);
 
             if (error) {
                 console.error('Upload error:', error);
@@ -31,7 +31,14 @@
                 return;
             }
 
-            const { data: urlData } = window.supabase.storage.from('uploads').getPublicUrl(filePath);
+            // Get Public URL for the uploaded file
+            const { data: urlData } = window.supabase.storage.from('Salesian_STR').getPublicUrl(filePath);
+            if (!urlData) {
+                alert('Failed to retrieve file URL');
+                return;
+            }
+
+            // Save file information to the database (assuming table is 'uploads')
             await saveFileToDatabase(file.name, urlData.publicUrl);
         }
 
@@ -48,13 +55,13 @@
         async function loadUploads() {
             const uploadsList = document.getElementById('uploadsList');
             uploadsList.innerHTML = '';
-            
+
             const { data, error } = await window.supabase.from('uploads').select('*').order('id', { ascending: false });
             if (error) {
                 console.error('Load error:', error);
                 return;
             }
-            
+
             data.forEach(file => displayUploadedFile(file.name, file.url));
         }
 
