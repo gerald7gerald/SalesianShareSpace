@@ -101,49 +101,29 @@
             border-radius: 8px; /* Add rounded corners */
         }
 
-               .worksheets {   
-           text-align: center;
-           padding: 2rem;
+        
        }
+       
+       .class-card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            background-color: #fff; /* White background for the cards */
+            transition: transform 0.2s; /* Add a transition for the hover effect */
+        }
+        .class-card:hover{
+            transform: scale(1.02); /* Scale up slightly on hover */
+        }
 
-       
-       
-       .worksheets-container {
-           display: grid;
-           grid-template-columns: repeat(4, 1fr); /* 4 worksheets per row */
-           gap: 1.5rem;
-           justify-content: center;
-           padding: 1rem;
-       }
-       
-       .worksheet {
-           background: white;
-           border-radius: 10px;
-           box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-           padding: 1rem;
-           transition: transform 0.3s;
-       }
-       
-       .worksheet img {
-           width: 100%;
-           height: 200px;
-           object-fit: cover;
-           border-radius: 10px;
-       }
-       
-       .worksheet h3 {
-           font-size: 1.2rem;
-           margin: 0.5rem 0;
-       }
-       
-       .worksheet p {
-           margin: 0.3rem 0;
-           color: #666;
-       }
-       
-       .worksheet:hover {
-           transform: scale(1.05);
-       }
+        .class-card h2 {
+            margin-top: 0;
+        }
+
+        .class-card h4 {
+            margin-top: 0;
+        }
 
         footer {
             background-color: #333;
@@ -179,12 +159,14 @@
 
     <main>
         <section id="classes">
-            <h2>Subjects</h2>
+            <h2>New Freshmen Teachers</h2>
 
-            <div class="worksheets">
-                <h2>Top/Trending Freshmen Teacher/Document</h2>
-                <a href="#">Click Here</a>
-                <p>Description: Introduction to basic mathematical concepts.</p>
+            <div class="class-card">
+                <h2>Mr. blank</h2>
+                <h4>School: blank</h4>
+                <h4>Classes: blank, blank, and blank</h4>
+                <p>Bio: wtv they have in their bio</p>
+                <a href="#">Get in Contact</a>
             </div>
 
             </section>
