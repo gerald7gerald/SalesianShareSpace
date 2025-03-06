@@ -153,27 +153,34 @@
         </div>
     </nav>
 
-    <div class="filter-bar">
-        <h3>Filter Classes</h3>
-    
+    <main>
+
+        <div class="filter-bar">
+            <h3>Filter Classes</h3>
+        
             <div class="filter-group">
-                <h4>Filter by Subject</h4>
-                <label><input type="checkbox" name="subject" value="Mathematics"> Mathematics</label>
-                <label><input type="checkbox" name="subject" value="Science"> Science</label>
-                <label><input type="checkbox" name="subject" value="Literature"> Literature</label>
-                <label><input type="checkbox" name="subject" value="History"> History</label>
+                <label for="subjectFilter">Filter by Subject:</label>
+                <select id="subjectFilter">
+                    <option value="">All Subjects</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="Literature">Literature</option>
+                    <option value="History">History</option>
+                </select>
             </div>
         
             <div class="filter-group">
-                <h4>Filter by School</h4>
-                <label><input type="checkbox" name="school" value="Saint John Bosco"> Saint John Bosco</label>
-                <label><input type="checkbox" name="school" value="Don Bosco Tech"> Don Bosco Tech</label>
-                <label><input type="checkbox" name="school" value="Bishop Mora Salesian"> Bishop Mora Salesian</label>
-                <label><input type="checkbox" name="school" value="Salesian College Prepatory"> Salesian College Prep</label>
-                <label><input type="checkbox" name="school" value="Saint Francis"> Saint Francis</label>
+                <label for="schoolFilter">Filter by School:</label>
+                <select id="schoolFilter">
+                    <option value="">All Schools</option>
+                    <option value="Saint John Bosco">Saint John Bosco</option>
+                    <option value="Don Bosco Tech">Don Bosco Tech</option>
+                    <option value="Bishop Mora Salesian">Bishop Mora Salesian</option>
+                    <option value="Salesian College Prepatory">Salesian College Prep</option>
+                    <option value="Saint Francis">Saint Francis</option>
+                </select>
             </div>
         </div>
-    <main>
         <section id="classes">
             <h2>Subjects</h2>
 
