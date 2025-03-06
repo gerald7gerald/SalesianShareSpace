@@ -285,54 +285,39 @@
    </header>  
         
     <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  // Import Supabase client
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-  apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
-  authDomain: "salesian-sharespace-49c44.firebaseapp.com",
-  projectId: "salesian-sharespace-49c44",
-  storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
-  messagingSenderId: "104568224834",
-  appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
-  measurementId: "G-W5RMRCNJWL"
+  // Supabase Configuration
+   const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
 
-  };
+  // Initialize Supabase Client
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-    <nav>
-      <script>
-  const auth = firebase.auth();
+  // Authentication State Listener
+  async function checkAuth() {
+    const { data: { user } } = await supabase.auth.getUser();
 
-  // Force sign-in before allowing access
-  auth.onAuthStateChanged((user) => {
     if (!user) {
       // Redirect to login page if not authenticated
       window.location.href = "login.html";
     } else {
       // Display user email on homepage
-      document.getElementById("userName").innerText = `Welcome, ${user.username}`;
+      document.getElementById("userName").innerText = `Welcome, ${user.email}`;
     }
-  });
-
-  // Logout function
-  function signOut() {
-    auth.signOut().then(() => {
-      window.location.href = "login.html"; // Redirect to login after logout
-    });
   }
 
+  // Logout function
+  async function signOut() {
+    await supabase.auth.signOut();
+    window.location.href = "login.html"; // Redirect to login after logout
+  }
 
-              
+  // Check authentication state on page load
+  checkAuth();
 </script>
+
             
            
             
