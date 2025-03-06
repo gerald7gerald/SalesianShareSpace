@@ -3,107 +3,109 @@
 <head>
     <title>Login</title>
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getAuth, updateProfile, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+  // Import Supabase client
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
-            authDomain: "salesian-sharespace-49c44.firebaseapp.com",
-            projectId: "salesian-sharespace-49c44",
-            storageBucket: "salesian-sharespace-49c44.appspot.com",
-            messagingSenderId: "104568224834",
-            appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
-            measurementId: "G-W5RMRCNJWL"
-        };
+  // Supabase Configuration
+   const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
+   const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+  // Initialize Supabase Client
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        window.login = function() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            console.log("Attempting to log in:", email);
+  // 🔹 Login Function
+  window.login = async function () {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    console.log("Attempting to log in:", email);
 
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    console.log("✅ Logged in as:", userCredential.user);
-                    console.log("Redirecting to index.html...");
-                    setTimeout(() => {
-                        window.location.href = "index.html";
-                    }, 1000);
-                })
-                .catch((error) => {
-                    console.error("❌ Login Error:", error.message);
-                    document.getElementById("errorMessage").innerText = error.message;
-                });
-        };
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-        window.register = async function() {
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const school = document.getElementById('school').value;
-            const schoolCode = document.getElementById('schoolCode').value;
+    if (error) {
+      console.error("❌ Login Error:", error.message);
+      document.getElementById("errorMessage").innerText = error.message;
+    } else {
+      console.log("✅ Logged in as:", data.user);
+      console.log("Redirecting to index.html...");
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1000);
+    }
+  };
 
-            if (school === "") {
-                document.getElementById("errorMessage").innerText = "Please select a school.";
-                return;
-            }
+  // 🔹 Register Function
+  window.register = async function () {
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const school = document.getElementById("school").value;
+    const schoolCode = document.getElementById("schoolCode").value;
 
-            if (school !== "" && schoolCode === "") {
-                document.getElementById("errorMessage").innerText = "Please enter the school code.";
-                return;
-            }
+    if (school === "") {
+      document.getElementById("errorMessage").innerText = "Please select a school.";
+      return;
+    }
 
-            const schoolCodes = {
-                schoolA: "$jBr@V3S!",
-                schoolB: "T1g3RT3Ch",
-                schoolC: "More",
-                schoolD: "Prep",
-                schoolE: "ST",	
-            };
+    if (school !== "" && schoolCode === "") {
+      document.getElementById("errorMessage").innerText = "Please enter the school code.";
+      return;
+    }
 
-            if (schoolCodes[school] && schoolCodes[school] !== schoolCode) {
-                document.getElementById("errorMessage").innerText = "Incorrect school code.";
-                return;
-            }
+    const schoolCodes = {
+      schoolA: "$jBr@V3S!",
+      schoolB: "T1g3RT3Ch",
+      schoolC: "More",
+      schoolD: "Prep",
+      schoolE: "ST",
+    };
 
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
+    if (schoolCodes[school] && schoolCodes[school] !== schoolCode) {
+      document.getElementById("errorMessage").innerText = "Incorrect school code.";
+      return;
+    }
 
-                await updateProfile(user, { displayName: username });
-                const userDocRef = doc(db, "users", user.uid);
-                await setDoc(userDocRef, { username: username, school: school });
+    try {
+      // Sign up user
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { username, school } },
+      });
 
-                await sendEmailVerification(user);
-                alert("Account created! Please check your email to verify your account.");
-            } catch (error) {
-                console.error("❌ Registration Error:", error.message);
-                document.getElementById("errorMessage").innerText = error.message;
-            }
-        };
+      if (error) throw error;
 
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-        const schoolDropdown = document.getElementById("school");
-        const schoolCodeField = document.getElementById("schoolCode");
+      // Store user data in Supabase database
+      const user = data.user;
+      await supabase.from("users").insert([{ id: user.id, username, school }]);
 
-        schoolDropdown.addEventListener("change", function() {
-            if (this.value !== "") {
-                schoolCodeField.style.display = "block"; // Show school code field
-                schoolCodeField.setAttribute("required", "true"); // Make it required
-            } else {
-                schoolCodeField.style.display = "none"; // Hide if no school selected
-                schoolCodeField.removeAttribute("required"); // Remove required attribute
-            }
-        });
-    });
+      alert("✅ Account created! Please check your email to verify your account.");
+    } catch (error) {
+      console.error("❌ Registration Error:", error.message);
+      document.getElementById("errorMessage").innerText = error.message;
+    }
+  };
 </script>
+
+<!-- 🔹 FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const schoolDropdown = document.getElementById("school");
+    const schoolCodeField = document.getElementById("schoolCode");
+
+    schoolDropdown.addEventListener("change", function () {
+      if (this.value !== "") {
+        schoolCodeField.style.display = "block"; // Show school code field
+        schoolCodeField.setAttribute("required", "true"); // Make it required
+      } else {
+        schoolCodeField.style.display = "none"; // Hide if no school selected
+        schoolCodeField.removeAttribute("required"); // Remove required attribute
+      }
+    });
+  });
+</script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
