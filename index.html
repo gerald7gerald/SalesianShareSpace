@@ -3,57 +3,54 @@
 
 
 <head>
-<script type="module">
-       // Import Firebase modules correctly
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js"; // Import firestore
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
+  <script type="module">
+    // Import Supabase client
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyByz3jDGel_XqxR3I4alnxeLxmmMooVayk",
-            authDomain: "salesian-sharespace-49c44.firebaseapp.com",
-            projectId: "salesian-sharespace-49c44",
-            storageBucket: "salesian-sharespace-49c44.firebasestorage.app",
-            messagingSenderId: "104568224834",
-            appId: "1:104568224834:web:cc4a514feeffb1ec3781db",
-            measurementId: "G-W5RMRCNJWL"
-        };
+    // Supabase Configuration
+    const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
+    
+    // Initialize Supabase client
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app); // Initialize firestore
-        const analytics = getAnalytics(app);
+    async function checkAuth() {
+      const { data: { user } } = await supabase.auth.getUser();
 
-        // Check authentication state
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = "login.html";
-            } else {
-                // Fetch username from Firestore
-                const userDocRef = doc(db, "users", user.uid); // Assumes you store user data in a "users" collection
-                const userDoc = await getDoc(userDocRef);
+      if (!user) {
+        // Redirect to login if user is not authenticated
+        window.location.href = "login.html";
+      } else {
+        // Fetch user profile from Supabase database
+        let { data: userProfile, error } = await supabase
+          .from("users")
+          .select("username")
+          .eq("id", user.id)
+          .single();
 
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-                    document.getElementById("userName").innerText = `Welcome, ${userData.username}`;
-                } else {
-                    document.getElementById("userName").innerText = `Welcome, ${user.email}`; // or display a message to set username
-                }
-            }
-        });
-
-        // Logout function
-        window.signOutUser = function () {
-            signOut(auth).then(() => {
-                window.location.href = "login.html";
-            }).catch((error) => {
-                console.error("Sign-out error:", error);
-            });
+        if (error || !userProfile) {
+          document.getElementById("userName").innerText = `Welcome, ${user.email}`;
+        } else {
+          document.getElementById("userName").innerText = `Welcome, ${userProfile.username}`;
         }
-    </script>
+      }
+    }
+
+    async function signOutUser() {
+      let { error } = await supabase.auth.signOut();
+      if (!error) {
+        window.location.href = "login.html";
+      } else {
+        console.error("Sign-out error:", error);
+      }
+    }
+
+    // Run authentication check
+    checkAuth();
+
+    // Make sign-out function globally accessible
+    window.signOutUser = signOutUser;
+  </script>
 
     
 
