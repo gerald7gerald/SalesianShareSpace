@@ -120,6 +120,47 @@
         .class-card h2 {
             margin-top: 0;
         }
+        .filter-bar {
+            background-color: #ffffff;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .filter-group {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        select {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 25px; /* Makes it rounded like a pill */
+            border: 2px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            appearance: none; /* Removes default browser styling */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        
+        select:hover {
+            border-color: #cf9b00; /* Gold border on hover */
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #cf9b00; /* Gold border when selected */
+            box-shadow: 0 0 5px rgba(207, 155, 0, 0.5);
+        }
 
         footer {
             background-color: #333;
