@@ -284,7 +284,14 @@
                         "Salesian College Prepatory": ["Senior Synthesis", "Comparative Religions Honors"],
                         "Saint Francis": ["Introduction to Christianity", "Christian Values in Today’s World", "Old Testament", "New Testament", "Christian Relationships", "Church History", "Social Justice", "World Religions"]
                     },
-                    History: ["World History", "U.S. History"],
+                    History: { ["World History"]
+                        "Saint John Bosco":["World History", "U.S. History"],
+                        "Don Bosco Tech": [],
+                        "Bishop Mora Salesian": [],
+                        "Salesian College Prepatory": [],
+                        "Saint Francis": [],
+                    }
+                        {
                     Mathematics: ["AP Calculus", "Statistics", "Pre-Calculus"],
                     Science: ["Biology", "Physics", "Chemistry"],
                     WorldLanguages: [],
@@ -293,6 +300,7 @@
                     Electives: [],
                     KinesiologyPhysicalEducation: [],
                     Pathways: [],
+                        }
                 };
         
                 function updateSpecificDropdown() {
@@ -305,6 +313,10 @@
         
                         if (selectedSubject === "Theology" && selectedSchool) {
                             classes = subjectOptions.Theology[selectedSchool] || [];
+                        }
+
+                        if (selectedSubject === "History" && selectedSchool) {
+                            classes = subjectOptions.History[selectedSchool] || [];
                         }
         
                         if (Array.isArray(classes)) {
@@ -340,6 +352,11 @@
                         if (selectedSubject === "Theology") {
                             schoolMatch = selectedSchool !== "" && cardSchool === selectedSchool;
                             subjectMatch = cardSubject === "Theology";
+                        }
+
+                        if (selectedSubject === "History") {
+                            schoolMatch = selectedSchool !== "" && cardSchool === selectedSchool;
+                            subjectMatch = cardSubject === "History";
                         }
         
                         if (schoolMatch && subjectMatch && classMatch) {
