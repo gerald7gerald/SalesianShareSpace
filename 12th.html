@@ -269,81 +269,107 @@
     </main>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const subjectFilter = document.getElementById("subjectFilter");
-            const specificFilter = document.getElementById("specificFilter");
-            const schoolFilter = document.getElementById("schoolFilter");
-            const resetButton = document.getElementById("resetFilters");
-            const classCards = document.querySelectorAll(".class-card");
+            document.addEventListener("DOMContentLoaded", function () {
+                const subjectFilter = document.getElementById("subjectFilter");
+                const specificFilter = document.getElementById("specificFilter");
+                const schoolFilter = document.getElementById("schoolFilter");
+                const resetButton = document.getElementById("resetFilters");
+                const classCards = document.querySelectorAll(".class-card");
         
-            const subjectOptions = {
-                Theology: [],
-                History: ["World History", "U.S. History"],
-                Mathematics: ["AP Calculus", "Statistics", "Pre-Calculus"],
-                Science: ["Biology", "Physics", "Chemistry"],
-                WorldLanguages: [],
-                VPArts: [],  
-                Literature: ["British Literature", "World Literature"],
-                Electives: [],
-                KinesiologyPhysicalEducation: [],
-                Pathways: [],
-            };
+                const subjectOptions = {
+                    Theology: {
+                        "Saint John Bosco": ["Catholic Ethics", "Sacraments"],
+                        "Don Bosco Tech": ["Christian Morality"],
+                        "Bishop Mora Salesian": ["Church History"],
+                        "Salesian College Prepatory": ["Scripture Studies"],
+                        "Saint Francis": ["Faith and Reason"]
+                    },
+                    History: ["World History", "U.S. History"],
+                    Mathematics: ["AP Calculus", "Statistics", "Pre-Calculus"],
+                    Science: ["Biology", "Physics", "Chemistry"],
+                    WorldLanguages: [],
+                    VPArts: [],
+                    Literature: ["British Literature", "World Literature"],
+                    Electives: [],
+                    KinesiologyPhysicalEducation: [],
+                    Pathways: [],
+                };
         
-            function updateSpecificDropdown() {
-                specificFilter.innerHTML = '<option value="">All Classes</option>';
-                const selectedSubject = subjectFilter.value;
-                if (selectedSubject && subjectOptions[selectedSubject]) {
-                    subjectOptions[selectedSubject].forEach(className => {
-                        let option = document.createElement("option");
-                        option.value = className;
-                        option.textContent = className;
-                        specificFilter.appendChild(option);
-                    });
-                    specificFilter.disabled = false;
-                } else {
-                    specificFilter.disabled = true;
-                }
-            }
+                function updateSpecificDropdown() {
+                    specificFilter.innerHTML = '<option value="">All Classes</option>';
+                    const selectedSubject = subjectFilter.value;
+                    const selectedSchool = schoolFilter.value;
         
-            function filterClasses() {
-                const selectedSchool = schoolFilter.value;
-                const selectedSubject = subjectFilter.value;
+                    if (selectedSubject && subjectOptions[selectedSubject]) {
+                        let classes = subjectOptions[selectedSubject];
         
-                classCards.forEach(card => {
-                    const subject = card.getAttribute("data-subject");
-                    const school = card.getAttribute("data-school");
+                        if (selectedSubject === "Theology" && selectedSchool) {
+                            classes = subjectOptions.Theology[selectedSchool] || [];
+                        }
         
-                    if (selectedSubject === "Theology") {
-                        if (selectedSchool && card.classList.contains("theology-class")) {
-                            card.style.display = "block";
+                        if (Array.isArray(classes)) {
+                            classes.forEach(className => {
+                                let option = document.createElement("option");
+                                option.value = className;
+                                option.textContent = className;
+                                specificFilter.appendChild(option);
+                            });
+                            specificFilter.disabled = false;
                         } else {
-                            card.style.display = "none";
+                            specificFilter.disabled = true;
                         }
                     } else {
-                        if ((selectedSubject === "" || subject === selectedSubject) &&
-                            (selectedSchool === "" || school === selectedSchool)) {
+                        specificFilter.disabled = true;
+                    }
+                }
+        
+                function filterClasses() {
+                    const selectedSchool = schoolFilter.value;
+                    const selectedSubject = subjectFilter.value;
+                    const selectedSpecificClass = specificFilter.value;
+        
+                    classCards.forEach(card => {
+                        const cardSchool = card.getAttribute("data-school");
+                        const cardSubject = card.getAttribute("data-subject");
+                        const cardClass = card.getAttribute("data-class");
+        
+                        let schoolMatch = selectedSchool === "" || cardSchool === selectedSchool;
+                        let subjectMatch = selectedSubject === "" || cardSubject === selectedSubject;
+                        let classMatch = selectedSpecificClass === "" || cardClass === selectedSpecificClass;
+        
+                        if (selectedSubject === "Theology") {
+                            schoolMatch = selectedSchool !== "" && cardSchool === selectedSchool;
+                            subjectMatch = cardSubject === "Theology";
+                        }
+        
+                        if (schoolMatch && subjectMatch && classMatch) {
                             card.style.display = "block";
                         } else {
                             card.style.display = "none";
                         }
-                    }
-                });
-            }
+                    });
+                }
         
-            function resetFilters() {
-                subjectFilter.value = "";
-                specificFilter.innerHTML = '<option value="">Select a Subject First</option>';
-                specificFilter.disabled = true;
-                schoolFilter.value = "";
-                classCards.forEach(card => card.style.display = "block");
-            }
+                function resetFilters() {
+                    subjectFilter.value = "";
+                    specificFilter.innerHTML = '<option value="">Select a Subject First</option>';
+                    specificFilter.disabled = true;
+                    schoolFilter.value = "";
+                    classCards.forEach(card => card.style.display = "block");
+                }
         
-            subjectFilter.addEventListener("change", updateSpecificDropdown);
-            subjectFilter.addEventListener("change", filterClasses);
-            schoolFilter.addEventListener("change", filterClasses);
-            resetButton.addEventListener("click", resetFilters);
-        });
+                subjectFilter.addEventListener("change", updateSpecificDropdown);
+                schoolFilter.addEventListener("change", updateSpecificDropdown);
+                subjectFilter.addEventListener("change", filterClasses);
+                schoolFilter.addEventListener("change", filterClasses);
+                specificFilter.addEventListener("change", filterClasses);
+                resetButton.addEventListener("click", resetFilters);
+            });
     </script>
+
+
+
+
 
 
 </body>
