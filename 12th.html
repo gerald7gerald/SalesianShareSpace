@@ -232,10 +232,10 @@
                     <option value="English">English</option> 
                     <option value="Mathematics">Mathematics</option>
                     <option value="Science">Science</option>
-                    <option value="World Languages">World Languages</option>
-                    <option value="Visual & Performing Arts">Visual & Performing Arts</option>
+                    <option value="WorldLanguages">World Languages</option>
+                    <option value="VPArts">Visual & Performing Arts</option>
                     <option value="Electives">Electives</option>
-                    <option value="Kinesiology/Physical Education">Kinesiology/Physical Education</option>
+                    <option value="KinesiologyPhysicalEducation">Kinesiology/Physical Education</option>
                     <option value="Pathways">Pathways</option>
                 </select>
             </div>
@@ -275,14 +275,20 @@
             const schoolFilter = document.getElementById("schoolFilter");
             const resetButton = document.getElementById("resetFilters");
             const classCards = document.querySelectorAll(".class-card");
-
+        
             const subjectOptions = {
+                Theology: [],
+                History: ["World History", "U.S. History"],
                 Mathematics: ["AP Calculus", "Statistics", "Pre-Calculus"],
                 Science: ["Biology", "Physics", "Chemistry"],
+                WorldLanguages: [],
+                VPArts: [],  
                 Literature: ["British Literature", "World Literature"],
-                History: ["World History", "U.S. History"]
+                Electives: [],
+                KinesiologyPhysicalEducation: [],
+                Pathways: [],
             };
-
+        
             function updateSpecificDropdown() {
                 specificFilter.innerHTML = '<option value="">All Classes</option>';
                 const selectedSubject = subjectFilter.value;
@@ -298,7 +304,32 @@
                     specificFilter.disabled = true;
                 }
             }
-
+        
+            function filterClasses() {
+                const selectedSchool = schoolFilter.value;
+                const selectedSubject = subjectFilter.value;
+        
+                classCards.forEach(card => {
+                    const subject = card.getAttribute("data-subject");
+                    const school = card.getAttribute("data-school");
+        
+                    if (selectedSubject === "Theology") {
+                        if (selectedSchool && card.classList.contains("theology-class")) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    } else {
+                        if ((selectedSubject === "" || subject === selectedSubject) &&
+                            (selectedSchool === "" || school === selectedSchool)) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    }
+                });
+            }
+        
             function resetFilters() {
                 subjectFilter.value = "";
                 specificFilter.innerHTML = '<option value="">Select a Subject First</option>';
@@ -306,11 +337,14 @@
                 schoolFilter.value = "";
                 classCards.forEach(card => card.style.display = "block");
             }
-
+        
             subjectFilter.addEventListener("change", updateSpecificDropdown);
+            subjectFilter.addEventListener("change", filterClasses);
+            schoolFilter.addEventListener("change", filterClasses);
             resetButton.addEventListener("click", resetFilters);
         });
     </script>
+
 
 </body>
 </html>
