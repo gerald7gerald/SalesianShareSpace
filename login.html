@@ -15,23 +15,24 @@
 
         // 🔹 Login Function
         window.login = async function () {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            console.log("Attempting to log in:", email);
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    
+    console.log("Logging in:", email);
 
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+    });
 
-            if (error) {
-                console.error("❌ Login Error:", error.message);
-                document.getElementById("errorMessage").innerText = error.message;
-            } else {
-                console.log("✅ Logged in as:", data.user);
-                console.log("Redirecting to index.html...");
-                setTimeout(() => {
-                    window.location.href = "index.html";
-                }, 1000);
-            }
-        };
+    if (error) {
+        console.error("❌ Login Error:", error.message);
+        document.getElementById("errorMessage").innerText = error.message;
+    } else {
+        console.log("✅ Logged in:", data.user);
+        window.location.href = "index.html";
+    }
+};
 
         // 🔹 Register Function
         window.register = async function () {
