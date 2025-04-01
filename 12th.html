@@ -367,7 +367,7 @@
                         const cardSubject = card.getAttribute("data-subject");
                         const cardClass = card.getAttribute("data-class");
         
-                        let schoolMatch = selectedSchool === "" || cardSchool === selectedSchool;
+                        let schoolMatch = selectedSchool === "" || cardSchool.split(",").includes(selectedSchool);
                         let subjectMatch = selectedSubject === "" || cardSubject === selectedSubject;
                         let classMatch = selectedSpecificClass === "" || cardClass === selectedSpecificClass;
         
