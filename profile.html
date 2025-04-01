@@ -6,14 +6,14 @@
     <title>My Profile</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
+        const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
+        
+        const supabase = supabase.createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
+        
         window.onload = async function () {
             console.log("Initializing Supabase...");
-
-            const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
-            const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
-            const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
-            window.supabase = supabaseClient;
-
+            
             const { data: user, error } = await supabase.auth.getUser();
             if (error || !user) {
                 alert("Please log in first!");
@@ -21,7 +21,7 @@
                 return;
             }
             
-            document.getElementById("userName").textContent = user.user_metadata.full_name || user.email;
+            document.getElementById("userName").textContent = user.user_metadata?.full_name || user.email;
             await loadUploads(user.email);
         };
 
@@ -30,32 +30,35 @@
             const file = fileInput.files[0];
             if (!file) return alert('Please select a file');
 
-            const { data: user } = await supabase.auth.getUser();
-            if (!user) {
+            const { data: user, error: userError } = await supabase.auth.getUser();
+            if (userError || !user) {
                 alert("You need to be logged in to upload files.");
                 return;
             }
 
             const filePath = `uploads/${user.email}/${Date.now()}_${file.name}`;
-            const { data, error } = await window.supabase.storage.from('Salesian_STR').upload(filePath, file);
+            const { data, error } = await supabase.storage.from('Salesian_STR').upload(filePath, file);
             
             if (error) {
                 console.error('Upload error:', error);
                 alert('Upload failed');
                 return;
             }
-            
-            const { data: urlData } = window.supabase.storage.from('Salesian_STR').getPublicUrl(filePath);
-            if (!urlData) {
+
+            // Get the public URL of the uploaded file
+            const { data: urlData } = supabase.storage.from('Salesian_STR').getPublicUrl(filePath);
+            const fileUrl = urlData.publicUrl; // Extracting the correct URL
+
+            if (!fileUrl) {
                 alert('Failed to retrieve file URL');
                 return;
             }
             
-            await saveFileToDatabase(user.email, file.name, urlData.publicUrl);
+            await saveFileToDatabase(user.email, file.name, fileUrl);
         }
 
         async function saveFileToDatabase(user_email, name, url) {
-            const { error } = await window.supabase.from('uploads').insert([{ user_email, name, url }]);
+            const { error } = await supabase.from('uploads').insert([{ user_email, name, url }]);
             if (error) {
                 console.error('Database error:', error);
                 return;
@@ -68,7 +71,7 @@
             const uploadsList = document.getElementById('uploadsList');
             uploadsList.innerHTML = '';
 
-            const { data, error } = await window.supabase.from('uploads').select('*').eq('user_email', user_email).order('id', { ascending: false });
+            const { data, error } = await supabase.from('uploads').select('*').eq('user_email', user_email).order('id', { ascending: false });
             if (error) {
                 console.error('Load error:', error);
                 return;
