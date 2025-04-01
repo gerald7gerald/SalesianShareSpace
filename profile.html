@@ -10,11 +10,19 @@
             console.log("Initializing Supabase...");
 
             const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
-            const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
-            const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+            const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
+            const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
             window.supabase = supabaseClient;
 
-            await loadUploads();
+            const { data: user, error } = await supabase.auth.getUser();
+            if (error || !user) {
+                alert("Please log in first!");
+                window.location.href = "login.html";
+                return;
+            }
+            
+            document.getElementById("userName").textContent = user.user_metadata.full_name || user.email;
+            await loadUploads(user.email);
         };
 
         async function uploadFile() {
@@ -22,44 +30,45 @@
             const file = fileInput.files[0];
             if (!file) return alert('Please select a file');
 
-            const filePath = `uploads/${Date.now()}_${file.name}`;
+            const { data: user } = await supabase.auth.getUser();
+            if (!user) {
+                alert("You need to be logged in to upload files.");
+                return;
+            }
+
+            const filePath = `uploads/${user.email}/${Date.now()}_${file.name}`;
             const { data, error } = await window.supabase.storage.from('Salesian_STR').upload(filePath, file);
-
-            console.log("Upload result:", { data, error }); // Enhanced logging
-
+            
             if (error) {
                 console.error('Upload error:', error);
                 alert('Upload failed');
                 return;
             }
-
+            
             const { data: urlData } = window.supabase.storage.from('Salesian_STR').getPublicUrl(filePath);
-            console.log("URL result:", { urlData }); // Enhanced logging
             if (!urlData) {
                 alert('Failed to retrieve file URL');
                 return;
             }
-
-            await saveFileToDatabase(file.name, urlData.publicUrl);
+            
+            await saveFileToDatabase(user.email, file.name, urlData.publicUrl);
         }
 
-        async function saveFileToDatabase(name, url) {
-            const { error } = await window.supabase.from('uploads').insert([{ name, url }]);
-            console.log("Database insert result:", { error }); // Enhanced logging
+        async function saveFileToDatabase(user_email, name, url) {
+            const { error } = await window.supabase.from('uploads').insert([{ user_email, name, url }]);
             if (error) {
                 console.error('Database error:', error);
                 return;
             }
             alert('File uploaded successfully!');
-            await loadUploads();
+            await loadUploads(user_email);
         }
 
-        async function loadUploads() {
+        async function loadUploads(user_email) {
             const uploadsList = document.getElementById('uploadsList');
             uploadsList.innerHTML = '';
 
-            const { data, error } = await window.supabase.from('uploads').select('*').order('id', { ascending: false });
-            console.log("Load uploads result:", { data, error }); // Enhanced logging
+            const { data, error } = await window.supabase.from('uploads').select('*').eq('user_email', user_email).order('id', { ascending: false });
             if (error) {
                 console.error('Load error:', error);
                 return;
@@ -80,13 +89,20 @@
         }
     </script>
     <style>
-                body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f4f4f4; } .profile-container, .uploads-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center; width: 300px; margin-bottom: 20px; } .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #4CAF50; } h2, p { margin: 10px 0; } .social-links a { text-decoration: none; color: #4CAF50; margin: 0 10px; font-size: 20px; } input { margin-top: 10px; } ul { list-style: none; padding: 0; } li { margin: 5px 0; }
+        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f4f4f4; }
+        .profile-container, .uploads-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center; width: 300px; margin-bottom: 20px; }
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #4CAF50; }
+        h2, p { margin: 10px 0; }
+        .social-links a { text-decoration: none; color: #4CAF50; margin: 0 10px; font-size: 20px; }
+        input { margin-top: 10px; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 5px 0; }
     </style>
 </head>
 <body>
     <div class="profile-container">
         <img src="profile.jpg" alt="Profile Picture" class="profile-img">
-        <h2>John Doe</h2>
+        <h2 id="userName">Loading...</h2>
         <p>Web Developer | Tech Enthusiast</p>
         <div class="social-links">
             <a href="#">🔗 LinkedIn</a>
@@ -99,11 +115,6 @@
     <div class="uploads-container">
         <h3>My Uploads</h3>
         <ul id="uploadsList"></ul>
-    </div>
-    <div style="position: fixed; bottom: 0; left: 0; z-index: 1;">
-        <a href="index.html">
-            <img src="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png" alt="logo" width="100" height="100">
-        </a>
     </div>
 </body>
 </html>
