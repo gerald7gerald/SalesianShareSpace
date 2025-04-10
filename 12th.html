@@ -240,13 +240,6 @@
                 </select>
             </div>
 
-            <div class="filter-group">
-                <label for="specificFilter">Specific Class:</label>
-                <select id="specificFilter" disabled>
-                    <option value="">Select a Subject First</option>
-                </select>
-            </div>
-
             <button id="resetFilters">Reset Filters</button>
         </div>
 
@@ -290,126 +283,20 @@
     </main>
 
     <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const subjectFilter = document.getElementById("subjectFilter");
-                const specificFilter = document.getElementById("specificFilter");
-                const schoolFilter = document.getElementById("schoolFilter");
-                const resetButton = document.getElementById("resetFilters");
-                const classCards = document.querySelectorAll(".class-card");
-        
-                const subjectOptions = {
-                    Theology: {
-                        "Saint John Bosco": ["Introduction to Catholicism and Western Culture & Language", "Christian Vocations", "Social Justice", "Faith in Film, Media, and Literature", "Christian and Biblical Literature"],
-                        "Don Bosco Tech": ["Living as a Disciple of Jesus Christ", "Responding to the Call of Christ"],
-                        "Bishop Mora Salesian": ["Theology IV"],
-                        "Salesian College Prepatory": ["Senior Synthesis", "Comparative Religions Honors"],
-                        "Saint Francis": ["Introduction to Christianity", "Christian Values in Today’s World", "Old Testament", "New Testament", "Christian Relationships", "Church History", "Social Justice", "World Religions"]
-                    },
-                    History: {
-                        global: ["Economics"],
-                        "Saint John Bosco":["World and Human Geography", "AP Human Geography", "History of Los Angeles", "Civics", "AP US Government and Politics", "AP Psychology", "AP African American Studies", "Financial Literacy"],
-                        "Don Bosco Tech": ["U.S. Government","AP U.S. Government","AP Macroeconomics"],
-                        "Bishop Mora Salesian": ["United States Government","AP Government & Politics","AP Microeconomics"],
-                        "Salesian College Prepatory": ["US Government (Honors)","Economics (Honors)","Psychology","Ethnic Studies"],
-                        "Saint Francis": ["AP United States History","Government and Politics","AP Government and Politics"],
-                    },
-                        
-                    Mathematics: ["AP Calculus", "Statistics", "Pre-Calculus"],
-                    Science: ["Biology", "Physics", "Chemistry"],
-                    WorldLanguages: [],
-                    VPArts: [],
-                    Literature: ["British Literature", "World Literature"],
-                    Electives: [],
-                    KinesiologyPhysicalEducation: [],
-                    Pathways: [],
-                
-                };
-        
-                function updateSpecificDropdown() {
-                    specificFilter.innerHTML = '<option value="">All Classes</option>';
-                    const selectedSubject = subjectFilter.value;
-                    const selectedSchool = schoolFilter.value;
-        
-                    if (selectedSubject && subjectOptions[selectedSubject]) {
-                        let classes = subjectOptions[selectedSubject];
-        
-                        if (selectedSubject === "Theology" && selectedSchool) {
-                            classes = subjectOptions.Theology[selectedSchool] || [];
-                        }
-
-                        if (selectedSubject === "History" && selectedSchool) {
-                            classes = subjectOptions.History[selectedSchool] || [];
-                        }
-        
-                        if (Array.isArray(classes)) {
-                            classes.forEach(className => {
-                                let option = document.createElement("option");
-                                option.value = className;
-                                option.textContent = className;
-                                specificFilter.appendChild(option);
-                            });
-                            specificFilter.disabled = false;
-                        } else {
-                            specificFilter.disabled = true;
-                        }
-                    } else {
-                        specificFilter.disabled = true;
-                    }
-                }
-        
-                function filterClasses() {
-                    const selectedSchool = schoolFilter.value;
-                    const selectedSubject = subjectFilter.value;
-                    const selectedSpecificClass = specificFilter.value;
-        
-                    classCards.forEach(card => {
-                        const cardSchool = card.getAttribute("data-school");
-                        const cardSubject = card.getAttribute("data-subject");
-                        const cardClass = card.getAttribute("data-class");
-        
-                        let schoolMatch = selectedSchool === "" || cardSchool.split(",").includes(selectedSchool);
-                        let subjectMatch = selectedSubject === "" || cardSubject === selectedSubject;
-                        let classMatch = selectedSpecificClass === "" || cardClass === selectedSpecificClass;
-        
-                        if (selectedSubject === "Theology") {
-                            schoolMatch = selectedSchool !== "" && cardSchool === selectedSchool;
-                            subjectMatch = cardSubject === "Theology";
-                        }
-
-                        if (selectedSubject === "History") {
-                            schoolMatch = selectedSchool !== "" && cardSchool === selectedSchool;
-                            subjectMatch = cardSubject === "History";
-                        }
-        
-                        if (schoolMatch && subjectMatch && classMatch) {
-                            card.style.display = "block";
-                        } else {
-                            card.style.display = "none";
-                        }
-                    });
-                }
-        
-                function resetFilters() {
-                    subjectFilter.value = "";
-                    specificFilter.innerHTML = '<option value="">Select a Subject First</option>';
-                    specificFilter.disabled = true;
-                    schoolFilter.value = "";
-                    classCards.forEach(card => card.style.display = "block");
-                }
-        
-                subjectFilter.addEventListener("change", updateSpecificDropdown);
-                schoolFilter.addEventListener("change", updateSpecificDropdown);
-                subjectFilter.addEventListener("change", filterClasses);
-                schoolFilter.addEventListener("change", filterClasses);
-                specificFilter.addEventListener("change", filterClasses);
-                resetButton.addEventListener("click", resetFilters);
-            });
-    </script>
-
-
-
-
-
-
-</body>
-</html>
+        document.addEventListener("DOMContentLoaded", function () {
+            const subjectFilter = document.getElementById("subjectFilter");
+            const schoolFilter = document.getElementById("schoolFilter");
+            const resetButton = document.getElementById("resetFilters");
+            const classCards = document.querySelectorAll(".class-card");
+    
+            const subjectOptions = {
+                Theology: {
+                    "Saint John Bosco": ["Introduction to Catholicism and Western Culture & Language", "Christian Vocations", "Social Justice", "Faith in Film, Media, and Literature", "Christian and Biblical Literature"],
+                    "Don Bosco Tech": ["Living as a Disciple of Jesus Christ", "Responding to the Call of Christ"],
+                    "Bishop Mora Salesian": ["Theology IV"],
+                    "Salesian College Prepatory": ["Senior Synthesis", "Comparative Religions Honors"],
+                    "Saint Francis": ["Introduction to Christianity", "Christian Values in Today’s World", "Old Testament", "New Testament", "Christian Relationships", "Church History", "Social Justice", "World Religions"]
+                },
+                History: {
+                    global: ["Economics"],
+                    "Saint John Bosco":["World and Human Geography", "AP Human Geography", "History of Los Angeles", "Civics", "AP US Government and Politics", "AP Psychology", "AP African American Studies", "
