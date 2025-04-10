@@ -299,4 +299,39 @@
                 },
                 History: {
                     global: ["Economics"],
-                    "Saint John Bosco":["World and Human Geography", "AP Human Geography", "History of Los Angeles", "Civics", "AP US Government and Politics", "AP Psychology", "AP African American Studies", "
+                    "Saint John Bosco":["World and Human Geography", "AP Human Geography", "History of Los Angeles", "Civics", "AP US Government and Politics", "AP Psychology", "AP African American Studies", "AP US History"]
+                }
+            };
+
+            function filterClasses() {
+                const selectedSubject = subjectFilter.value;
+                const selectedSchool = schoolFilter.value;
+
+                classCards.forEach(card => {
+                    const cardSubject = card.dataset.subject;
+                    const cardSchool = card.dataset.school;
+                    const subjectMatch = selectedSubject === "" || cardSubject === selectedSubject;
+                    const schoolMatch = selectedSchool === "" || cardSchool.includes(selectedSchool);
+    
+                    if (subjectMatch && schoolMatch) {
+                        card.style.display = "block";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            }
+    
+            subjectFilter.addEventListener("change", filterClasses);
+            schoolFilter.addEventListener("change", filterClasses);
+    
+            resetButton.addEventListener("click", () => {
+                subjectFilter.value = "";
+                schoolFilter.value = "";
+                filterClasses();
+            });
+    
+            filterClasses();
+        });
+    </script>
+</body>
+</html>
