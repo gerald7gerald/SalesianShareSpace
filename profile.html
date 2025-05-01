@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Profile</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -74,7 +73,7 @@
       <a href="#">📸 Instagram</a>
     </div>
     <input type="file" id="fileInput" />
-    <button onclick="uploadFile()">Upload Document</button>
+    <button id="uploadBtn">Upload Document</button>
   </div>
 
   <div class="uploads-container">
@@ -82,11 +81,16 @@
     <ul id="uploadsList"></ul>
   </div>
 
-  <script>
-    const supabase = supabase.createClient(
+  <!-- Script using module and ESM import -->
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+    const supabase = createClient(
       "https://qpkiqfxdjijgcirdxdrg.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU"
     );
+
+    document.getElementById("uploadBtn").addEventListener("click", uploadFile);
 
     window.onload = async () => {
       const { data: { user }, error } = await supabase.auth.getUser();
@@ -95,7 +99,8 @@
         window.location.href = "login.html";
         return;
       }
-      document.getElementById("userName").textContent = user.user_metadata?.full_name || user.email;
+      document.getElementById("userName").textContent =
+        user.user_metadata?.full_name || user.email;
       await loadUploads(user.email);
     };
 
@@ -181,6 +186,5 @@
       uploadsList.appendChild(li);
     }
   </script>
-
 </body>
 </html>
