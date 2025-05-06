@@ -39,8 +39,13 @@
       margin: 0 10px;
       font-size: 20px;
     }
-    input[type="file"] {
+    input[type="file"], input[type="text"] {
       margin-top: 10px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 6px 12px;
+      cursor: pointer;
     }
     ul {
       list-style: none;
@@ -66,6 +71,8 @@
   <div class="profile-container">
     <img src="profile.jpg" alt="Profile Picture" class="profile-img" />
     <h2 id="userName">Loading...</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name" />
+    <button id="saveNameBtn">Save Name</button>
     <p>Web Developer | Tech Enthusiast</p>
     <div class="social-links">
       <a href="#">🔗 LinkedIn</a>
@@ -91,6 +98,29 @@
     );
 
     document.getElementById("uploadBtn").addEventListener("click", uploadFile);
+    document.getElementById("saveNameBtn").addEventListener("click", async () => {
+      const newName = document.getElementById("nameInput").value.trim();
+      if (!newName) return alert("Please enter a valid name");
+
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError || !user) {
+        alert("You must be logged in to update your name.");
+        return;
+      }
+
+      const { error: updateError } = await supabase.auth.updateUser({
+        data: { full_name: newName }
+      });
+
+      if (updateError) {
+        console.error("Name update failed:", updateError);
+        alert("Failed to update name.");
+        return;
+      }
+
+      document.getElementById("userName").textContent = newName;
+      alert("Name updated successfully!");
+    });
 
     window.onload = async () => {
       const { data: { user }, error } = await supabase.auth.getUser();
@@ -99,8 +129,11 @@
         window.location.href = "login.html";
         return;
       }
-      document.getElementById("userName").textContent =
-        user.user_metadata?.full_name || user.email;
+
+      const fullName = user.user_metadata?.full_name || user.email;
+      document.getElementById("userName").textContent = fullName;
+      document.getElementById("nameInput").value = user.user_metadata?.full_name || "";
+
       await loadUploads(user.email);
     };
 
