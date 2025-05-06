@@ -27,10 +27,8 @@
   <script type="module">
     import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-    const supabase = createClient(
-      "https://qpkiqfxdjijgcirdxdrg.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-    );
+        const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
+
 
     const userNameEl = document.getElementById("userName");
     const nameInput = document.getElementById("nameInput");
