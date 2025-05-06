@@ -2,17 +2,24 @@
 <body>
   <div class="profile-container">
     <img src="profile.jpg" alt="Profile Picture" class="profile-img" />
-    <h2 id="userName">Loading...</h2>
 
-    <div class="name-edit-container">
-      <input type="text" id="nameInput" placeholder="Enter your name" />
-      <button id="saveNameBtn">Save</button>
+    <!-- Profile VIEW Mode -->
+    <div id="profileView">
+      <h2 id="userName">Loading...</h2>
+      <p><strong>Bio:</strong> <span id="userBioText"></span></p>
+      <p><strong>School:</strong> <span id="userSchoolText"></span></p>
+      <p><strong>Classes:</strong> <span id="userClassesText"></span></p>
+      <button id="editProfileBtn">Edit Profile</button>
     </div>
 
-    <textarea id="bioInput" placeholder="Write a short bio..." rows="3" style="width: 100%; margin-top: 10px;"></textarea>
-    <input type="text" id="schoolInput" placeholder="Enter your school..." />
-    <input type="text" id="classesInput" placeholder="Enter classes you teach..." />
-    <button id="saveProfileBtn">Save All Info</button>
+    <!-- Profile EDIT Mode -->
+    <div id="profileEdit" style="display: none;">
+      <input type="text" id="nameInput" placeholder="Enter your name" />
+      <textarea id="bioInput" placeholder="Write a short bio..." rows="3" style="width: 100%; margin-top: 10px;"></textarea>
+      <input type="text" id="schoolInput" placeholder="Enter your school..." />
+      <input type="text" id="classesInput" placeholder="Enter classes you teach..." />
+      <button id="saveProfileBtn">Save Info</button>
+    </div>
 
     <p>Web Developer | Tech Enthusiast</p>
     <input type="file" id="fileInput" />
@@ -27,8 +34,7 @@
   <script type="module">
     import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-        const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
-
+    const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "ey...");
 
     const userNameEl = document.getElementById("userName");
     const nameInput = document.getElementById("nameInput");
@@ -36,24 +42,16 @@
     const schoolInput = document.getElementById("schoolInput");
     const classesInput = document.getElementById("classesInput");
 
-    document.getElementById("saveNameBtn").addEventListener("click", async () => {
-      const newName = nameInput.value.trim();
-      if (!newName) return alert("Enter a valid name");
+    const profileView = document.getElementById("profileView");
+    const profileEdit = document.getElementById("profileEdit");
 
-      const { data: { user }, error } = await supabase.auth.getUser();
-      if (error || !user) return alert("Not logged in");
+    const userBioText = document.getElementById("userBioText");
+    const userSchoolText = document.getElementById("userSchoolText");
+    const userClassesText = document.getElementById("userClassesText");
 
-      const { error: updateError } = await supabase.auth.updateUser({
-        data: { full_name: newName }
-      });
-
-      if (updateError) {
-        alert("Update failed.");
-        return;
-      }
-
-      userNameEl.textContent = newName;
-      alert("Name updated!");
+    document.getElementById("editProfileBtn").addEventListener("click", () => {
+      profileView.style.display = "none";
+      profileEdit.style.display = "block";
     });
 
     document.getElementById("saveProfileBtn").addEventListener("click", async () => {
@@ -68,11 +66,16 @@
       };
 
       const { error: updateError } = await supabase.auth.updateUser({ data: updates });
-
       if (updateError) return alert("Profile update failed");
 
-      alert("Profile info saved!");
+      // Update the view content
       userNameEl.textContent = updates.full_name;
+      userBioText.textContent = updates.bio;
+      userSchoolText.textContent = updates.school;
+      userClassesText.textContent = updates.classes;
+
+      profileEdit.style.display = "none";
+      profileView.style.display = "block";
     });
 
     document.getElementById("uploadBtn").addEventListener("click", async () => {
@@ -83,21 +86,13 @@
       if (error || !user) return alert("Not logged in");
 
       const filePath = `uploads/${user.email}/${Date.now()}_${file.name}`;
-      const { error: uploadError } = await supabase.storage
-        .from("Salesian_STR")
-        .upload(filePath, file);
-
+      const { error: uploadError } = await supabase.storage.from("Salesian_STR").upload(filePath, file);
       if (uploadError) return alert("Upload failed");
 
-      const { data: urlData } = supabase.storage
-        .from("Salesian_STR")
-        .getPublicUrl(filePath);
-
+      const { data: urlData } = supabase.storage.from("Salesian_STR").getPublicUrl(filePath);
       if (!urlData?.publicUrl) return alert("Could not retrieve file URL");
 
-      await supabase.from("uploads").insert([
-        { user_email: user.email, name: file.name, url: urlData.publicUrl }
-      ]);
+      await supabase.from("uploads").insert([{ user_email: user.email, name: file.name, url: urlData.publicUrl }]);
 
       alert("Upload successful!");
       await loadUploads(user.email);
@@ -107,12 +102,7 @@
       const uploadsList = document.getElementById("uploadsList");
       uploadsList.innerHTML = "";
 
-      const { data, error } = await supabase
-        .from("uploads")
-        .select("*")
-        .eq("user_email", email)
-        .order("id", { ascending: false });
-
+      const { data, error } = await supabase.from("uploads").select("*").eq("user_email", email).order("id", { ascending: false });
       if (error) return;
 
       data.forEach(file => {
@@ -138,6 +128,10 @@
 
       const meta = user.user_metadata || {};
       userNameEl.textContent = meta.full_name || user.email;
+      userBioText.textContent = meta.bio || "No bio yet";
+      userSchoolText.textContent = meta.school || "Not set";
+      userClassesText.textContent = meta.classes || "None listed";
+
       nameInput.value = meta.full_name || "";
       bioInput.value = meta.bio || "";
       schoolInput.value = meta.school || "";
@@ -147,4 +141,5 @@
     };
   </script>
 </body>
+
 </html>
