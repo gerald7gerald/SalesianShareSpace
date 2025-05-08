@@ -134,42 +134,58 @@
     });
 
     async function loadUploads(email) {
-            data.forEach(file => {
-        const li = document.createElement("li");
-      
-        // Get file extension
-        const ext = file.name.split('.').pop().toLowerCase();
-        let icon = "📁"; // default
-      
-        if (ext === "pdf") icon = "📄";
-        else if (["png", "jpg", "jpeg", "webp", "gif"].includes(ext)) icon = "🖼️";
-        else if (["doc", "docx"].includes(ext)) icon = "📃";
-        else if (["mp4", "mov"].includes(ext)) icon = "🎥";
-      
-        let previewHTML = "";
-        if (ext === "pdf") {
-          previewHTML = `
-            <iframe src="${file.url}#toolbar=0&navpanes=0&scrollbar=0" 
-                    width="100%" 
-                    height="300px" 
-                    style="border: 1px solid #ccc; border-radius: 8px; margin-top: 8px;">
-            </iframe>`;
-        } else if (["png", "jpg", "jpeg", "webp", "gif"].includes(ext)) {
-          previewHTML = `<img src="${file.url}" alt="${file.name}" style="max-width: 100%; height: auto; margin-top: 8px; border-radius: 6px;" />`;
-        }
-      
-        li.innerHTML = `
-          <div style="margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #ddd;">
-            <div style="font-size: 1.1em;">${icon} <strong>${file.name}</strong></div>
-            <div style="font-size: 0.9em; color: #666;"><em>${file.grade || "No grade"} | ${file.subject || "No subject"}</em></div>
-            ${previewHTML}
-          </div>
-        `;
-      
-        uploadsList.appendChild(li);
-      });
+  const uploadsList = document.getElementById("uploadsList");
+  uploadsList.innerHTML = "";
 
+  const { data, error } = await supabase
+    .from("uploads")
+    .select("*")
+    .eq("user_email", email)
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error("Error loading uploads:", error);
+    return;
+  }
+
+  data.forEach(file => {
+    const li = document.createElement("li");
+
+    // Get file extension
+    const ext = file.name.split('.').pop().toLowerCase();
+    let icon = "📁"; // default
+
+    if (ext === "pdf") icon = "📄";
+    else if (["png", "jpg", "jpeg", "webp", "gif"].includes(ext)) icon = "🖼️";
+    else if (["doc", "docx"].includes(ext)) icon = "📃";
+    else if (["mp4", "mov"].includes(ext)) icon = "🎥";
+
+    let previewHTML = "";
+    if (ext === "pdf") {
+      previewHTML = `
+        <iframe src="${file.url}#toolbar=0&navpanes=0&scrollbar=0" 
+                width="100%" 
+                height="300px" 
+                style="border: 1px solid #ccc; border-radius: 8px; margin-top: 8px;">
+        </iframe>`;
+    } else if (["png", "jpg", "jpeg", "webp", "gif"].includes(ext)) {
+      previewHTML = `<img src="${file.url}" alt="${file.name}" style="max-width: 100%; height: auto; margin-top: 8px; border-radius: 6px;" />`;
+    } else {
+      previewHTML = `<a href="${file.url}" target="_blank" style="display: inline-block; margin-top: 8px;">Open File</a>`;
     }
+
+    li.innerHTML = `
+      <div style="margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #ddd;">
+        <div style="font-size: 1.1em;">${icon} <strong>${file.name}</strong></div>
+        <div style="font-size: 0.9em; color: #666;"><em>${file.grade || "No grade"} | ${file.subject || "No subject"}</em></div>
+        ${previewHTML}
+      </div>
+    `;
+
+    uploadsList.appendChild(li);
+  });
+}
+
 
     window.onload = async () => {
       const { data: { user }, error } = await supabase.auth.getUser();
