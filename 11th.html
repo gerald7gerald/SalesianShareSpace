@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" >
     <link rel="icon" type="image/png" href="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classes Available for 11th Grade</title>
+    <title>Classes Available for 12th Grade</title>
     <style>
-
         header h1 {
             font-family: 'Merriweather', sans-serif;
-            font-size: 2.5rem; /* Adjust size as needed */
-            text-transform: uppercase; /* Makes text uppercase */
-            letter-spacing: 2px; /* Adds spacing between letters */
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-        
+
         body {
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4; /* Light background color */
-            color: #333; /* Dark text color for better contrast */
+            background-color: f4f4f4;
+            color: #333;
         }
 
         header {
-            background-color: #007bff; /* Blue header */
+            background-color: #007bff;
             color: white;
             padding: 1rem 0;
             text-align: center;
         }
 
         nav {
-            background-color: #343a40; /* Darker blue navigation */
+            background-color: #343a40;
             color: white;
             padding: 0.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         nav ul {
             list-style: none;
             margin: 0;
             padding: 0;
-            text-align: center; /* Center the navigation items */
+            text-align: center;
         }
 
         nav li {
@@ -51,12 +53,13 @@
         nav a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem; /* Add some padding around links */
+            padding: 0.5rem 1rem;
         }
-        nav a:hover{
-            background-color: rgba(255, 255, 255, 0.2); /* Add a hover effect */
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
-        
+
         .menu {
             position: relative;
             display: inline-block;
@@ -71,7 +74,7 @@
         .dropdown {
             display: none;
             position: absolute;
-            background-color: white;
+            background-color: black;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             min-width: 150px;
             border-radius: 5px;
@@ -92,13 +95,14 @@
             display: block;
         }
 
+
         main {
             padding: 2rem;
-            margin: 20px auto; /* Center the main content */
-            max-width: 900px; /* Set a maximum width for larger screens */
-            background-color: white; /* White background for the main content */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-            border-radius: 8px; /* Add rounded corners */
+            margin: 20px auto;
+            max-width: 900px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         .class-card {
@@ -106,16 +110,72 @@
             padding: 1rem;
             margin-bottom: 1rem;
             border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
-            background-color: #fff; /* White background for the cards */
-            transition: transform 0.2s; /* Add a transition for the hover effect */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            transition: transform 0.2s;
         }
-        .class-card:hover{
-            transform: scale(1.02); /* Scale up slightly on hover */
+
+        .class-card:hover {
+            transform: scale(1.02);
         }
 
         .class-card h2 {
             margin-top: 0;
+        }
+
+        .filter-bar {
+            background-color: #ffffff;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .filter-group {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 25px;
+            border: 2px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            appearance: none;
+        }
+
+        select:hover {
+            border-color: #cf9b00;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #cf9b00;
+            box-shadow: 0 0 5px rgba(207, 155, 0, 0.5);
+        }
+
+        #resetFilters {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #cf9b00;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #resetFilters:hover {
+            background-color: #b58800;
         }
 
         footer {
@@ -123,7 +183,7 @@
             color: white;
             text-align: center;
             padding: 1rem 0;
-            position: relative; /* or absolute if you want it fixed to the bottom */
+            position: relative;
             bottom: 0;
             width: 100%;
         }
@@ -137,9 +197,9 @@
 
     <nav>
         <a href="index.html">Home</a>
-        <a href="9th.html">Subjects</a>
+        <a href="11thClasses.html">Subjects</a>
         <div class="menu">
-            <div class="menu-button">Schools</div>
+        <div class="menu-button">Schools</div>
             <div class="dropdown">
                 <a href="StBosco_Classes/SJBJuniorClasses.html">Saint John Bosco</a>
                 <a href="BoscoTech_Classes/BTechJuniorClasses.html">Don Bosco Tech</a>
@@ -151,43 +211,564 @@
     </nav>
 
     <main>
+        <div class="filter-bar">
+            <h3>Filter Classes</h3>
+
+            <div class="filter-group">
+                <label for="schoolFilter">School:</label>
+                <select id="schoolFilter">
+                    <option value="">All Schools</option>
+                    <option value="SJB">Saint John Bosco</option>
+                    <option value="DBT">Don Bosco Tech</option>
+                    <option value="BMS">Bishop Mora Salesian</option>
+                    <option value="SCP">Salesian College Prep</option>
+                    <option value="SF">Saint Francis</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="subjectFilter">Subject:</label>
+                <select id="subjectFilter">
+                    <option value="">All Subjects</option>
+                    <option value="Theology">Theology</option>
+                    <option value="History">History</option>
+                    <option value="English">English</option> 
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Science">Science</option>
+                    <option value="WorldLanguages">World Languages</option>
+                    <option value="VPArts">Visual & Performing Arts</option>
+                    <option value="Electives">Electives</option>
+                    <option value="KinesiologyPhysicalEducation">Kinesiology/Physical Education</option>
+                    <option value="Pathways">Pathways</option>
+                </select>
+            </div>
+
+            <button id="resetFilters">Reset Filters</button>
+        </div>
+        
         <section id="classes">
-            <h2>Subjects</h2>
-
-            <div class="class-card">
-                <h2 href="#">Mathematics</h2>
-                <a href="#">Click Here</a>
-                <p>Description: Introduction to basic mathematical concepts.</p>
+            
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint John Bosco">
+                <h2>Introduction to Catholicism and Western Culture & Language</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint John Bosco">
+                <h2>Christian Vocations</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint John Bosco">
+                <h2>Social Justice</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint John Bosco">
+                <h2>Faith in Film, Media, and Literature</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint John Bosco">
+                <h2>Christian and Biblical Literature</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Don Bosco Tech">
+                <h2>Living as a Disciple of Jesus Christ</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Don Bosco Tech">
+                <h2>Responding to the Call of Christ</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Theology IV</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Salesian College Prepatory">
+                <h2>Senior Synthesis</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Salesian College Prepatory">
+                <h2>Comparative Religions Honors</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint Francis">
+                <h2>Christian Values in Today’s World</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint Francis">
+                <h2>Old Testament</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint Francis">
+                <h2>New Testament</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint Francis">
+                <h2>Christian Relationships</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint Francis">
+                <h2>Church History</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint Francis">
+                <h2>Social Justice</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Theology" data-class="" data-school="Saint Francis">
+                <h2>World Religions</h2>
+                <p>Description:</p>
             </div>
 
-            <div class="class-card">
-                <h2>Science</h2>
-                <p>Description: Exploring the wonders of science.</p>
+
+            
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint Francis">
+                <h2>US History AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint John Bosco">
+                <h2>World and Human Geography</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint John Bosco">
+                <h2>Human Geography AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint John Bosco">
+                <h2>History of Los Angeles</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint John Bosco">
+                <h2>Civics</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint John Bosco, Don Bosco Tech, Bishop Mora Salesian, Salesian College Prepatory, Saint Francis">
+                <h2>US Government and Politics AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint John Bosco, Salesian College Prepatory">
+                <h2>Psychology AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint John Bosco, Don Bosco Tech, Bishop Mora Salesian, Salesian College Prepatory, Saint Francis">
+                <h2>Economics</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint John Bosco">
+                <h2>African American Studies AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Saint John Bosco">
+                <h2>Financial Literacy</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Don Bosco Tech, Bishop Mora Salesian">
+                <h2>Macroeconomics AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="History" data-class="" data-school="Salesian College Prepatory">
+                <h2>Ethnic Studies AP</h2>
+                <p>Description:</p>
             </div>
 
-            <div class="class-card">
-                <h2>Literature</h2>
-                <p>Description: A deep dive into classic literature.</p>
+            
+
+            <div class="class-card" data-subject="English" data-class="" data-school="Saint John Bosco, Don Bosco Tech, Saint Francis">
+                <h2>British Literature and Composition</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="English" data-class="" data-school="Saint Francis">
+                <h2>American Literature</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="English" data-class="" data-school="Saint John Bosco, Don Bosco Tech, Bishop Mora Salesian, Salesian College Prepatory, Saint Francis">
+                <h2>English Literature and Composition AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="English" data-class="" data-school="Saint John Bosco">
+                <h2>Journalism</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="English" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Expository Reading & Writing Course</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="English" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Literature & Composition: The Graphic Novel/Science Fiction/Sports</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="English" data-class="" data-school="Salesian College Prepatory">
+                <h2>English IV</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="English" data-class="" data-school="Salesian College Prepatory">
+                <h2>Engish as a Second Language (ESL) I/II</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="English" data-class="" data-school="Saint Francis">
+                <h2>Connections/Death/Ethics in Literature</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="English" data-class="" data-school="Saint Francis">
+                <h2>The Microcosm of the Macrocosm</h2>
+                <p>Description:</p>
             </div>
 
-             <div class="class-card">
-                <h2>History</h2>
-                <p>Description: A deep dive into world history</p>
+
+            
+            <div class="class-card" data-subject="Mathematics" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Geometry Honors</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Mathematics" data-class="" data-school="Bishop Mora Salesian, Salesian College Prepatory">
+                <h2>Algebra II Honors</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Mathematics" data-class="" data-school="Saint John Bosco, Don Bosco Tech, Bishop Mora Salesian,Salesian College Prepatory,Saint Francis">
+                <h2>Pre-Calculus Honors</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Mathematics" data-class="" data-school="Saint John Bosco, Don Bosco Tech,Bishop Mora Salesian,Salesian College Prepatory,Saint Francis">
+                <h2>AP Calculus AB/BC</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Mathematics" data-class="" data-school="Bishop Mora Salesian,Salesian College Prepatory">
+                <h2>College Math</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Mathematics" data-class="" data-school="Saint John Bosco, Don Bosco Tech,Bishop Mora Salesian,Saint Francis">
+                <h2>Statistics Elementary/AP</h2>
+                <p>Description:</p>
+            </div>
+            
+
+            
+            <div class="class-card" data-subject="Science" data-class="" data-school="Saint John Bosco,Bishop Mora Salesian,Salesian College Prepatory,Saint Francis">
+                <h2>Environmental Science AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Science" data-class="" data-school="Saint John Bosco,Don Bosco Tech,Bishop Mora Salesian">
+                <h2>Anatomy and Physiology Honors</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Science" data-class="" data-school="Saint John Bosco,Don Bosco Tech,Bishop Mora Salesian,Salesian College Prepatory,Saint Francis">
+                <h2>Physics and Lab I/II AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Science" data-class="" data-school="Saint John Bosco">
+                <h2>Agricultural Science</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Science" data-class="" data-school="Saint John Bosco">
+                <h2>Marine Biology</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Science" data-class="" data-school="Saint John Bosco,Salesian College Prepatory,Saint Francis">
+                <h2>Biology AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Science" data-class="" data-school="Saint John Bosco,Salesian College Prepatory,Saint Francis">
+                <h2>Chemistry AP/Honors</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Science" data-class="" data-school="Salesian College Prepatory">
+                <h2>Biomedical Innovations</h2>
+                <p>Description:</p>
             </div>
 
-            </section>
+
+
+            <div class="class-card" data-subject="WorldLanguages" data-class="" data-school="Saint John Bosco,Saint Francis">
+                <h2>Spanish 2 Honors/Heritage</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="WorldLanguages" data-class="" data-school="Saint John Bosco, Don Bosco Tech,Saint Francis">
+                <h2>Speanish 3 Honors/Heritage</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="WorldLanguages" data-class="" data-school="Saint John Bosco,Saint Francis">
+                <h2>Speanish 4 Honors/Heritage</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="WorldLanguages" data-class="" data-school="Saint John Bosco,Bishop Mora Salesian,Salesian College Prepatory,Saint Francis">
+                <h2>Spanish Language and Culture AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="WorldLanguages" data-class="" data-school="Saint John Bosco, Don Bosco Tech,Bishop Mora Salesian">
+                <h2>Spanish Literature and Culture AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="WorldLanguages" data-class="" data-school="Salesian College Prepatory">
+                <h2>French 2 Honors</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="WorldLanguages" data-class="" data-school="Salesian College Prepatory">
+                <h2>French 3 Honors</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="WorldLanguages" data-class="" data-school="Salesian College Prepatory">
+                <h2>French AP</h2>
+                <p>Description:</p>
+            </div>
+
+
+
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Saint John Bosco">
+                <h2>Exploring Art</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Saint John Bosco,Bishop Mora Salesian,Salesian College Prepatory,Saint Francis">
+                <h2>Theater Arts/Drama</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Saint John Bosco,Bishop Mora Salesian,Salesian College Prepatory,Saint Francis">
+                <h2>Band</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Saint John Bosco">
+                <h2>Animation</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Saint John Bosco,Salesian College Prepatory,Saint Francis">
+                <h2>Drawing & Digital Art</h2></h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Saint John Bosco">
+                <h2>Media Production</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Saint John Bosco,Bishop Mora Salesian,Salesian College Prepatory,Saint Francis">
+                <h2>Photography/Yearbook</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Saint John Bosco">
+                <h2>Popular Music/Hip Hop</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Saint John Bosco">
+                <h2>Music Appreciation</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Cinema/Film</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Mass Media/Film & TV Production</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Art History AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Maricachi</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Music Theory AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="VPArts" data-class="" data-school="Salesian College Prepatory">
+                <h2>Dance</h2>
+                <p>Description:</p>
+            </div>
+
+
+            
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Saint John Bosco">
+                <h2>Academic Decathlon Honors</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Saint John Bosco">
+                <h2>ESL</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Saint John Bosco, Bishop Mora Salesian,Salesian College Prepatory">
+                <h2>Psychology AP</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Criminal Justice</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Sociology</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Philosophy</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Public Speaking</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Sports Management / Marketing</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Robotics</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Bishop Mora Salesian">
+                <h2>AP Research</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Salesian College Prepatory">
+                <h2>Graphic Journalism</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Salesian College Prepatory">
+                <h2>Ethnic Studies</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Salesian College Prepatory">
+                <h2>Study Skills</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Saint Francis">
+                <h2>Leadership</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Electives" data-class="" data-school="Saint Francis">
+                <h2>Film Studies</h2>
+                <p>Description:</p>
+            </div>
+
+
+            
+            <div class="class-card" data-subject="KinesiologyPhysicalEducation" data-class="" data-school="Saint John Bosco,Saint Francis">
+                <h2>Strength and Conditioning (Advanced)</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="KinesiologyPhysicalEducation" data-class="" data-school="Saint John Bosco,Bishop Mora Salesian,Saint Francis">
+                <h2>Physical Education</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="KinesiologyPhysicalEducation" data-class="" data-school="Bishop Mora Salesian">
+                <h2>Kinesiology</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="KinesiologyPhysicalEducation" data-class="" data-school="Bishop Mora Salesian,Saint Francis">
+                <h2>Health</h2>
+                <p>Description:</p>
+            </div>
+            
+
+
+            
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Saint John Bosco">
+                <h2>Biomedical Science 4</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Saint John Bosco, Bishop Mora Salesian,Saint Francis">
+                <h2>AP Computer Science Principles</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Saint John Bosco">
+                <h2>AP Computer Science A</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Saint John Bosco">
+                <h2>Computer Scinece Capstone</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Saint John Bosco">
+                <h2>Engineering 4 Capstone</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Saint John Bosco">
+                <h2>Film and Media 4 Capstone</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Saint John Bosco">
+                <h2>Entrepreneurship 4 A/B</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Saint John Bosco">
+                <h2>Sports Med 4 A/B</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Don Bosco Tech">
+                <h2>Architecture & Construction Engineering</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Don Bosco Tech">
+                <h2>Biological, Medical, and Environmental Technology</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Don Bosco Tech">
+                <h2>Computer Science & Electrical Engineering</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Don Bosco Tech">
+                <h2>Integrated Design, Engineering & Art</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Don Bosco Tech">
+                <h2>Material Science, Engineering & Technology</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Don Bosco Tech">
+                <h2>Media Arts & Technology</h2>
+                <p>Description:</p>
+            </div>
+            <div class="class-card" data-subject="Pathways" data-class="" data-school="Saint Francis">
+                <h2>Biomedical Science</h2>
+                <p>Description:</p>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>&copy; 2023 School Name</p>
-    </footer>
-    <div style="position: fixed; bottom: 0; left: 0; z-index: 1;">
-        <a href ="index.html">
-            <img src="https://seeklogo.com/images/S/sun-book-logo-E393C7C6AC-seeklogo.com.png" alt="logo" width="100"
-            height="100">
-        </a>
-        
-    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const subjectFilter = document.getElementById("subjectFilter");
+            const schoolFilter = document.getElementById("schoolFilter");
+            const resetButton = document.getElementById("resetFilters");
+            const classCards = document.querySelectorAll(".class-card");
+    
+            const subjectOptions = {
+                Theology: {
+                    "Saint John Bosco": ["Introduction to Catholicism and Western Culture & Language", "Christian Vocations", "Social Justice", "Faith in Film, Media, and Literature", "Christian and Biblical Literature"],
+                    "Don Bosco Tech": ["Living as a Disciple of Jesus Christ", "Responding to the Call of Christ"],
+                    "Bishop Mora Salesian": ["Theology IV"],
+                    "Salesian College Prepatory": ["Senior Synthesis", "Comparative Religions Honors"],
+                    "Saint Francis": ["Introduction to Christianity", "Christian Values in Today’s World", "Old Testament", "New Testament", "Christian Relationships", "Church History", "Social Justice", "World Religions"]
+                },
+                History: {
+                    global: ["Economics"],
+                    "Saint John Bosco":["World and Human Geography", "AP Human Geography", "History of Los Angeles", "Civics", "AP US Government and Politics", "AP Psychology", "AP African American Studies", "AP US History"]
+                }
+            };
 
+            function filterClasses() {
+                const selectedSubject = subjectFilter.value;
+                const selectedSchool = schoolFilter.value;
+
+                classCards.forEach(card => {
+                    const cardSubject = card.dataset.subject;
+                    const cardSchool = card.dataset.school;
+                    const subjectMatch = selectedSubject === "" || cardSubject === selectedSubject;
+                    const schoolMatch = selectedSchool === "" || cardSchool.includes(selectedSchool);
+    
+                    if (subjectMatch && schoolMatch) {
+                        card.style.display = "block";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            }
+    
+            subjectFilter.addEventListener("change", filterClasses);
+            schoolFilter.addEventListener("change", filterClasses);
+    
+            resetButton.addEventListener("click", () => {
+                subjectFilter.value = "";
+                schoolFilter.value = "";
+                filterClasses();
+            });
+    
+            filterClasses();
+        });
+    </script>
 </body>
 </html>
