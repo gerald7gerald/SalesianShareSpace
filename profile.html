@@ -22,6 +22,28 @@
     </div>
 
     <p>Web Developer | Tech Enthusiast</p>
+
+    <!-- Grade and Subject Selectors -->
+    <label for="gradeSelect">Grade:</label>
+    <select id="gradeSelect">
+      <option value="">Select Grade</option>
+      <option value="Grade 6">Grade 6</option>
+      <option value="Grade 7">Grade 7</option>
+      <option value="Grade 8">Grade 8</option>
+      <option value="Grade 9">Grade 9</option>
+      <option value="Grade 10">Grade 10</option>
+    </select>
+
+    <label for="subjectSelect">Subject:</label>
+    <select id="subjectSelect">
+      <option value="">Select Subject</option>
+      <option value="Math">Math</option>
+      <option value="Science">Science</option>
+      <option value="English">English</option>
+      <option value="History">History</option>
+      <option value="Geography">Geography</option>
+    </select>
+
     <input type="file" id="fileInput" />
     <button id="uploadBtn">Upload Document</button>
   </div>
@@ -34,8 +56,7 @@
   <script type="module">
     import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-       const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
-
+    const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
 
     const userNameEl = document.getElementById("userName");
     const nameInput = document.getElementById("nameInput");
@@ -69,7 +90,6 @@
       const { error: updateError } = await supabase.auth.updateUser({ data: updates });
       if (updateError) return alert("Profile update failed");
 
-      // Update the view content
       userNameEl.textContent = updates.full_name;
       userBioText.textContent = updates.bio;
       userSchoolText.textContent = updates.school;
@@ -81,7 +101,11 @@
 
     document.getElementById("uploadBtn").addEventListener("click", async () => {
       const file = document.getElementById("fileInput").files[0];
+      const grade = document.getElementById("gradeSelect").value;
+      const subject = document.getElementById("subjectSelect").value;
+
       if (!file) return alert("Select a file");
+      if (!grade || !subject) return alert("Please select both grade and subject");
 
       const { data: { user }, error } = await supabase.auth.getUser();
       if (error || !user) return alert("Not logged in");
@@ -93,7 +117,13 @@
       const { data: urlData } = supabase.storage.from("Salesian_STR").getPublicUrl(filePath);
       if (!urlData?.publicUrl) return alert("Could not retrieve file URL");
 
-      await supabase.from("uploads").insert([{ user_email: user.email, name: file.name, url: urlData.publicUrl }]);
+      await supabase.from("uploads").insert([{
+        user_email: user.email,
+        name: file.name,
+        url: urlData.publicUrl,
+        grade,
+        subject
+      }]);
 
       alert("Upload successful!");
       await loadUploads(user.email);
@@ -109,13 +139,14 @@
       data.forEach(file => {
         const li = document.createElement("li");
         if (file.name.endsWith(".pdf")) {
-        li.innerHTML = `
-          <strong>${file.name}</strong><br>
-          <iframe src="${file.url}#toolbar=0&navpanes=0&scrollbar=0" 
-                  width="100%" 
-                  height="500px" 
-                  style="border: 1px solid #ccc; border-radius: 8px;">
-          </iframe>`;
+          li.innerHTML = `
+            <strong>${file.name}</strong><br>
+            <small><em>${file.grade || "No grade"} | ${file.subject || "No subject"}</em></small><br>
+            <iframe src="${file.url}#toolbar=0&navpanes=0&scrollbar=0" 
+                    width="100%" 
+                    height="500px" 
+                    style="border: 1px solid #ccc; border-radius: 8px;">
+            </iframe>`;
         } else if (/\.(png|jpe?g|gif|webp)$/i.test(file.name)) {
           li.innerHTML = `<strong>${file.name}</strong><br><img src="${file.url}" class="thumb" alt="${file.name}"/>`;
         } else {
@@ -148,5 +179,3 @@
     };
   </script>
 </body>
-
-</html>
