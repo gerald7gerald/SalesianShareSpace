@@ -139,7 +139,7 @@
         .from("uploads")
         .select("*")
         .ilike("user_email", trimmedEmail) // Use trimmedEmail here
-        .order("id", { ascending: false });
+        .order("user_id", { ascending: false });
 
     console.log("🔍 Email used for query:", trimmedEmail); // Update the log
     console.log("📦 Full uploads data:", data);
