@@ -28,11 +28,7 @@
           .eq("id", user.id)
           .single();
 
-        if (error || !userProfile) {
-          document.getElementById("userName").innerText = `Welcome, ${userProfile.username}`;
-        } else {
-          document.getElementById("userName").innerText = `Welcome, ${user.email}`;
-        }
+        
       }
     }
 
