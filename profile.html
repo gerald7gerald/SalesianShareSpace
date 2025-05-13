@@ -140,8 +140,13 @@
   const { data, error } = await supabase
     .from("uploads")
     .select("*")
-    .eq("user_email", email)
+    .ilike("user_email", email)
     .order("id", { ascending: false });
+  
+console.log("📧 Logged-in email:", email);
+console.log("📦 Fetched uploads:", data);
+console.log("❌ Error if any:", error);
+
 
   if (error) {
     console.error("Error loading uploads:", error);
