@@ -115,8 +115,11 @@
       if (error || !user) return alert("Not logged in");
 
       const filePath = `uploads/${user.email}/${Date.now()}_${file.name}`;
-      const { data: { publicUrl }, error } = supabase.storage.from("Salesian_STR").getPublicUrl(filePath);
-      if (error) return alert("Could not retrieve file URL");
+      const { error: uploadError } = await supabase.storage.from("Salesian_STR").upload(filePath, file);
+      if (uploadError) return alert("Upload failed");
+
+      const { data: urlData } = supabase.storage.from("Salesian_STR").getPublicUrl(filePath);
+      if (!urlData?.publicUrl) return alert("Could not retrieve file URL");
 
 
 
