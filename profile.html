@@ -134,23 +134,23 @@
     });
 
     async function loadUploads(email) {
-  const uploadsList = document.getElementById("uploadsList");
-  uploadsList.innerHTML = "";
+    const trimmedEmail = email.trim(); // Add this line
+    const { data, error } = await supabase
+        .from("uploads")
+        .select("*")
+        .ilike("user_email", trimmedEmail) // Use trimmedEmail here
+        .order("id", { ascending: false });
 
-  const { data, error } = await supabase
-    .from("uploads")
-    .select("*")
-    .ilike("user_email", email)
-    .order("id", { ascending: false });
+    console.log("🔍 Email used for query:", trimmedEmail); // Update the log
+    console.log("📦 Full uploads data:", data);
+    console.error("❌ Upload load error:", error);
 
-  console.log("🔍 Email used for query:", email);
-  console.log("📦 Full uploads data:", data);
-  console.error("❌ Upload load error:", error);
+    if (error) {
+        console.error("Error loading uploads:", error);
+        return;
+    }
 
-  if (error) {
-    console.error("Error loading uploads:", error);
-    return;
-  }
+    // ... rest of your code ...
 
   data.forEach(file => {
     const li = document.createElement("li");
