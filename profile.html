@@ -138,10 +138,11 @@
   uploadsList.innerHTML = "";
 
   const { data, error } = await supabase
-    .from("uploads")
-    .select("*")
-    .ilike("user_email", email)
-    .order("id", { ascending: false });
+  .from("uploads")
+  .select("*")
+  .ilike("user_email", email) // case-insensitive match
+  .order("id", { ascending: false });
+
   
 console.log("📧 Logged-in email:", email);
 console.log("📦 Fetched uploads:", data);
