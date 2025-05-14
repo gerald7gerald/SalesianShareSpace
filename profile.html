@@ -10,7 +10,8 @@
    <body class="bg-gradient-to-r from-blue-50 to-indigo-50 flex justify-center items-center min-h-screen">
   <div class="bg-white rounded-3xl shadow-lg p-8 max-w-lg w-full">
     <div class="flex items-center mb-6">
-      <img src="profile.jpg" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover shadow-md" />
+     <input type="file" id="pfpInput" accept="image/*" class="w-full mb-3 p-3 border rounded-xl" />
+     <button id="uploadPfpBtn" class="w-full py-3 bg-purple-500 text-white rounded-full font-semibold shadow hover:bg-purple-600">Change Profile Picture</button>
       <div class="ml-4">
         <h2 id="userName" class="text-3xl font-semibold text-gray-800">Loading...</h2>
         <p id="userBioText" class="text-gray-500 mt-1">Bio: <span>No bio yet</span></p>
