@@ -6,96 +6,79 @@
         // Import Supabase client
         import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-        // Supabase Configuration
-        const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
-        const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
-
-        // Initialize Supabase Client
         const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
 
-        // 🔹 Login Function
         window.login = async function () {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    
-    console.log("Logging in:", email);
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-    });
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-    if (error) {
-        console.error("❌ Login Error:", error.message);
-        document.getElementById("errorMessage").innerText = error.message;
-    } else {
-        console.log("✅ Logged in:", data.user);
-        window.location.href = "index.html";
-    }
-};
-
-        // 🔹 Register Function
-        window.register = async function () {
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const school = document.getElementById("school").value;
-    const schoolCode = document.getElementById("schoolCode").value;
-
-    if (school === "") {
-        document.getElementById("errorMessage").innerText = "Please select a school.";
-        return;
-    }
-
-    if (school !== "" && schoolCode === "") {
-        document.getElementById("errorMessage").innerText = "Please enter the school code.";
-        return;
-    }
-
-    const schoolCodes = {
-        schoolA: "$jBr@V3S!",
-        schoolB: "T1g3RT3Ch",
-        schoolC: "More",
-        schoolD: "Prep",
-        schoolE: "ST",
-    };
-
-    if (school && schoolCodes[school] && schoolCodes[school] !== schoolCode) {
-        document.getElementById("errorMessage").innerText = "Incorrect school code.";
-        return;
-    }
-
-    try {
-        // Sign up user
-        const { data, error } = await supabase.auth.signUp({
-            email,
-            password
-        });
-
-        if (error) throw error;
-
-        alert("✅ Account created! Please check your email to verify your account.");
-
-    } catch (error) {
-        console.error("❌ Registration Error:", error.message);
-        document.getElementById("errorMessage").innerText = error.message;
-    }
-};
-        // 🔹 Logout Function
-        window.logout = async function () {
-            const { error } = await supabase.auth.signOut();
             if (error) {
-                console.error("❌ Logout Error:", error.message);
                 document.getElementById("errorMessage").innerText = error.message;
             } else {
-                console.log("✅ Logged out");
-                // Redirect to login page or perform other actions
+                window.location.href = "index.html";
+            }
+        };
+
+        window.register = async function () {
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const school = document.getElementById("school").value;
+            const schoolCode = document.getElementById("schoolCode").value;
+
+            const schoolCodes = {
+                schoolA: "$jBr@V3S!",
+                schoolB: "T1g3RT3Ch",
+                schoolC: "More",
+                schoolD: "Prep",
+                schoolE: "ST"
+            };
+
+            if (school && schoolCodes[school] && schoolCodes[school] !== schoolCode) {
+                document.getElementById("errorMessage").innerText = "Incorrect school code.";
+                return;
+            }
+
+            const { data, error } = await supabase.auth.signUp({ email, password });
+
+            if (error) {
+                document.getElementById("errorMessage").innerText = error.message;
+            } else {
+                alert("✅ Account created! Please check your email to verify.");
             }
         };
 
     </script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@shadcn/ui@latest/dist/style.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white rounded-3xl shadow-lg p-8 max-w-md w-full space-y-6">
+        <h2 class="text-3xl font-bold text-center">Login</h2>
+
+        <input type="text" id="username" placeholder="Username (for registration)" class="w-full p-3 border rounded-lg">
+        <input type="email" id="email" placeholder="Email" class="w-full p-3 border rounded-lg">
+        <input type="password" id="password" placeholder="Password" class="w-full p-3 border rounded-lg">
+
+        <select id="school" class="w-full p-3 border rounded-lg">
+            <option value="">Select Salesian School</option>
+            <option value="schoolA">Saint John Bosco</option>
+            <option value="schoolB">Don Bosco Tech Institution</option>
+            <option value="schoolC">Bishop Mora Salesian</option>
+            <option value="schoolD">Salesian College Preparatory</option>
+            <option value="schoolE">Saint Francis College Preparatory</option>
+        </select>
+
+        <input type="text" id="schoolCode" placeholder="School Code (if required)" class="w-full p-3 border rounded-lg hidden">
+
+        <button onclick="login()" class="w-full py-3 bg-indigo-500 text-white rounded-lg font-semibold hover:bg-indigo-600 transition">Login</button>
+        <button onclick="register()" class="w-full py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">Register</button>
+
+        <p id="errorMessage" class="text-red-500 text-center"></p>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -104,86 +87,12 @@
 
             schoolDropdown.addEventListener("change", function () {
                 if (this.value !== "") {
-                    schoolCodeField.style.display = "block"; // Show school code field
-                    schoolCodeField.setAttribute("required", "true"); // Make it required
+                    schoolCodeField.classList.remove("hidden");
                 } else {
-                    schoolCodeField.style.display = "none"; // Hide if no school selected
-                    schoolCodeField.removeAttribute("required"); // Remove required attribute
+                    schoolCodeField.classList.add("hidden");
                 }
             });
         });
     </script>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('https://c4.wallpaperflare.com/wallpaper/390/502/530/anime-scenic-classroom-sunshine-building-wallpaper-preview.jpg') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 400px;
-        }
-
-        h2 {
-            margin-bottom: 1rem;
-        }
-
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username (for registration)">
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <select id="school">
-            <option value="">Select Salesian School</option>
-            <option value="schoolA">Saint John Bosco</option>
-            <option value="schoolB">Don Bosco Tech Institution</option>
-            <option value="schoolC">Bishop Mora Salesian</option>
-            <option value="schoolD">Salesian College Preparatory</option>
-            <option value="schoolE">Saint Francis College Preparatory</option>
-        </select>
-        <input type="text" id="schoolCode" placeholder="School Code (if required)" style="display: none;">
-        <button onclick="login()">Login</button>
-        <button onclick="register()">Register</button>
-        <button onclick="logout()">Logout</button>
-        <p id="errorMessage" class="error-message"></p>
-    </div>
 </body>
 </html>
