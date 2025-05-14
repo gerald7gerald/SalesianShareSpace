@@ -289,6 +289,38 @@
    const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
     const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
 
+  async function loadFeaturedUploads() {
+    const container = document.getElementById("featuredWorksheets");
+
+    const { data, error } = await supabase
+      .from("uploads")
+      .select("*")
+      .order("timestamp", { ascending: false })
+      .limit(4); // Show latest 4
+
+    if (error) {
+      console.error("Error loading featured uploads:", error);
+      container.innerHTML = "<p>Failed to load featured worksheets.</p>";
+      return;
+    }
+
+    data.forEach(file => {
+      const card = document.createElement("div");
+      card.className = "worksheet";
+
+      card.innerHTML = `
+        <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
+        <h3>${file.name}</h3>
+        <p>${file.grade || "Grade"} - ${file.subject || "Subject"}</p>
+        <a href="${file.url}" target="_blank">View PDF</a>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  loadFeaturedUploads();
+</script>
   // Initialize Supabase Client
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -370,61 +402,8 @@
            
        <section class="worksheets">
     <h2>Featured Worksheets</h2>
-    <div class="worksheets-container">
-        <div class="worksheet">
-            <img src="worksheet1.jpg" alt="Worksheet 1">
-            <h3>Math Basics</h3>
-            <p>By Mr. Smith</p>
-            <p>⭐ 4.8 (120 reviews)</p>
-        </div>
-        <div class="worksheet">
-            <img src="worksheet2.jpg" alt="Worksheet 2">
-            <h3>Grammar Guide</h3>
-            <p>By Ms. Johnson</p>
-            <p>⭐ 4.5 (98 reviews)</p>
-        </div>
-        <div class="worksheet">
-            <img src="worksheet3.jpg" alt="Worksheet 3">
-            <h3>Science Fun</h3>
-            <p>By Dr. Brown</p>
-            <p>⭐ 4.9 (150 reviews)</p>
-        </div>
-        <div class="worksheet">
-            <img src="worksheet4.jpg" alt="Worksheet 4">
-            <h3>History Facts</h3>
-            <p>By Mrs. Lee</p>
-            <p>⭐ 4.7 (110 reviews)</p>
-        </div>
-    </div>
-       </section>
+    <div class="worksheets-container" id="featuredWorksheets"></div>
 
-       <section class="worksheets">
-    <div class="worksheets-container">
-        <div class="worksheet">
-            <img src="worksheet1.jpg" alt="Worksheet 1">
-            <h3>Math Basics</h3>
-            <p>By Mr. Smith</p>
-            <p>⭐ 4.8 (120 reviews)</p>
-        </div>
-        <div class="worksheet">
-            <img src="worksheet2.jpg" alt="Worksheet 2">
-            <h3>Grammar Guide</h3>
-            <p>By Ms. Johnson</p>
-            <p>⭐ 4.5 (98 reviews)</p>
-        </div>
-        <div class="worksheet">
-            <img src="worksheet3.jpg" alt="Worksheet 3">
-            <h3>Science Fun</h3>
-            <p>By Dr. Brown</p>
-            <p>⭐ 4.9 (150 reviews)</p>
-        </div>
-        <div class="worksheet">
-            <img src="worksheet4.jpg" alt="Worksheet 4">
-            <h3>History Facts</h3>
-            <p>By Mrs. Lee</p>
-            <p>⭐ 4.7 (110 reviews)</p>
-        </div>
-    </div>
        </section>   
 
        <section class="divider divider2">
