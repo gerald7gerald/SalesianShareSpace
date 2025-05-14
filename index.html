@@ -28,11 +28,27 @@
         }
 
         function launchConfetti() {
-            const confettiSettings = { target: 'confettiCanvas', width: window.innerWidth, height: window.innerHeight };
-            const confetti = new ConfettiGenerator(confettiSettings);
-            confetti.render();
+            const duration = 3000;
+            const end = Date.now() + duration;
 
-            setTimeout(() => confetti.clear(), 3); // Stop confetti after 3 seconds
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
         }
 
         checkAuth();
