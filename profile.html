@@ -81,9 +81,9 @@
     const userClassesText = document.getElementById("userClassesText");
 
     document.getElementById("editProfileBtn").addEventListener("click", () => {
-      profileView.style.display = "none";
-      profileEdit.style.display = "block";
-    });
+  document.getElementById("profileEdit").classList.remove("hidden");
+});
+
 
     document.getElementById("saveProfileBtn").addEventListener("click", async () => {
       const { data: { user }, error } = await supabase.auth.getUser();
