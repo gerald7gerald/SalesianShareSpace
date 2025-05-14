@@ -17,19 +17,28 @@
             if (!user) {
                 window.location.href = "login.html";
             } else {
-                document.getElementById("welcomeOverlay").classList.remove("hidden");
-
+                launchConfetti();
                 setTimeout(() => {
                     document.getElementById("welcomeOverlay").classList.add("opacity-0");
                     setTimeout(() => {
                         document.getElementById("welcomeOverlay").remove();
                     }, 1000);
-                }, 2000);
+                }, 3000);
             }
+        }
+
+        function launchConfetti() {
+            const confettiSettings = { target: 'confettiCanvas', width: window.innerWidth, height: window.innerHeight };
+            const confetti = new ConfettiGenerator(confettiSettings);
+            confetti.render();
+
+            setTimeout(() => confetti.clear(), 3000); // Stop confetti after 3 seconds
         }
 
         checkAuth();
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <style>
         .welcome-overlay {
@@ -38,7 +47,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,6 +58,7 @@
             transition: opacity 1s ease;
         }
     </style>
+  
   <script type="module">
     // Import Supabase client
     import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
@@ -321,8 +331,10 @@
 </head>
 
 <body>
-    <div id="welcomeOverlay" class="welcome-overlay hidden">
-    <h1 class="animate-pulse">👋 Welcome to Salesian ShareSpace!</h1>
+    <canvas id="confettiCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none"></canvas>
+
+<div id="welcomeOverlay" class="welcome-overlay">
+    <h1 class="animate-pulse">🎉 Welcome to Salesian ShareSpace!</h1>
 </div>
 
    <header>
