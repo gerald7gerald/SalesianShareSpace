@@ -3,6 +3,52 @@
 
 
 <head>
+  <title>Salesian ShareSpace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@shadcn/ui@latest/dist/style.css" rel="stylesheet">
+    <script type="module">
+        import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+        const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "YOUR_SUPABASE_KEY");
+
+        async function checkAuth() {
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (!user) {
+                window.location.href = "login.html";
+            } else {
+                document.getElementById("welcomeOverlay").classList.remove("hidden");
+
+                setTimeout(() => {
+                    document.getElementById("welcomeOverlay").classList.add("opacity-0");
+                    setTimeout(() => {
+                        document.getElementById("welcomeOverlay").remove();
+                    }, 1000);
+                }, 2000);
+            }
+        }
+
+        checkAuth();
+    </script>
+
+    <style>
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: white;
+            font-family: 'Trebuchet MS', sans-serif;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+    </style>
   <script type="module">
     // Import Supabase client
     import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
@@ -385,7 +431,7 @@
 
        <section id="front page">
             <div class="creator">
-                <h2 id="userName">Welcome!</h2>
+                
             </div>
         </section>
 
