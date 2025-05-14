@@ -59,50 +59,7 @@
         }
     </style>
   
-  <script type="module">
-    // Import Supabase client
-    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-    // Supabase Configuration
-    const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
-    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
-    
-    // Initialize Supabase client
-    const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
-
-    async function checkAuth() {
-      const { data: { user } } = await supabase.auth.getUser();
-
-      if (!user) {
-        // Redirect to login if user is not authenticated
-        window.location.href = "login.html";
-      } else {
-        // Fetch user profile from Supabase database
-        let { data: userProfile, error } = await supabase
-          .from("users")
-          .select("username")
-          .eq("id", user.id)
-          .single();
-
-        
-      }
-    }
-
-    async function signOutUser() {
-      let { error } = await supabase.auth.signOut();
-      if (!error) {
-        window.location.href = "login.html";
-      } else {
-        console.error("Sign-out error:", error);
-      }
-    }
-
-    // Run authentication check
-    checkAuth();
-
-    // Make sign-out function globally accessible
-    window.signOutUser = signOutUser;
-  </script>
 
     
 
