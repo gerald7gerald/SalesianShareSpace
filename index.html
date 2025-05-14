@@ -300,9 +300,6 @@
     if (!user) {
       // Redirect to login page if not authenticated
       window.location.href = "login.html";
-    } else {
-      // Display user email on homepage
-      document.getElementById("userName").innerText = `Welcome, ${user.email}`;
     }
   }
 
