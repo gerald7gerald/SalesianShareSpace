@@ -54,9 +54,16 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@shadcn/ui@latest/dist/style.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: url('https://media.giphy.com/media/3o7aCTfyhYawdOXcCW/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white rounded-3xl shadow-lg p-8 max-w-md w-full space-y-6">
+<body class="flex items-center justify-center min-h-screen">
+    <div class="bg-white/80 rounded-3xl shadow-lg p-8 max-w-md w-full space-y-6">
         <h2 class="text-3xl font-bold text-center">Login</h2>
 
         <input type="text" id="username" placeholder="Username (for registration)" class="w-full p-3 border rounded-lg">
