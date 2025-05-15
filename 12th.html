@@ -375,79 +375,70 @@
                 <h2>American Literature</h2>
                 <p>Featured:</p>
             </div>
-            <div class="class-card" data-subject="English" data-class="" data-school="Saint John Bosco, Don Bosco Tech, Bishop Mora Salesian, Salesian College Prepatory, Saint Francis">
-                <h2>English Literature and Composition AP</h2>
-                <script type="module">
-  // Import Supabase client
+            <div class="class-card" data-subject="English" data-class="AP English Literature" data-school="Saint John Bosco, Don Bosco Tech, Bishop Mora Salesian, Salesian College Prepatory, Saint Francis">
+  <h2>English Literature and Composition AP</h2>
+  <p>Featured PDFs:</p>
+  <div class="pdf-container"></div>
+</div>
+
+<script type="module">
   import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-  // Supabase Configuration
-   const supabaseUrl = "https://qpkiqfxdjijgcirdxdrg.supabase.co";
-    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU";
-
-
   // Initialize Supabase Client
-  const supabase = createClient("https://qpkiqfxdjijgcirdxdrg.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU");
+  const supabase = createClient(
+    "https://qpkiqfxdjijgcirdxdrg.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwa2lxZnhkamlqZ2NpcmR4ZHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEwMjIzNjksImV4cCI6MjA1NjU5ODM2OX0.zQFjMemO2bAcflnaQLJMRtH77jVlH1w1kRarKXQNYVU"
+  );
 
-  // Authentication State Listener
-  async function checkAuth() {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      window.location.href = "login.html";
-    }
-  }
+  // Load PDFs matching this class
+  async function loadClassPDFs() {
+    const container = document.querySelector(".class-card .pdf-container");
 
-  // Logout Function (Now accessible globally)
-  window.signOut = async function () {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("Error signing out:", error);
-      alert("Sign out failed. Please try again.");
-    } else {
-      window.location.href = "login.html";
-    }
-  };
-
-  // Check authentication state on page load
-  checkAuth();
-
-  async function loadFeaturedUploads() {
-    const container = document.getElementById("featuredWorksheets");
-
-    const { data, error } = await supabase
-      .from("uploads")
-      .select("*")
-      .order("timestamp", { ascending: false })
-      .limit(4); // Show latest 4
-
-    if (error) {
-      console.error("Error loading featured uploads:", error);
-      container.innerHTML = "<p>Failed to load featured worksheets.</p>";
+    if (!container) {
+      console.error("PDF container not found");
       return;
     }
 
+    // Fetch PDFs from Supabase
+    const { data, error } = await supabase
+      .from("uploads")
+      .select("*")
+      .eq("subject", "English") // Match subject
+      .eq("sub_subject", "AP English Literature") // Match sub-subject
+      .ilike("school", "%Saint John Bosco%") // Match school
+      .limit(4); // Limit results
+
+    if (error) {
+      console.error("Error loading PDFs:", error);
+      container.innerHTML = "<p>Failed to load PDFs.</p>";
+      return;
+    }
+
+    if (data.length === 0) {
+      container.innerHTML = "<p>No PDFs available for this class.</p>";
+      return;
+    }
+
+    // Display PDFs
+    container.innerHTML = "";
     data.forEach(file => {
-      const card = document.createElement("div");
-      card.className = "worksheet";
-
-      card.innerHTML = `
-      <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
-      <h3>${file.name}</h3>
-      <p>${file.grade || "Grade"} - ${file.subject || "Subject"} - ${file.sub_subject || "Subtopic"}</p>
-      <p><em>${file.school || "No school"}</em></p>
-      <a href="${file.url}" target="_blank">View PDF</a>
-    `;
-
-
-
-      container.appendChild(card);
+      const pdfCard = document.createElement("div");
+      pdfCard.className = "worksheet";
+      pdfCard.innerHTML = `
+        <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
+        <h3>${file.name}</h3>
+        <p>${file.grade || "Grade"} - ${file.subject || "Subject"} - ${file.sub_subject || "Subtopic"}</p>
+        <p><em>${file.school || "No school"}</em></p>
+        <a href="${file.url}" target="_blank">View PDF</a>
+      `;
+      container.appendChild(pdfCard);
     });
   }
 
-  loadFeaturedUploads();
+  // Run on page load
+  document.addEventListener("DOMContentLoaded", loadClassPDFs);
 </script>
-                <p>Featured:</p>
-            </div>
+
             <div class="class-card" data-subject="English" data-class="" data-school="Saint John Bosco">
                 <h2>Journalism</h2>
                 <p>Featured:</p>
