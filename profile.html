@@ -242,21 +242,7 @@
 
       await loadUploads(user.email);
     };
-    const subtopics = {
-  English: {
-    "Grade 9": ["Literature", "Grammar", "Essay Writing"],
-    "Grade 10": ["Literature Analysis", "Creative Writing", "Research Skills"],
-    "Grade 11": ["American Literature", "SAT Prep", "AP English Language"],
-    "Grade 12": ["British Literature", "College Essays", "AP English Lit"]
-  },
-  Math: {
-    "Grade 9": ["Algebra I"],
-    "Grade 10": ["Geometry"],
-    "Grade 11": ["Algebra II", "Pre-Calc"],
-    "Grade 12": ["Calc", "Stats"]
-  }
-};
-
+    
 const gradeSelect = document.getElementById("gradeSelect");
 const subjectSelect = document.getElementById("subjectSelect");
 const subSubjectSelect = document.getElementById("subSubjectSelect");
@@ -274,6 +260,71 @@ function updateSubSubjects() {
     subSubjectSelect.appendChild(option);
   });
 }
+const subtopics = {
+  English: {
+    "Grade 9": ["Literature", "Grammar", "Essay Writing"],
+    "Grade 10": ["Literature Analysis", "Creative Writing", "Research Skills"],
+    "Grade 11": ["American Literature", "SAT Prep", "AP English Language"],
+    "Grade 12": ["British Literature", "College Essays", "AP English Lit"]
+  },
+  Math: {
+    "Grade 9": ["Algebra I"],
+    "Grade 10": ["Geometry"],
+    "Grade 11": ["Algebra II", "Pre-Calc"],
+    "Grade 12": ["Calc", "Stats"]
+  },
+  Theology: {
+    "Grade 9": ["Literature", "Grammar", "Essay Writing"],
+    "Grade 10": ["Literature Analysis", "Creative Writing", "Research Skills"],
+    "Grade 11": ["American Literature", "SAT Prep", "AP English Language"],
+    "Grade 12": ["British Literature", "College Essays", "AP English Lit"]
+  },
+  Science: {
+    "Grade 9": ["Algebra I"],
+    "Grade 10": ["Geometry"],
+    "Grade 11": ["Algebra II", "Pre-Calc"],
+    "Grade 12": ["Calc", "Stats"]
+  },
+  History: {
+    "Grade 9": ["Literature", "Grammar", "Essay Writing"],
+    "Grade 10": ["Literature Analysis", "Creative Writing", "Research Skills"],
+    "Grade 11": ["American Literature", "SAT Prep", "AP English Language"],
+    "Grade 12": ["British Literature", "College Essays", "AP English Lit"]
+  },
+  WorldLanguages: {
+    "Grade 9": ["Algebra I"],
+    "Grade 10": ["Geometry"],
+    "Grade 11": ["Algebra II", "Pre-Calc"],
+    "Grade 12": ["Calc", "Stats"]
+  },
+  VAPA: {
+    "Grade 9": ["Literature", "Grammar", "Essay Writing"],
+    "Grade 10": ["Literature Analysis", "Creative Writing", "Research Skills"],
+    "Grade 11": ["American Literature", "SAT Prep", "AP English Language"],
+    "Grade 12": ["British Literature", "College Essays", "AP English Lit"]
+  },
+  Electives: {
+    "Grade 9": ["Algebra I"],
+    "Grade 10": ["Geometry"],
+    "Grade 11": ["Algebra II", "Pre-Calc"],
+    "Grade 12": ["Calc", "Stats"]
+  },
+  PE: {
+    "Grade 9": ["Literature", "Grammar", "Essay Writing"],
+    "Grade 10": ["Literature Analysis", "Creative Writing", "Research Skills"],
+    "Grade 11": ["American Literature", "SAT Prep", "AP English Language"],
+    "Grade 12": ["British Literature", "College Essays", "AP English Lit"]
+  },
+  Pathways: {
+    "Grade 9": ["Algebra I"],
+    "Grade 10": ["Geometry"],
+    "Grade 11": ["Algebra II", "Pre-Calc"],
+    "Grade 12": ["Calc", "Stats"]
+  }
+  
+      
+};
+
 
 gradeSelect.addEventListener("change", updateSubSubjects);
 subjectSelect.addEventListener("change", updateSubSubjects);
