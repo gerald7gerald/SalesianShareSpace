@@ -261,8 +261,8 @@ function updateSubSubjects() {
     option.textContent = topic;
     subSubjectSelect.appendChild(option);
   });
-}
-const subtopics = {
+  
+  const subtopics = {
   English: {
     "Grade 9": ["Literature", "Grammar", "Essay Writing"],
     "Grade 10": ["Literature Analysis", "Creative Writing", "Research Skills"],
@@ -326,6 +326,7 @@ const subtopics = {
   
       
 };
+}
 
 
 gradeSelect.addEventListener("change", updateSubSubjects);
