@@ -97,7 +97,7 @@
     const userSchoolText = document.getElementById("userSchoolText");
     const userClassesText = document.getElementById("userClassesText");
     const subSubjectSelect = document.getElementById("subSubjectSelect");
-    const school = document.getElementById("schoolSelect");
+    const school = document.getElementById("schoolSelect").value;
 
 
     document.getElementById("editProfileBtn").addEventListener("click", () => {
@@ -267,8 +267,7 @@
     
 const gradeSelect = document.getElementById("gradeSelect");
 const subjectSelect = document.getElementById("subjectSelect");
-const school = document.getElementById("schoolSelect").value;
-if (!school) return alert("Please select a school");
+
 
 
 
