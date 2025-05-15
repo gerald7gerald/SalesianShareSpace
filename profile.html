@@ -31,6 +31,17 @@
     </div>
 
     <div class="mt-6">
+      <label class="block text-gray-600 font-semibold">School:</label>
+      <select id="schoolSelect" class="w-full p-3 border rounded-xl mb-3">
+        <option value="">Select School</option>
+        <option value="Saint John Bosco">Saint John Bosco</option>
+        <option value="Don Bosco Tech Institution">Don Bosco Tech Institution</option>
+        <option value="Bishop Mora Salesian">Bishop Mora Salesian</option>
+        <option value="Salesian College Preparatory">Salesian College Preparatory</option>
+        <option value="Saint Francis College Preparatory">Saint Francis College Preparatory</option>
+      </select>
+
+
       <label class="block text-gray-600 font-semibold">Grade:</label>
       <select id="gradeSelect" class="w-full p-3 border rounded-xl mb-3">
         <option value="">Select Grade</option>
@@ -86,6 +97,7 @@
     const userSchoolText = document.getElementById("userSchoolText");
     const userClassesText = document.getElementById("userClassesText");
     const subSubjectSelect = document.getElementById("subSubjectSelect");
+    const school = document.getElementById("schoolSelect");
 
 
     document.getElementById("editProfileBtn").addEventListener("click", () => {
@@ -163,7 +175,8 @@
         url: urlData.publicUrl,
         grade,
         subject,
-        sub_subject: subSubject
+        sub_subject: subSubject,
+        school
       }]);
 
       alert("Upload successful!");
