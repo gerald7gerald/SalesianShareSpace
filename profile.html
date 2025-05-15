@@ -249,20 +249,7 @@ const gradeSelect = document.getElementById("gradeSelect");
 const subjectSelect = document.getElementById("subjectSelect");
 const subSubjectSelect = document.getElementById("subSubjectSelect");
 
-function updateSubSubjects() {
-  const grade = gradeSelect.value;
-  const subject = subjectSelect.value;
-  const topics = subtopics[subject]?.[grade] || [];
-
-  subSubjectSelect.innerHTML = `<option value="">Select Subtopic</option>`;
-  topics.forEach(topic => {
-    const option = document.createElement("option");
-    option.value = topic;
-    option.textContent = topic;
-    subSubjectSelect.appendChild(option);
-  });
-  
-  const subtopics = {
+    const subtopics = {
   English: {
     "Grade 9": ["Literature", "Grammar", "Essay Writing"],
     "Grade 10": ["Literature Analysis", "Creative Writing", "Research Skills"],
@@ -326,6 +313,20 @@ function updateSubSubjects() {
   
       
 };
+function updateSubSubjects() {
+  const grade = gradeSelect.value;
+  const subject = subjectSelect.value;
+  const topics = subtopics[subject]?.[grade] || [];
+
+  subSubjectSelect.innerHTML = `<option value="">Select Subtopic</option>`;
+  topics.forEach(topic => {
+    const option = document.createElement("option");
+    option.value = topic;
+    option.textContent = topic;
+    subSubjectSelect.appendChild(option);
+  });
+  
+  
 }
 
 
