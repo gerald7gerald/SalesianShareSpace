@@ -375,13 +375,7 @@
                 <h2>American Literature</h2>
                 <p>Featured:</p>
             </div>
-            <div class="class-card" data-subject="English" data-class="AP English Literature" data-school="Saint John Bosco, Don Bosco Tech, Bishop Mora Salesian, Salesian College Prepatory, Saint Francis">
-  <h2>English Literature and Composition AP</h2>
-  <p>Featured PDFs:</p>
-  <div class="pdf-container"></div>
-</div>
-
-<script type="module">
+            <script type="module">
   import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
   // Initialize Supabase Client
@@ -392,29 +386,34 @@
 
   // Load PDFs matching this class
   async function loadClassPDFs() {
-    const container = document.querySelector(".class-card .pdf-container");
+    const container = document.querySelector(".class-card[data-class='AP English Literature'] .pdf-container");
 
     if (!container) {
       console.error("PDF container not found");
       return;
     }
 
+    console.log("🔍 Loading PDFs for class: AP English Literature, School: Saint John Bosco");
+
     // Fetch PDFs from Supabase
     const { data, error } = await supabase
       .from("uploads")
       .select("*")
-      .eq("subject", "English") // Match subject
-      .eq("sub_subject", "AP English Literature") // Match sub-subject
-      .ilike("school", "%Saint John Bosco%") // Match school
+      .ilike("subject", "%English%") // More flexible matching
+      .ilike("sub_subject", "%AP English Literature%") // More flexible
+      .ilike("school", "%Saint John Bosco%") // More flexible
       .limit(4); // Limit results
 
+    console.log("📊 Supabase Query Response:", { data, error });
+
     if (error) {
-      console.error("Error loading PDFs:", error);
+      console.error("❌ Error loading PDFs:", error);
       container.innerHTML = "<p>Failed to load PDFs.</p>";
       return;
     }
 
     if (data.length === 0) {
+      console.warn("⚠️ No PDFs found for this class.");
       container.innerHTML = "<p>No PDFs available for this class.</p>";
       return;
     }
@@ -422,6 +421,8 @@
     // Display PDFs
     container.innerHTML = "";
     data.forEach(file => {
+      console.log("✅ PDF Loaded:", file);
+
       const pdfCard = document.createElement("div");
       pdfCard.className = "worksheet";
       pdfCard.innerHTML = `
