@@ -145,7 +145,7 @@
 
 
       if (!file) return alert("Select a file");
-      if (!grade || !subject) return alert("Please select both grade and subject");
+      if (!grade || !subject ) return alert("Please select both grade and subject");
 
       const { data: { user }, error } = await supabase.auth.getUser();
       if (error || !user) return alert("Not logged in");
@@ -213,10 +213,17 @@
         li.innerHTML = `
           <div style="margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #ddd;">
             <div style="font-size: 1.1em;">${icon} <strong>${upload.name}</strong></div>
-            <div style="font-size: 0.9em; color: #666;"><em>${upload.grade || "No grade"} | ${upload.subject || "No subject"}</em></div>
+            <div style="font-size: 0.9em; color: #666;">
+              <em>
+                ${upload.grade || "No grade"} | 
+                ${upload.subject || "No subject"} | 
+                ${upload.sub_subject || "No subtopic"}
+              </em>
+            </div>
             ${previewHTML}
           </div>
         `;
+
         uploadsList.appendChild(li);
       });
     }
