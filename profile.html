@@ -50,6 +50,12 @@
         <option>Theology</option>
       </select>
 
+      <label class="block text-gray-600 font-semibold">Subtopic:</label>
+      <select id="subSubjectSelect" class="w-full p-3 border rounded-xl mb-3">
+        <option value="">Select Subtopic</option>
+      </select>
+
+
       <div class="mt-4">
         <input type="file" id="fileInput" class="w-full mb-2" />
         <button id="uploadBtn" class="w-full py-3 bg-blue-500 text-white rounded-full font-semibold shadow hover:bg-blue-600">Upload Document</button>
@@ -133,6 +139,8 @@
       const file = document.getElementById("fileInput").files[0];
       const grade = document.getElementById("gradeSelect").value;
       const subject = document.getElementById("subjectSelect").value;
+      const subSubject = subSubjectSelect.value;
+
 
       if (!file) return alert("Select a file");
       if (!grade || !subject) return alert("Please select both grade and subject");
@@ -152,7 +160,8 @@
         name: file.name,
         url: urlData.publicUrl,
         grade,
-        subject
+        subject,
+        sub_subject: subSubject
       }]);
 
       alert("Upload successful!");
@@ -209,7 +218,7 @@
         uploadsList.appendChild(li);
       });
     }
-
+    
     window.onload = async () => {
       const { data: { user }, error } = await supabase.auth.getUser();
       if (error || !user) {
@@ -233,5 +242,41 @@
 
       await loadUploads(user.email);
     };
+    const subtopics = {
+  English: {
+    "Grade 9": ["Literature", "Grammar", "Essay Writing"],
+    "Grade 10": ["Literature Analysis", "Creative Writing", "Research Skills"],
+    "Grade 11": ["American Literature", "SAT Prep", "AP English Language"],
+    "Grade 12": ["British Literature", "College Essays", "AP English Lit"]
+  },
+  Math: {
+    "Grade 9": ["Algebra I"],
+    "Grade 10": ["Geometry"],
+    "Grade 11": ["Algebra II", "Pre-Calc"],
+    "Grade 12": ["Calc", "Stats"]
+  }
+};
+
+const gradeSelect = document.getElementById("gradeSelect");
+const subjectSelect = document.getElementById("subjectSelect");
+const subSubjectSelect = document.getElementById("subSubjectSelect");
+
+function updateSubSubjects() {
+  const grade = gradeSelect.value;
+  const subject = subjectSelect.value;
+  const topics = subtopics[subject]?.[grade] || [];
+
+  subSubjectSelect.innerHTML = `<option value="">Select Subtopic</option>`;
+  topics.forEach(topic => {
+    const option = document.createElement("option");
+    option.value = topic;
+    option.textContent = topic;
+    subSubjectSelect.appendChild(option);
+  });
+}
+
+gradeSelect.addEventListener("change", updateSubSubjects);
+subjectSelect.addEventListener("change", updateSubSubjects);
+
   </script>
 </body>
