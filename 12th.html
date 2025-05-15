@@ -375,7 +375,13 @@
                 <h2>American Literature</h2>
                 <p>Featured:</p>
             </div>
-            <script type="module">
+            <div class="class-card" data-class="AP English Literature" data-subject="English" data-school="Saint John Bosco">
+                <h2>English Literature and Composition AP</h2>
+                <p>Featured PDFs:</p>
+                <div class="pdf-container"></div>
+            </div>
+
+<script type="module">
   import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
   // Initialize Supabase Client
@@ -389,7 +395,7 @@
     const container = document.querySelector(".class-card[data-class='AP English Literature'] .pdf-container");
 
     if (!container) {
-      console.error("PDF container not found");
+      console.error("❌ PDF container not found");
       return;
     }
 
@@ -399,10 +405,10 @@
     const { data, error } = await supabase
       .from("uploads")
       .select("*")
-      .ilike("subject", "%English%") // More flexible matching
-      .ilike("sub_subject", "%AP English Literature%") // More flexible
-      .ilike("school", "%Saint John Bosco%") // More flexible
-      .limit(4); // Limit results
+      .ilike("subject", "%English%")
+      .ilike("sub_subject", "%AP English Literature%")
+      .ilike("school", "%Saint John Bosco%")
+      .limit(4);
 
     console.log("📊 Supabase Query Response:", { data, error });
 
@@ -439,6 +445,7 @@
   // Run on page load
   document.addEventListener("DOMContentLoaded", loadClassPDFs);
 </script>
+
 
             <div class="class-card" data-subject="English" data-class="" data-school="Saint John Bosco">
                 <h2>Journalism</h2>
