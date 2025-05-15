@@ -97,8 +97,7 @@
     const userSchoolText = document.getElementById("userSchoolText");
     const userClassesText = document.getElementById("userClassesText");
     const subSubjectSelect = document.getElementById("subSubjectSelect");
-    const school = document.getElementById("schoolSelect").value;
-
+    
 
     document.getElementById("editProfileBtn").addEventListener("click", () => {
   document.getElementById("profileEdit").classList.remove("hidden");
@@ -154,6 +153,8 @@
       const grade = document.getElementById("gradeSelect").value;
       const subject = document.getElementById("subjectSelect").value;
       const subSubject = subSubjectSelect.value;
+      const school = document.getElementById("schoolSelect").value;
+
 
 
       if (!file) return alert("Select a file");
